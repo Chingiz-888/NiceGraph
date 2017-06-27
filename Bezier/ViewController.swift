@@ -10,10 +10,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    
+    // вот тут этот кастомный объект типа BezierView!
+    // мы ему посылаем сигнал на  self.firstBezierView.layoutSubviews()
     @IBOutlet weak var firstBezierView: BezierView!
    
-    
+    // по логике программы не должно быть > 255
+    // также у нас ограничения по self.firstBezierView.frame.width.f  и 
+    // self.firstBezierView.frame.height.f
     let dataPoints = [252, 220, 101, 2, 101, 220, 252]
     
     var xAxisPoints : [Double] {
@@ -36,6 +39,8 @@ class ViewController: UIViewController {
         return points
     }
     
+    // Эта переменная-массив наполняется замыканием, что возвращает массив [CGPoint], пролучаемые из отмапенных на доступную для графика
+    // и на равные доли от количества точек на экране (в программе их 6) область
     var graphPoints : [CGPoint] {
         var points = [CGPoint]()
         for i in 0..<dataPoints.count {

@@ -16,7 +16,7 @@ protocol BezierViewDataSource: class {
 class BezierView: UIView {
    
     fileprivate let kStrokeAnimationKey = "StrokeAnimationKey"
-    fileprivate let kFadeAnimationKey = "FadeAnimationKey"
+    fileprivate let kFadeAnimationKey   = "FadeAnimationKey"
     
     //MARK: Public members
     weak var dataSource: BezierViewDataSource?
@@ -26,29 +26,33 @@ class BezierView: UIView {
     var animates = true
     
     var pointLayers = [CAShapeLayer]()
-    var lineLayer = CAShapeLayer()
+    var lineLayer   = CAShapeLayer()
     
     //MARK: Private members
-    
+    // Получаем от нашего dataSource'а точки - массив dataPoints : [CGPoint]
     fileprivate var dataPoints: [CGPoint]? {
         return self.dataSource?.bezierViewDataPoints(self)
     }
     
     fileprivate let cubicCurveAlgorithm = CubicCurveAlgorithm()
     
+    
+    //--- ТОЧКА ЗАПУСКА КОДА - layoutSubviews() --
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        // сначала удалиение старых слове
         self.layer.sublayers?.forEach({ (layer: CALayer) -> () in
             layer.removeFromSuperlayer()
         })
         pointLayers.removeAll()
         
+        // и затем отрисовка и анимация
         drawSmoothLines()
         drawPoints()
         
         animateLayers()
-    }
+    }//--------------------------------------------
     
     fileprivate func drawPoints(){
         
@@ -58,16 +62,16 @@ class BezierView: UIView {
         
         for point in points {
             
-            let circleLayer = CAShapeLayer()
-            circleLayer.bounds = CGRect(x: 0, y: 0, width: 12, height: 12)
-            circleLayer.path = UIBezierPath(ovalIn: circleLayer.bounds).cgPath
-            circleLayer.fillColor = UIColor(white: 248.0/255.0, alpha: 0.5).cgColor
-            circleLayer.position = point
+            let circleLayer            = CAShapeLayer()
+            circleLayer.bounds         = CGRect(x: 0, y: 0, width: 12, height: 12)
+            circleLayer.path           = UIBezierPath(ovalIn: circleLayer.bounds).cgPath
+            circleLayer.fillColor      = UIColor(white: 248.0/255.0, alpha: 0.5).cgColor
+            circleLayer.position       = point
             
-            circleLayer.shadowColor = UIColor.black.cgColor
-            circleLayer.shadowOffset = CGSize(width: 0, height: 2)
-            circleLayer.shadowOpacity = 0.7
-            circleLayer.shadowRadius = 3.0
+            circleLayer.shadowColor    = UIColor.black.cgColor
+            circleLayer.shadowOffset   = CGSize(width: 0, height: 2)
+            circleLayer.shadowOpacity  = 0.7
+            circleLayer.shadowRadius   = 3.0
             
             self.layer.addSublayer(circleLayer)
             
@@ -93,7 +97,7 @@ class BezierView: UIView {
             
             let point = points[i];
             
-            if i==0 {
+            if i == 0 {
                 linePath.move(to: point)
             } else {
                 let segment = controlPoints[i-1]
@@ -101,16 +105,16 @@ class BezierView: UIView {
             }
         }
         
-        lineLayer = CAShapeLayer()
-        lineLayer.path = linePath.cgPath
-        lineLayer.fillColor = UIColor.clear.cgColor
-        lineLayer.strokeColor = lineColor.cgColor
-        lineLayer.lineWidth = 4.0
+        lineLayer               = CAShapeLayer()
+        lineLayer.path          = linePath.cgPath
+        lineLayer.fillColor     = UIColor.clear.cgColor
+        lineLayer.strokeColor   = lineColor.cgColor
+        lineLayer.lineWidth     = 4.0
         
-        lineLayer.shadowColor = UIColor.black.cgColor
-        lineLayer.shadowOffset = CGSize(width: 0, height: 8)
+        lineLayer.shadowColor   = UIColor.black.cgColor
+        lineLayer.shadowOffset  = CGSize(width: 0, height: 8)
         lineLayer.shadowOpacity = 0.5
-        lineLayer.shadowRadius = 6.0
+        lineLayer.shadowRadius  = 6.0
         
         self.layer.addSublayer(lineLayer)
         
@@ -133,12 +137,12 @@ extension BezierView {
         
         for point in pointLayers {
             
-            let fadeAnimation = CABasicAnimation(keyPath: "opacity")
-            fadeAnimation.toValue = 1
-            fadeAnimation.beginTime = CACurrentMediaTime() + delay
-            fadeAnimation.duration = 0.2
-            fadeAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-            fadeAnimation.fillMode = kCAFillModeForwards
+            let fadeAnimation                   = CABasicAnimation(keyPath: "opacity")
+            fadeAnimation.toValue               = 1
+            fadeAnimation.beginTime             = CACurrentMediaTime() + delay
+            fadeAnimation.duration              = 0.2
+            fadeAnimation.timingFunction        = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            fadeAnimation.fillMode              = kCAFillModeForwards
             fadeAnimation.isRemovedOnCompletion = false
             point.add(fadeAnimation, forKey: kFadeAnimationKey)
             
@@ -148,13 +152,13 @@ extension BezierView {
     
     func animateLine() {
         
-        let growAnimation = CABasicAnimation(keyPath: "strokeEnd")
-        growAnimation.toValue = 1
-        growAnimation.beginTime = CACurrentMediaTime() + 0.5
-        growAnimation.duration = 1.5
-        growAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-        growAnimation.fillMode = kCAFillModeForwards
-        growAnimation.isRemovedOnCompletion = false
+        let growAnimation                       = CABasicAnimation(keyPath: "strokeEnd")
+        growAnimation.toValue                   = 1
+        growAnimation.beginTime                 = CACurrentMediaTime() + 0.5
+        growAnimation.duration                  = 1.5
+        growAnimation.timingFunction            = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+        growAnimation.fillMode                  = kCAFillModeForwards
+        growAnimation.isRemovedOnCompletion     = false
         lineLayer.add(growAnimation, forKey: kStrokeAnimationKey)
     }
     
