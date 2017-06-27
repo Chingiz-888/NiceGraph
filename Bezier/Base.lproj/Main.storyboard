@@ -29,7 +29,7 @@
                                 <rect key="frame" x="16" y="40" width="343" height="607"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubT-Fc-Ks0">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubT-Fc-Ks0">
                                 <rect key="frame" x="36" y="40" width="76" height="39"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="39" id="F8E-g0-kJY"/>
@@ -64,7 +64,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="298.39999999999998" y="373.76311844077964"/>
+            <point key="canvasLocation" x="-153" y="445"/>
         </scene>
     </scenes>
     <resources>

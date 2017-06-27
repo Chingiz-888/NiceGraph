@@ -14,6 +14,8 @@
 		5B6165811BCE7FAD008EB160 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */; };
 		5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165881BCE801A008EB160 /* BezierView.swift */; };
 		5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */; };
+		619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA61EFD443C0026DE6A /* Fabric.framework */; };
+		619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA71EFD443C0026DE6A /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		5B6165821BCE7FAD008EB160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6165881BCE801A008EB160 /* BezierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierView.swift; sourceTree = "<group>"; };
 		5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurveAlgorithm.swift; sourceTree = "<group>"; };
+		619F1FA61EFD443C0026DE6A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		619F1FA71EFD443C0026DE6A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +37,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */,
+				619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +48,8 @@
 		5B61656A1BCE7FAD008EB160 = {
 			isa = PBXGroup;
 			children = (
+				619F1FA61EFD443C0026DE6A /* Fabric.framework */,
+				619F1FA71EFD443C0026DE6A /* Crashlytics.framework */,
 				5B6165751BCE7FAD008EB160 /* Bezier */,
 				5B6165741BCE7FAD008EB160 /* Products */,
 			);
@@ -80,6 +88,7 @@
 				5B61656F1BCE7FAD008EB160 /* Sources */,
 				5B6165701BCE7FAD008EB160 /* Frameworks */,
 				5B6165711BCE7FAD008EB160 /* Resources */,
+				619F1FA51EFD44270026DE6A /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -101,7 +110,9 @@
 				TargetAttributes = {
 					5B6165721BCE7FAD008EB160 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = JFS8TB5L7H;
 						LastSwiftMigration = 0830;
+						ProvisioningStyle = Manual;
 					};
 				};
 			};
@@ -135,6 +146,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		619F1FA51EFD44270026DE6A /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run b3a2b8f74e06a69717cd6c19e89ed0764b4932f4 78bc025ff323bed6973c69959f31dcedea836bad4a5c6a4891ceabccee8596ca";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B61656F1BCE7FAD008EB160 /* Sources */ = {
@@ -255,11 +282,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JFS8TB5L7H;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Bezier/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ymedialabs.Bezier;
+				PRODUCT_BUNDLE_IDENTIFIER = net.baydevgroup.Bezier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9b07b882-3b0b-4348-a872-7116bd6f1fae";
+				PROVISIONING_PROFILE_SPECIFIER = BezierDev;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -268,11 +302,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = JFS8TB5L7H;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Bezier/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.ymedialabs.Bezier;
+				PRODUCT_BUNDLE_IDENTIFIER = net.baydevgroup.Bezier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "9b07b882-3b0b-4348-a872-7116bd6f1fae";
+				PROVISIONING_PROFILE_SPECIFIER = BezierDev;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
