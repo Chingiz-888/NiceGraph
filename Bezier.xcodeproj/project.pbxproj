@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0297BA23CEC12858A2C3A04A /* Pods_Bezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61172C44BF834D7EC331DDF /* Pods_Bezier.framework */; };
 		5B6165771BCE7FAD008EB160 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165761BCE7FAD008EB160 /* AppDelegate.swift */; };
 		5B6165791BCE7FAD008EB160 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165781BCE7FAD008EB160 /* ViewController.swift */; };
 		5B61657C1BCE7FAD008EB160 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657A1BCE7FAD008EB160 /* Main.storyboard */; };
@@ -14,6 +15,7 @@
 		5B6165811BCE7FAD008EB160 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */; };
 		5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165881BCE801A008EB160 /* BezierView.swift */; };
 		5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */; };
+		615CF6821F03253B00794BCF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CF6811F03253B00794BCF /* TestViewController.swift */; };
 		619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA61EFD443C0026DE6A /* Fabric.framework */; };
 		619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA71EFD443C0026DE6A /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
@@ -28,8 +30,13 @@
 		5B6165821BCE7FAD008EB160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5B6165881BCE801A008EB160 /* BezierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierView.swift; sourceTree = "<group>"; };
 		5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurveAlgorithm.swift; sourceTree = "<group>"; };
+		5DA8558ACC00D4E276114A77 /* Pods-Bezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bezier/Pods-Bezier.release.xcconfig"; sourceTree = "<group>"; };
+		615CF6811F03253B00794BCF /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		615CF6831F0325F800794BCF /* Bezier-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bezier-Bridging-Header.h"; sourceTree = "<group>"; };
 		619F1FA61EFD443C0026DE6A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		619F1FA71EFD443C0026DE6A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		C315F1A579A4BD1B54FA55BA /* Pods-Bezier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bezier.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bezier/Pods-Bezier.debug.xcconfig"; sourceTree = "<group>"; };
+		F61172C44BF834D7EC331DDF /* Pods_Bezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,19 +46,32 @@
 			files = (
 				619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */,
 				619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */,
+				0297BA23CEC12858A2C3A04A /* Pods_Bezier.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		56F8AF82DDB3A34FA320D4C8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				C315F1A579A4BD1B54FA55BA /* Pods-Bezier.debug.xcconfig */,
+				5DA8558ACC00D4E276114A77 /* Pods-Bezier.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		5B61656A1BCE7FAD008EB160 = {
 			isa = PBXGroup;
 			children = (
+				615CF6831F0325F800794BCF /* Bezier-Bridging-Header.h */,
 				619F1FA61EFD443C0026DE6A /* Fabric.framework */,
 				619F1FA71EFD443C0026DE6A /* Crashlytics.framework */,
 				5B6165751BCE7FAD008EB160 /* Bezier */,
 				5B6165741BCE7FAD008EB160 /* Products */,
+				56F8AF82DDB3A34FA320D4C8 /* Pods */,
+				C0DBA24C00F4D2C590CC19DC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,8 +94,17 @@
 				5B61657D1BCE7FAD008EB160 /* Assets.xcassets */,
 				5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */,
 				5B6165821BCE7FAD008EB160 /* Info.plist */,
+				615CF6811F03253B00794BCF /* TestViewController.swift */,
 			);
 			path = Bezier;
+			sourceTree = "<group>";
+		};
+		C0DBA24C00F4D2C590CC19DC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				F61172C44BF834D7EC331DDF /* Pods_Bezier.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,10 +114,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B6165851BCE7FAD008EB160 /* Build configuration list for PBXNativeTarget "Bezier" */;
 			buildPhases = (
+				BB3DE6C34A2E14F308862CDC /* [CP] Check Pods Manifest.lock */,
 				5B61656F1BCE7FAD008EB160 /* Sources */,
 				5B6165701BCE7FAD008EB160 /* Frameworks */,
 				5B6165711BCE7FAD008EB160 /* Resources */,
 				619F1FA51EFD44270026DE6A /* ShellScript */,
+				033B752C89B6EE91771BA231 /* [CP] Embed Pods Frameworks */,
+				0759FBABF6AF095FAE8FD231 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -148,6 +180,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		033B752C89B6EE91771BA231 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bezier/Pods-Bezier-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0759FBABF6AF095FAE8FD231 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bezier/Pods-Bezier-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		619F1FA51EFD44270026DE6A /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -161,6 +223,21 @@
 			shellPath = /bin/sh;
 			shellScript = "./Fabric.framework/run b3a2b8f74e06a69717cd6c19e89ed0764b4932f4 78bc025ff323bed6973c69959f31dcedea836bad4a5c6a4891ceabccee8596ca";
 		};
+		BB3DE6C34A2E14F308862CDC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -168,6 +245,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				615CF6821F03253B00794BCF /* TestViewController.swift in Sources */,
 				5B6165791BCE7FAD008EB160 /* ViewController.swift in Sources */,
 				5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */,
 				5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */,
@@ -280,6 +358,7 @@
 		};
 		5B6165861BCE7FAD008EB160 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C315F1A579A4BD1B54FA55BA /* Pods-Bezier.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JFS8TB5L7H;
@@ -288,18 +367,20 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Bezier/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.baydevgroup.Bezier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b07b882-3b0b-4348-a872-7116bd6f1fae";
 				PROVISIONING_PROFILE_SPECIFIER = BezierDev;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bezier-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		5B6165871BCE7FAD008EB160 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5DA8558ACC00D4E276114A77 /* Pods-Bezier.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = JFS8TB5L7H;
@@ -308,12 +389,13 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = Bezier/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = net.baydevgroup.Bezier;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "9b07b882-3b0b-4348-a872-7116bd6f1fae";
 				PROVISIONING_PROFILE_SPECIFIER = BezierDev;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bezier-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
