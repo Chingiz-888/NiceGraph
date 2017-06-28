@@ -16,7 +16,9 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
     
     var _elements : [Int] = [Int]()
     var _chartView : ANDLineChartView?
-    var _maxValue : Int = Int()
+    var _maxValue     : Int  = Int()
+    var _numbersCount : Int  = Int()
+
     
 
     
@@ -24,6 +26,9 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        _maxValue     = self.MAX_NUMBER
+        _numbersCount = self.MAX_NUMBER_COUNT;
 
         _chartView = ANDLineChartView(frame: CGRect.zero)
         _chartView?.translatesAutoresizingMaskIntoConstraints = false
@@ -33,7 +38,7 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
         self.view.addSubview(_chartView!)
         
         _elements = self.arrayWithRandomNumbers()
-        //self.setupConstraints()
+        self.setupConstraints()
         
     
     }
@@ -42,11 +47,7 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
     
     
     func arrayWithRandomNumbers() -> [Int] {
-        let _numbersCount = MAX_NUMBER_COUNT;//arc4random_uniform(MAX_NUMBER_COUNT + 1) + 1;
-        let _maxValue = MAX_NUMBER;//arc4random_uniform(MAX_NUMBER + 1);
-        
         var xxx = [Int]()
-        
         
         for i in 0..<_numbersCount {
             var r : UInt = UInt(arc4random_uniform( UInt32(_maxValue + 1)   )   )
@@ -60,24 +61,29 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
     
     func setupConstraints() {
         
-        let topLayoutGuide = self.view.topAnchor;
-            let d = dictionaryOfNames(arr: _chartView!)
+        let topLayoutGuide = self.topLayoutGuide
        
-        let constraints1 = NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide][_chartView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: d)
-        let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|[_chartView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: d)
+        let views: [String: AnyObject] = ["_chartView"    : _chartView!,
+                                          "topLayoutGuide": topLayoutGuide
+                                          ]
+       
+        let constraints1 = NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-20-[_chartView]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|[_chartView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         
          self.view.addConstraints(constraints1)
          self.view.addConstraints(constraints2)
     }
     
     
-    func dictionaryOfNames(arr:UIView...) -> Dictionary<String,UIView> {
-        var d = Dictionary<String,UIView>()
-        for (ix,v) in arr.enumerated(){
-            d["v\(ix+1)"] = v
-        }
-        return d
-    }
+    // мне не нужжно - можно руками наполнить массив вью
+    // let d = dictionaryOfNames(arr: _chartView!)
+//    func dictionaryOfNames(arr:UIView...) -> Dictionary<String,UIView> {
+//        var d = Dictionary<String,UIView>()
+//        for (ix,v) in arr.enumerated(){
+//            d["v\(ix+1)"] = v
+//        }
+//        return d
+//    }
     
     
     
@@ -90,7 +96,7 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
     
     
     func numberOfElements(in chartView: ANDLineChartView!) -> UInt {
-        return 0//UInt(MAX_NUMBER_COUNT)
+        return UInt(MAX_NUMBER_COUNT)
     }
     
     func chartView(_ chartView: ANDLineChartView!, valueForElementAtRow row: UInt) -> CGFloat {
