@@ -1,16 +1,3 @@
-PODS:
-  - ANDLineChartView (0.2.2)
-
-DEPENDENCIES:
-  - ANDLineChartView (from `./my_pod/`)
-
-EXTERNAL SOURCES:
-  ANDLineChartView:
-    :path: "./my_pod/"
-
-SPEC CHECKSUMS:
-  ANDLineChartView: 7d23ff41448ea7d39fc76ce2036e7b853efc3581
-
-PODFILE CHECKSUM: caa0e905519fa357b6f491794ff660490141a16c
+PODFILE CHECKSUM: 723d1cde563139e3d00df666a693540db43e7928
 
 COCOAPODS: 1.2.1

@@ -6,6 +6,5 @@ target 'Bezier' do
   use_frameworks!
 
   # Pods for Bezier
-  pod "ANDLineChartView", :path => "./my_pod/"
 
 end

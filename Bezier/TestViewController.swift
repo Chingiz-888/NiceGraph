@@ -7,9 +7,9 @@
 //
 
 import UIKit
-import ANDLineChartView
 
-class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineChartViewDelegate {
+
+class TestViewController: UIViewController {
 
     let MAX_NUMBER_COUNT  = 150
     let MAX_NUMBER = 20
@@ -85,43 +85,49 @@ class TestViewController: UIViewController, ANDLineChartViewDataSource, ANDLineC
 //        return d
 //    }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    func numberOfElements(in chartView: ANDLineChartView!) -> UInt {
-        return UInt(MAX_NUMBER_COUNT)
+
+}//----- end of class declaration -----------------
+
+
+
+
+
+
+// MARK:   Methods of ANDLineChartViewDataSource protoocol ----------------------------
+extension TestViewController : ANDLineChartViewDataSource {
+    func numberOfElements(in chartView: ANDLineChartView) -> Int {
+        return MAX_NUMBER_COUNT
     }
     
-    func chartView(_ chartView: ANDLineChartView!, valueForElementAtRow row: UInt) -> CGFloat {
-         return CGFloat( (_elements[Int(row)]) )
+    func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int {
+        return Int(12.0)
     }
     
-    func maxValueForGridInterval(in chartView: ANDLineChartView!) -> CGFloat {
-        return CGFloat(_maxValue);
+    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat {
+        return CGFloat( (_elements[Int(row)]) )
     }
     
-    func minValueForGridInterval(in chartView: ANDLineChartView!) -> CGFloat {
-        return -2.0
-    }
-    
-    func numberOfGridIntervals(in chartView: ANDLineChartView!) -> UInt {
-        return UInt(12.0)
-    }
-    
-    func chartView(_ chartView: ANDLineChartView!, descriptionForGridIntervalValue interval: CGFloat) -> String! {
+    // Values may be displayed differently eg. One might want to present 4200 seconds as 01h:10:00
+    func chartView(_ chartView: ANDLineChartView, descriptionForGridIntervalValue interval: CGFloat) -> String {
         return  String.init(format: "%.1f", interval)
     }
     
-    
-    func chartView(_ chartView: ANDLineChartView!, spacingForElementAtRow row: UInt) -> CGFloat {
-          return (row == 0) ? 60.0 : 30.0
+    func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat {
+        return CGFloat(_maxValue)
     }
+    
+    func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat {
+        return -2.0
+    }
+}//--------------------------------------------------------------------------------------
 
+
+// MARK:   Methods of ANDLineChartViewDelegate protoocol ----------------------------
+extension TestViewController : ANDLineChartViewDelegate {
+    func chartView(_ chartView: ANDLineChartView, spacingForElementAtRow row: Int) -> CGFloat {
+       return (row == 0) ? 60.0 : 30.0
+    }
 }
+
+
+

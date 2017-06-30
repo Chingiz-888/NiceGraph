@@ -15,6 +15,9 @@
 		5B6165811BCE7FAD008EB160 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */; };
 		5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165881BCE801A008EB160 /* BezierView.swift */; };
 		5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */; };
+		611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */; };
+		611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */; };
+		611DE0841F070D3100EBFF2A /* ANDInternalLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */; };
 		615CF6821F03253B00794BCF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CF6811F03253B00794BCF /* TestViewController.swift */; };
 		619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA61EFD443C0026DE6A /* Fabric.framework */; };
 		619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA71EFD443C0026DE6A /* Crashlytics.framework */; };
@@ -31,6 +34,9 @@
 		5B6165881BCE801A008EB160 /* BezierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierView.swift; sourceTree = "<group>"; };
 		5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurveAlgorithm.swift; sourceTree = "<group>"; };
 		5DA8558ACC00D4E276114A77 /* Pods-Bezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bezier/Pods-Bezier.release.xcconfig"; sourceTree = "<group>"; };
+		611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDLineChartView.swift; sourceTree = "<group>"; };
+		611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDBackgroundChartView.swift; sourceTree = "<group>"; };
+		611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDInternalLineChartView.swift; sourceTree = "<group>"; };
 		615CF6811F03253B00794BCF /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		615CF6831F0325F800794BCF /* Bezier-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bezier-Bridging-Header.h"; sourceTree = "<group>"; };
 		619F1FA61EFD443C0026DE6A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -86,6 +92,7 @@
 		5B6165751BCE7FAD008EB160 /* Bezier */ = {
 			isa = PBXGroup;
 			children = (
+				611DE07E1F070BE500EBFF2A /* ANDLineChart */,
 				5B6165881BCE801A008EB160 /* BezierView.swift */,
 				5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */,
 				5B6165761BCE7FAD008EB160 /* AppDelegate.swift */,
@@ -97,6 +104,16 @@
 				615CF6811F03253B00794BCF /* TestViewController.swift */,
 			);
 			path = Bezier;
+			sourceTree = "<group>";
+		};
+		611DE07E1F070BE500EBFF2A /* ANDLineChart */ = {
+			isa = PBXGroup;
+			children = (
+				611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */,
+				611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */,
+				611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */,
+			);
+			name = ANDLineChart;
 			sourceTree = "<group>";
 		};
 		C0DBA24C00F4D2C590CC19DC /* Frameworks */ = {
@@ -248,7 +265,10 @@
 				615CF6821F03253B00794BCF /* TestViewController.swift in Sources */,
 				5B6165791BCE7FAD008EB160 /* ViewController.swift in Sources */,
 				5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */,
+				611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */,
 				5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */,
+				611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */,
+				611DE0841F070D3100EBFF2A /* ANDInternalLineChartView.swift in Sources */,
 				5B6165771BCE7FAD008EB160 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
