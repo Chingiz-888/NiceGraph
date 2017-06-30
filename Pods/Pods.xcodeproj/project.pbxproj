@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0E30903B1FAB5166151A11DEE02506CC /* ANDLineChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B05380291E309DB957168B34E1413434 /* ANDLineChartView.m */; };
 		2370DFDDF3F78ABC73ECBF8445DBE919 /* ANDLineChartView-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BFA117EE94F1E2BC9EF8B338F8E6EF0 /* ANDLineChartView-dummy.m */; };
+		611DE07B1F06DDDA00EBFF2A /* CubicCurveAlgorithmObj.h in Headers */ = {isa = PBXBuildFile; fileRef = 611DE07A1F06DDDA00EBFF2A /* CubicCurveAlgorithmObj.h */; };
+		611DE07D1F06DDF200EBFF2A /* CubicCurveAlgorithmObj.m in Sources */ = {isa = PBXBuildFile; fileRef = 611DE07C1F06DDF200EBFF2A /* CubicCurveAlgorithmObj.m */; };
 		765391F9324CD3261B793C3BD01826BD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
 		7C4CC29BD5961519B8C9F1EC0A440EF5 /* ANDInternalLineChartView.h in Headers */ = {isa = PBXBuildFile; fileRef = 20B0022B94C6A93F91741B721F74C1E4 /* ANDInternalLineChartView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7D68E1A2A89D020123D83AE63A274475 /* ANDBackgroundChartView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3838F6FBCABB3B0B2B5B42A4EA3331A /* ANDBackgroundChartView.m */; };
@@ -39,15 +41,17 @@
 		1B0712182EB8F84C1261C627CB474F7C /* ANDBackgroundChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ANDBackgroundChartView.h; sourceTree = "<group>"; };
 		20B0022B94C6A93F91741B721F74C1E4 /* ANDInternalLineChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ANDInternalLineChartView.h; sourceTree = "<group>"; };
 		25D91AB3FE54531BAC81541AA5E77D94 /* ANDLineChartView.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = ANDLineChartView.xcconfig; sourceTree = "<group>"; };
-		3BD0D94266F4A22FA0E6FFC2051E5D70 /* ANDLineChartView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = ANDLineChartView.modulemap; sourceTree = "<group>"; };
+		3BD0D94266F4A22FA0E6FFC2051E5D70 /* ANDLineChartView.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = ANDLineChartView.modulemap; sourceTree = "<group>"; };
 		3BFA117EE94F1E2BC9EF8B338F8E6EF0 /* ANDLineChartView-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "ANDLineChartView-dummy.m"; sourceTree = "<group>"; };
 		5FE63D2EDCE1F1B8587EE96FFED678CE /* Pods-Bezier-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Bezier-dummy.m"; sourceTree = "<group>"; };
+		611DE07A1F06DDDA00EBFF2A /* CubicCurveAlgorithmObj.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CubicCurveAlgorithmObj.h; sourceTree = "<group>"; };
+		611DE07C1F06DDF200EBFF2A /* CubicCurveAlgorithmObj.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CubicCurveAlgorithmObj.m; sourceTree = "<group>"; };
 		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		75250674DEB1FD4C7A25D01D918AD6A3 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7707F20FCE082AD39DA36C6DDF753DCC /* Pods-Bezier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bezier.debug.xcconfig"; sourceTree = "<group>"; };
-		8924ABA16E10EE40B62BFF54B2050E27 /* Pods_Bezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_Bezier.framework; path = "Pods-Bezier.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8924ABA16E10EE40B62BFF54B2050E27 /* Pods_Bezier.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bezier.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B84D7143DB098F8F2721A5976D14A9 /* Pods-Bezier-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-Bezier-umbrella.h"; sourceTree = "<group>"; };
-		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		975BCBBA8C8667B50B57B288475A360B /* Pods-Bezier-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Bezier-frameworks.sh"; sourceTree = "<group>"; };
 		A29C47C20B10B5BE2D5384890E77E32B /* Pods-Bezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bezier.release.xcconfig"; sourceTree = "<group>"; };
 		A3A957D920CCCBA7BDF9F038CA2A9C22 /* Pods-Bezier-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Bezier-acknowledgements.markdown"; sourceTree = "<group>"; };
@@ -55,8 +59,8 @@
 		B05380291E309DB957168B34E1413434 /* ANDLineChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ANDLineChartView.m; sourceTree = "<group>"; };
 		B3838F6FBCABB3B0B2B5B42A4EA3331A /* ANDBackgroundChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ANDBackgroundChartView.m; sourceTree = "<group>"; };
 		B4EB6FDC53CE908BDED72E2B33E0DF97 /* ANDLineChartView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = ANDLineChartView.h; sourceTree = "<group>"; };
-		D2464D9EB85B5D59B68D003B92D0765D /* ANDLineChartView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ANDLineChartView.framework; path = ANDLineChartView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBF2236DDD88B4F048E1CE94B27D8852 /* Pods-Bezier.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; path = "Pods-Bezier.modulemap"; sourceTree = "<group>"; };
+		D2464D9EB85B5D59B68D003B92D0765D /* ANDLineChartView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = ANDLineChartView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DBF2236DDD88B4F048E1CE94B27D8852 /* Pods-Bezier.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "sourcecode.module-map"; path = "Pods-Bezier.modulemap"; sourceTree = "<group>"; };
 		EA472ED13910D1D44DD52C6D9B934AD3 /* ANDInternalLineChartView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = ANDInternalLineChartView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,8 +93,9 @@
 				EA472ED13910D1D44DD52C6D9B934AD3 /* ANDInternalLineChartView.m */,
 				B4EB6FDC53CE908BDED72E2B33E0DF97 /* ANDLineChartView.h */,
 				B05380291E309DB957168B34E1413434 /* ANDLineChartView.m */,
+				611DE07A1F06DDDA00EBFF2A /* CubicCurveAlgorithmObj.h */,
+				611DE07C1F06DDF200EBFF2A /* CubicCurveAlgorithmObj.m */,
 			);
-			name = ANDLineChartView;
 			path = ANDLineChartView;
 			sourceTree = "<group>";
 		};
@@ -199,6 +204,7 @@
 				7C4CC29BD5961519B8C9F1EC0A440EF5 /* ANDInternalLineChartView.h in Headers */,
 				B3E1C689F6B6A5A2358ABB8A3CB3B508 /* ANDLineChartView-umbrella.h in Headers */,
 				A07650FCF37D8D8E636F1D3AB9B0DA33 /* ANDLineChartView.h in Headers */,
+				611DE07B1F06DDDA00EBFF2A /* CubicCurveAlgorithmObj.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +290,7 @@
 				B296AA3F3357ABD77E65850D861EF5F2 /* ANDInternalLineChartView.m in Sources */,
 				2370DFDDF3F78ABC73ECBF8445DBE919 /* ANDLineChartView-dummy.m in Sources */,
 				0E30903B1FAB5166151A11DEE02506CC /* ANDLineChartView.m in Sources */,
+				611DE07D1F06DDF200EBFF2A /* CubicCurveAlgorithmObj.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

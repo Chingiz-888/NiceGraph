@@ -100,6 +100,7 @@
 - (void)refreshGraphLayer {
   if([self.chartContainer numberOfElements] == 0)
     return;
+    
 
   UIBezierPath *path = [UIBezierPath bezierPath];
   [path moveToPoint:CGPointMake(0.0, 0.0)];
@@ -134,9 +135,9 @@
         //animate position change
         if(_animationNeeded){
           CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-          positionAnimation.duration = [self.chartContainer animationDuration];
+          positionAnimation.duration  = [self.chartContainer animationDuration];
           positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
-          positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
+          positionAnimation.toValue   = [NSValue valueWithCGPoint:newPosition];
           //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
           [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
           [circle addAnimation:positionAnimation forKey:@"position"];
@@ -150,7 +151,7 @@
   if([[_graphLayer sublayers] count] > numberOfPoints)
   {//------ тут не понятно, что делается ---------------------
     for(NSUInteger i = numberOfPoints; i < [[_graphLayer sublayers] count];i++){
-      CALayer *circle = [self circleLayerForPointAtRow:i];
+      CALayer *circle     = [self circleLayerForPointAtRow:i];
       CGPoint oldPosition = [circle.presentationLayer position];
       CGPoint newPosition = CGPointMake(oldPosition.x, [self.chartContainer minValue] - 50.0);
       [circle setPosition:newPosition];
@@ -159,9 +160,9 @@
       // animate position change
       if(_animationNeeded){
         CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-        positionAnimation.duration = [self.chartContainer animationDuration];
+        positionAnimation.duration  = [self.chartContainer animationDuration];
         positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
-        positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
+        positionAnimation.toValue   = [NSValue valueWithCGPoint:newPosition];
         [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
         [circle addAnimation:positionAnimation forKey:@"position"];
       }
@@ -175,9 +176,9 @@
   [_graphLayer setPath:path.CGPath];
   if(_animationNeeded){
     CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
-    pathAnimation.duration = [self.chartContainer animationDuration];
+    pathAnimation.duration  = [self.chartContainer animationDuration];
     pathAnimation.fromValue = (__bridge id)oldPath;
-    pathAnimation.toValue = (__bridge id)newPath;
+    pathAnimation.toValue   = (__bridge id)newPath;
     [pathAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
     [_graphLayer addAnimation:pathAnimation forKey:@"path"];
   }
@@ -192,9 +193,9 @@
 
   if(_animationNeeded){
     CABasicAnimation *pathAnimation2 = [CABasicAnimation animationWithKeyPath:@"path"];
-    pathAnimation2.duration = [self.chartContainer animationDuration];
+    pathAnimation2.duration  = [self.chartContainer animationDuration];
     pathAnimation2.fromValue = (__bridge id)maskOldPath;
-    pathAnimation2.toValue = (__bridge id)maskNewPath;
+    pathAnimation2.toValue   = (__bridge id)maskNewPath;
     //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
     [pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
     [_maskLayer addAnimation:pathAnimation2 forKey:@"path"];
