@@ -35,7 +35,7 @@ class ANDInternalLineChartView: UIView {
     init(frame: CGRect, chartContainer: ANDLineChartView) {
         super.init(frame: frame)
         
-        chartContainer = chartContainer
+        self.chartContainer = chartContainer
         setupGradientLayer()
         setupMaskLayer()
         setupGraphLayer()
@@ -52,7 +52,7 @@ class ANDInternalLineChartView: UIView {
         graphLayer = CAShapeLayer()
         graphLayer?.frame = bounds
         graphLayer?.isGeometryFlipped = true
-        graphLayer?.strokeColor = chartContainer?.lineColor().cgColor
+        graphLayer?.strokeColor = chartContainer?.lineColor?.cgColor
         graphLayer?.fillColor = nil
         graphLayer?.lineWidth = 2.0
         graphLayer?.lineJoin = kCALineJoinBevel
@@ -66,13 +66,13 @@ class ANDInternalLineChartView: UIView {
         gradientLayer?.colors = [(color1 as? Any), (color2 as? Any)]
         gradientLayer?.locations = [0.0, 0.9]
         gradientLayer?.frame = bounds
-        layer().addSublayer(gradientLayer)
+        layer.addSublayer(gradientLayer!)
     }
     
     func setupMaskLayer() {
         maskLayer = CAShapeLayer()
         maskLayer?.frame = bounds
-        maskLayer?.geometryFlipped = true
+        maskLayer?.isGeometryFlipped = true
         maskLayer?.strokeColor = UIColor.clear.cgColor
         maskLayer?.fillColor = UIColor.black.cgColor
         maskLayer?.lineWidth = 2.0
@@ -149,12 +149,12 @@ class ANDInternalLineChartView: UIView {
             for i in numberOfPoints..<(graphLayer?.sublayers?.count)! {
                 let circle: CALayer? = circleLayerForPoint(atRow: i)
                 let oldPosition: CGPoint? = circle?.presentation()?.position
-                let newPosition = CGPoint(x: CGFloat((oldPosition?.x)!), y: CGFloat(chartContainer?.minValue() - 50.0))
+                let newPosition = CGPoint(x: CGFloat((oldPosition?.x)!), y: CGFloat((chartContainer?.minValue())! - 50.0))
                 circle?.position = newPosition
                 // animate position change
                 if animationNeeded {
                     let positionAnimation = CABasicAnimation(keyPath: "position")
-                    positionAnimation.duration = chartContainer!.animationDuration()
+                    positionAnimation.duration = chartContainer!.animationDuration
                     positionAnimation.fromValue = NSValue(oldPosition)
                     positionAnimation.toValue = NSValue(newPosition)
                     positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
@@ -174,7 +174,7 @@ class ANDInternalLineChartView: UIView {
             pathAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
             graphLayer?.add(pathAnimation, forKey: "path")
         }
-        let copyPath = UIBezierPath(CGPath: path.cgPath)
+        let copyPath = UIBezierPath(cgPath: path.cgPath)
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
         //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
         let maskOldPath: CGPath? = maskLayer?.presentation()?.path
@@ -183,7 +183,7 @@ class ANDInternalLineChartView: UIView {
         gradientLayer?.mask = maskLayer
         if animationNeeded {
             let pathAnimation2 = CABasicAnimation(keyPath: "path")
-            pathAnimation2.duration = chartContainer!.animationDuration()
+            pathAnimation2.duration = chartContainer!.animationDuration
             pathAnimation2.fromValue = (maskOldPath as? Any)
             pathAnimation2.toValue = (maskNewPath as? Any)
             //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
@@ -197,7 +197,7 @@ class ANDInternalLineChartView: UIView {
     // MARK: -
     // MARK: - Helpers
     func viewHeight() -> CGFloat {
-        let font: UIFont? = chartContainer?.gridIntervalFont()
+        let font: UIFont? = chartContainer?.gridIntervalFont
         let maxHeight: CGFloat? = round(frame.height - (font?.lineHeight)!)
         return maxHeight!
     }
@@ -215,14 +215,14 @@ class ANDInternalLineChartView: UIView {
             let circleLayer: CALayer? = newCircleLayer()
             graphLayer?.addSublayer(circleLayer!)
         }
-        return graphLayer?.sublayers![row]
+        return (graphLayer?.sublayers![row])!
     }
     
     func newCircleLayer() -> CALayer {
         let newCircleLayer = CALayer()
         let img: UIImage? = getCircleImage()
         newCircleLayer.contents = (img?.cgImage as? Any)
-        newCircleLayer.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat((img?.size.width)!), height: CGFloat(img?.size?.height))
+        newCircleLayer.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat((img?.size.width)!), height: CGFloat((img?.size.height)!))
         newCircleLayer.isGeometryFlipped = true
         return newCircleLayer
     }
@@ -238,10 +238,10 @@ class ANDInternalLineChartView: UIView {
             context.fill([CGPoint.zero, imageSize])
             let ovalPath = UIBezierPath(ovalin: (CGRect))
             context?.saveGState()
-            chartContainer?.elementFillColor.setFill()
+            chartContainer?.elementFillColor?.setFill()
             ovalPath.fill()
             context?.restoreGState()
-            chartContainer?.elementStrokeColor.setStroke()
+            chartContainer?.elementStrokeColor?.setStroke()
             ovalPath.lineWidth = strokeWidth
             ovalPath.stroke()
             circleImage = UIGraphicsGetImageFromCurrentImageContext()
@@ -256,9 +256,9 @@ class ANDInternalLineChartView: UIView {
         var width: CGFloat = 0.0
         let totalElements: Int = chartContainer!.numberOfElements()
         for i in 0..<totalElements {
-            width += chartContainer?.spacingForElement(atRow: i)
+            width += (chartContainer?.spacingForElement(atRow: i))!
         }
-        width += circleImage.size.width
+        width += circleImage?.size.width
         if width < preferredMinLayoutWidth {
             width = preferredMinLayoutWidth
         }

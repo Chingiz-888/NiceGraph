@@ -240,7 +240,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         }
         else {
             assert((dataSource != nil), "Data source is not set.")
-            assert(dataSource!.responds(to: #selector(self.maxValueForGridIntervalInChartView)), "maxValueForGridIntervalInChartView: not implemented.")
+            assert( dataSource!.maxValueForGridInterval, "maxValueForGridIntervalInChartView: not implemented.")
             return 0.0
         }
     }
