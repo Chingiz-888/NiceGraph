@@ -10,7 +10,6 @@ import UIKit
 
 class ANDInternalLineChartView: UIView {
     weak var chartContainer: ANDLineChartView?
-    private(set) var circleImage: UIImage?
     // Support for constraint-based layout (auto layout)
     // If nonzero, this is used when determining -intrinsicContentSize
     var preferredMinLayoutWidth: CGFloat = 0.0
@@ -23,7 +22,7 @@ class ANDInternalLineChartView: UIView {
     private var graphLayer: CAShapeLayer?
     private var maskLayer: CAShapeLayer?
     private var gradientLayer: CAGradientLayer?
-    private var circleImage: UIImage?
+    public var circleImage: UIImage?
     private var numberOfPreviousElements: Int = 0
     private var maxValue: CGFloat = 0.0
     private var minValue: CGFloat = 0.0
@@ -53,11 +52,11 @@ class ANDInternalLineChartView: UIView {
         graphLayer = CAShapeLayer()
         graphLayer?.frame = bounds
         graphLayer?.isGeometryFlipped = true
-        graphLayer?.strokeColor = chartContainer.lineColor().cgColor
+        graphLayer?.strokeColor = chartContainer?.lineColor().cgColor
         graphLayer?.fillColor = nil
         graphLayer?.lineWidth = 2.0
         graphLayer?.lineJoin = kCALineJoinBevel
-        layer.addSublayer(graphLayer)
+        layer.addSublayer(graphLayer!)
     }
     
     func setupGradientLayer() {
@@ -83,7 +82,7 @@ class ANDInternalLineChartView: UIView {
     
     func reloadData() {
         animationNeeded = true
-        let numberOfPoints: Int = chartContainer.numberOfElements()
+        let numberOfPoints: Int = chartContainer!.numberOfElements()
         if numberOfPoints != numberOfPreviousElements {
             invalidateIntrinsicContentSize()
         }
@@ -101,12 +100,12 @@ class ANDInternalLineChartView: UIView {
     
     //================  - (void)refreshGraphLayer   ======================================================
     func refreshGraphLayer() {
-        if chartContainer.numberOfElements() == 0 {
+        if chartContainer?.numberOfElements() == 0 {
             return
         }
         let path = UIBezierPath()
         path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
-        let numberOfPoints: Int = chartContainer.numberOfElements()
+        let numberOfPoints: Int = chartContainer!.numberOfElements()
         numberOfPreviousElements = numberOfPoints
         var xPosition: CGFloat = 0.0
         let yMargin: CGFloat = 0.0
@@ -118,11 +117,11 @@ class ANDInternalLineChartView: UIView {
         CATransaction.begin()
         for i in 0..<numberOfPoints {
             //---- первый цикл -----------------
-            let value: CGFloat = chartContainer.valueForElement(atRow: i)
+            let value: CGFloat = chartContainer!.valueForElement(atRow: i)
             // MOE - вот тут берется value, с которого расчитывается Y-координата
-            let minGridValue: CGFloat = chartContainer.minValue()
+            let minGridValue: CGFloat = chartContainer!.minValue()
             // используется spacingForElementAtRow + minGridValue
-            xPosition += chartContainer.spacingForElement(atRow: i)
+            xPosition += (chartContainer?.spacingForElement(atRow: i))!
             yPosition = yMargin + floor((value - minGridValue) * pixelToRecordPoint())
             let newPosition = CGPoint(x: xPosition, y: yPosition)
             path.addLine(to: newPosition)
@@ -134,62 +133,62 @@ class ANDInternalLineChartView: UIView {
             //animate position change
             if animationNeeded {
                 let positionAnimation = CABasicAnimation(keyPath: "position")
-                positionAnimation.duration = chartContainer.animationDuration()
+                positionAnimation.duration = chartContainer!.animationDuration
                 positionAnimation.fromValue = NSValue(oldPosition)
                 positionAnimation.toValue = NSValue(newPosition)
                 //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
                 positionAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-                circle?.addAnimation(positionAnimation, forKey: "position")
+                circle?.add(positionAnimation, forKey: "position")
             }
         }
         //---- первый цикл -----------------
         // hide other circles if needed
         //hide them under minValue - 10.0 points
-        if graphLayer?.sublayers?.count > numberOfPoints {
+        if (graphLayer?.sublayers?.count)! > numberOfPoints {
             //------ тут не понятно, что делается ---------------------
-            for i in numberOfPoints..<graphLayer?.sublayers?.count {
+            for i in numberOfPoints..<(graphLayer?.sublayers?.count)! {
                 let circle: CALayer? = circleLayerForPoint(atRow: i)
                 let oldPosition: CGPoint? = circle?.presentation()?.position
-                let newPosition = CGPoint(x: CGFloat(oldPosition?.x), y: CGFloat(chartContainer.minValue() - 50.0))
+                let newPosition = CGPoint(x: CGFloat((oldPosition?.x)!), y: CGFloat(chartContainer?.minValue() - 50.0))
                 circle?.position = newPosition
                 // animate position change
                 if animationNeeded {
                     let positionAnimation = CABasicAnimation(keyPath: "position")
-                    positionAnimation.duration = chartContainer.animationDuration()
+                    positionAnimation.duration = chartContainer!.animationDuration()
                     positionAnimation.fromValue = NSValue(oldPosition)
                     positionAnimation.toValue = NSValue(newPosition)
                     positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    circle?.addAnimation(positionAnimation, forKey: "position")
+                    circle?.add(positionAnimation, forKey: "position")
                 }
             }
         }
         //------ тут не понятно, что делается ---------------------
-        let oldPath: CGPathRef? = graphLayer?.presentation()?.path
-        let newPath: CGPathRef = path.cgPath
+        let oldPath: CGPath? = graphLayer?.presentation()?.path
+        let newPath: CGPath = path.cgPath
         graphLayer?.path = path.cgPath
         if animationNeeded {
             let pathAnimation = CABasicAnimation(keyPath: "path")
-            pathAnimation.duration = chartContainer.animationDuration()
+            pathAnimation.duration = chartContainer!.animationDuration
             pathAnimation.fromValue = (oldPath as? Any)
             pathAnimation.toValue = (newPath as? Any)
             pathAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            graphLayer?.addAnimation(pathAnimation, forKey: "path")
+            graphLayer?.add(pathAnimation, forKey: "path")
         }
         let copyPath = UIBezierPath(CGPath: path.cgPath)
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
         //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
-        let maskOldPath: CGPathRef? = maskLayer?.presentation()?.path
-        let maskNewPath: CGPathRef = copyPath.cgPath
+        let maskOldPath: CGPath? = maskLayer?.presentation()?.path
+        let maskNewPath: CGPath = copyPath.cgPath
         maskLayer?.path = copyPath.cgPath
         gradientLayer?.mask = maskLayer
         if animationNeeded {
             let pathAnimation2 = CABasicAnimation(keyPath: "path")
-            pathAnimation2.duration = chartContainer.animationDuration()
+            pathAnimation2.duration = chartContainer!.animationDuration()
             pathAnimation2.fromValue = (maskOldPath as? Any)
             pathAnimation2.toValue = (maskNewPath as? Any)
             //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
             pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            maskLayer?.addAnimation(pathAnimation2, forKey: "path")
+            maskLayer?.add(pathAnimation2, forKey: "path")
         }
         CATransaction.commit()
     }
@@ -198,38 +197,38 @@ class ANDInternalLineChartView: UIView {
     // MARK: -
     // MARK: - Helpers
     func viewHeight() -> CGFloat {
-        let font: UIFont? = chartContainer.gridIntervalFont()
-        let maxHeight: CGFloat? = round(frame.height - font?.lineHeight)
+        let font: UIFont? = chartContainer?.gridIntervalFont()
+        let maxHeight: CGFloat? = round(frame.height - (font?.lineHeight)!)
         return maxHeight!
     }
     
     func pixelToRecordPoint() -> CGFloat {
         let maxHeight: CGFloat = viewHeight()
-        let maxIntervalValue: CGFloat = chartContainer.maxValue()
-        let minIntervalValue: CGFloat = chartContainer.minValue()
+        let maxIntervalValue: CGFloat = chartContainer!.maxValue()
+        let minIntervalValue: CGFloat = chartContainer!.minValue()
         return (maxHeight / (maxIntervalValue - minIntervalValue))
     }
     
     func circleLayerForPoint(atRow row: Int) -> CALayer {
         let totalNumberOfCircles: Int? = graphLayer?.sublayers?.count
-        if row >= totalNumberOfCircles {
+        if row >= totalNumberOfCircles! {
             let circleLayer: CALayer? = newCircleLayer()
-            graphLayer?.addSublayer(circleLayer)
+            graphLayer?.addSublayer(circleLayer!)
         }
-        return graphLayer?.sublayers![row]!
+        return graphLayer?.sublayers![row]
     }
     
     func newCircleLayer() -> CALayer {
         let newCircleLayer = CALayer()
-        let img: UIImage? = circleImage()
+        let img: UIImage? = getCircleImage()
         newCircleLayer.contents = (img?.cgImage as? Any)
-        newCircleLayer.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat(img?.size?.width), height: CGFloat(img?.size?.height))
-        newCircleLayer.geometryFlipped = true
+        newCircleLayer.frame = CGRect(x: CGFloat(0), y: CGFloat(0), width: CGFloat((img?.size.width)!), height: CGFloat(img?.size?.height))
+        newCircleLayer.isGeometryFlipped = true
         return newCircleLayer
     }
     
-    func circleImage() -> UIImage {
-        if !_circleImage {
+    func getCircleImage() -> UIImage {
+        if circleImage == nil {
             let imageSize = CGSize(width: CGFloat(CIRCLE_SIZE), height: CGFloat(CIRCLE_SIZE))
             let strokeWidth: CGFloat = 2
             UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
@@ -238,37 +237,37 @@ class ANDInternalLineChartView: UIView {
             UIColor.clear.setFill()
             context.fill([CGPoint.zero, imageSize])
             let ovalPath = UIBezierPath(ovalin: (CGRect))
-            context.saveGState()
-            chartContainer.elementFillColor().setFill()
+            context?.saveGState()
+            chartContainer?.elementFillColor.setFill()
             ovalPath.fill()
-            context.restoreGState()
-            chartContainer.elementStrokeColor().setStroke()
+            context?.restoreGState()
+            chartContainer?.elementStrokeColor.setStroke()
             ovalPath.lineWidth = strokeWidth
             ovalPath.stroke()
-            _circleImage = UIGraphicsGetImageFromCurrentImageContext()
+            circleImage = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
         }
-        return _circleImage
+        return circleImage!
     }
     
     // MARK: -
     // MARK: - Autolayout code
     func intrinsicContentSize() -> CGSize {
         var width: CGFloat = 0.0
-        let totalElements: Int = chartContainer.numberOfElements()
+        let totalElements: Int = chartContainer!.numberOfElements()
         for i in 0..<totalElements {
-            width += chartContainer.spacingForElement(atRow: i)
+            width += chartContainer?.spacingForElement(atRow: i)
         }
-        width += circleImage().size.width
-        if width < preferredMinLayoutWidth() {
-            width = preferredMinLayoutWidth()
+        width += circleImage.size.width
+        if width < preferredMinLayoutWidth {
+            width = preferredMinLayoutWidth
         }
         return CGSize(width: width, height: CGFloat(UIViewNoIntrinsicMetric))
     }
     
     func setPreferredMinLayoutWidth(_ preferredMinLayoutWidth: CGFloat) {
-        if _preferredMinLayoutWidth != preferredMinLayoutWidth {
-            _preferredMinLayoutWidth = preferredMinLayoutWidth
+        if preferredMinLayoutWidth != preferredMinLayoutWidth {
+            preferredMinLayoutWidth = preferredMinLayoutWidth
             if frame.width < preferredMinLayoutWidth {
                 invalidateIntrinsicContentSize()
             }

@@ -64,8 +64,8 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     var animationDuration = TimeInterval()
     //default is 0.36
   
-    var isShouldLabelsFloat: Bool = false
-    //default YES
+    var isShouldLabelsFloat: Bool = true    //default YES
+    
  
     
     
@@ -129,7 +129,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         // ДОБАВЛЕНИЕ WIDTH CONSTRAINT
         backgroundWidthEqualToScrollViewConstraints = NSLayoutConstraint(item: backgroundChartView, attribute: .width, relatedBy: .equal, toItem: scrollView, attribute: .width, multiplier: 1.0, constant: 0)
         backgroundWidthEqualToChartViewConstraints = NSLayoutConstraint(item: backgroundChartView, attribute: .width, relatedBy: .equal, toItem: internalChartView, attribute: .width, multiplier: 1.0, constant: 0.0)
-        if shouldLabelsFloat() {
+        if isShouldLabelsFloat {
             addConstraint(floatingConstraint!)
             scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
@@ -149,24 +149,24 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func setShouldLabelsFloat(_ shouldLabelsFloat: Bool) {
-        if _shouldLabelsFloat == shouldLabelsFloat {
+        if isShouldLabelsFloat == shouldLabelsFloat {
             return
         }
-        if _shouldLabelsFloat {
+        if isShouldLabelsFloat {
             removeConstraint(floatingConstraint!)
             scrollView?.removeConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
             scrollView?.removeConstraint(backgroundWidthEqualToChartViewConstraints!)
         }
-        if shouldLabelsFloat {
+        if isShouldLabelsFloat {
             addConstraint(floatingConstraint!)
             scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
             scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints!)
         }
-        _shouldLabelsFloat = shouldLabelsFloat
+        isShouldLabelsFloat = shouldLabelsFloat
         setNeedsUpdateConstraints()
     }
     
