@@ -41,7 +41,7 @@ class ANDInternalLineChartView: UIView {
         setupMaskLayer()
         setupGraphLayer()
         backgroundColor = UIColor.clear
-        opaque = false
+        isOpaque = false
         
     }
     
@@ -52,12 +52,12 @@ class ANDInternalLineChartView: UIView {
     func setupGraphLayer() {
         graphLayer = CAShapeLayer()
         graphLayer?.frame = bounds
-        graphLayer?.geometryFlipped = true
+        graphLayer?.isGeometryFlipped = true
         graphLayer?.strokeColor = chartContainer.lineColor().cgColor
         graphLayer?.fillColor = nil
         graphLayer?.lineWidth = 2.0
         graphLayer?.lineJoin = kCALineJoinBevel
-        layer().addSublayer(graphLayer)
+        layer.addSublayer(graphLayer)
     }
     
     func setupGradientLayer() {

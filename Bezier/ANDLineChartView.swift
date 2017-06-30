@@ -109,17 +109,22 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func setupInitialConstraints() {
-        scrollView?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        internalChartView?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        backgroundChartView?.setTranslatesAutoresizingMaskIntoConstraints(false)
-        let viewsDict: [AnyHashable: Any] = NSDictionaryOfVariableBindings(scrollView, internalChartView, backgroundChartView)
-        //
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_scrollView]|", options: [], metrics: nil, views: viewsDict))
-        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[_scrollView]|", options: [], metrics: nil, views: viewsDict))
-        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[_internalChartView]|", options: [], metrics: nil, views: viewsDict))
+        scrollView?.translatesAutoresizingMaskIntoConstraints           = false
+        internalChartView?.translatesAutoresizingMaskIntoConstraints    = false
+        backgroundChartView?.translatesAutoresizingMaskIntoConstraints  = false
+        
+        // declare dictionary of our view for constraint implementation, all is just simple
+        let viewsDict: [String: AnyObject] = ["_scrollView"          : scrollView!,
+                                              "_internalChartView"   : internalChartView!,
+                                              "_backgroundChartView" : backgroundChartView!
+                                             ]
+        
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_scrollView]|", options: [], metrics: nil, views: viewsDict as! [String : Any]))
+        addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[_scrollView]|", options: [], metrics: nil, views: viewsDict as! [String : Any]))
+        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[_internalChartView]|", options: [], metrics: nil, views: viewsDict as! [String : Any]))
         scrollView?.addConstraint(NSLayoutConstraint(item: internalChartView, attribute: .height, relatedBy: .equal, toItem: scrollView, attribute: .height, multiplier: 1.0, constant: 0))
-        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_internalChartView]|", options: [], metrics: nil, views: viewsDict))
-        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_backgroundChartView]|", options: [], metrics: nil, views: viewsDict))
+        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_internalChartView]|", options: [], metrics: nil, views: viewsDict as! [String : Any]))
+        scrollView?.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[_backgroundChartView]|", options: [], metrics: nil, views: viewsDict as! [String : Any]))
         floatingConstraint = NSLayoutConstraint(item: backgroundChartView, attribute: .left, relatedBy: .equal, toItem: self, attribute: .left, multiplier: 1.0, constant: 0.0)
         // ДОБАВЛЕНИЕ WIDTH CONSTRAINT
         backgroundWidthEqualToScrollViewConstraints = NSLayoutConstraint(item: backgroundChartView, attribute: .width, relatedBy: .equal, toItem: scrollView, attribute: .width, multiplier: 1.0, constant: 0)
@@ -129,7 +134,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
             scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
-            scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints)
+            scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints!)
         }
     }
     
@@ -156,7 +161,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         }
         if shouldLabelsFloat {
             addConstraint(floatingConstraint!)
-            scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints)
+            scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
             scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints!)
@@ -173,7 +178,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
             var newSpacing: CGFloat = delegate!.chartView(self, spacingForElementAtRow: row)
             assert(newSpacing > 0, "Spacing cannot be smaller than 0.0")
             let imageSize: CGSize? = internalChartView?.circleImage?.size
-            newSpacing += (row == 0) ? (imageSize?.width)! / 2.0 : imageSize?.width
+            newSpacing += (row == 0) ? (imageSize?.width)! / 2.0 : (imageSize?.width)!
             if newSpacing > 0 {
                 spacing = newSpacing
             }
