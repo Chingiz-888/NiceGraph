@@ -23,12 +23,16 @@ class ANDBackgroundChartView: UIView {
         
     }
     
-    convenience init(frame: CGRect) {
+    convenience override init(frame: CGRect) {
         assert(false, "Use initWithFrame:chartContainer:")
         return self.init(frame: frame, chartContainer: nil)
     }
     
-    func draw(_ rect: CGRect) {
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func draw(_ rect: CGRect) {
         let context: CGContext? = UIGraphicsGetCurrentContext()
         let boundsPath = UIBezierPath(rect: bounds)
         context.setFillColor(chartContainer.chartBackgroundColor().cgColor)

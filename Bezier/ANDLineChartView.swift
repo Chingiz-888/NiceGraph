@@ -41,6 +41,10 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     let DEFAULT_FONT_SIZE = 12.0
     let TRANSITION_DURATION = 0.36
 
+    
+    weak var dataSource : ANDLineChartViewDataSource?
+    weak var delegate   : ANDLineChartViewDelegate?
+    
 
     var gridIntervalFont: UIFont?
     var chartBackgroundColor: UIColor?
@@ -59,12 +63,10 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     //default is 30
     var animationDuration = TimeInterval()
     //default is 0.36
-    weak var dataSource: ANDLineChartViewDataSource?
-    weak var delegate: ANDLineChartViewDelegate?
+  
     var isShouldLabelsFloat: Bool = false
     //default YES
-    private(set) var scrollView: UIScrollView?
-    
+ 
     
     
     private var scrollView: UIScrollView?
@@ -88,17 +90,21 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setupDefaultAppearence() {
         chartBackgroundColor = UIColor(red: CGFloat(0.39), green: CGFloat(0.38), blue: CGFloat(0.67), alpha: CGFloat(1.0))
-        backgroundColor = chartBackgroundColor()
+        backgroundColor = chartBackgroundColor
         lineColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
-        elementFillColor = chartBackgroundColor()
+        elementFillColor = chartBackgroundColor
         elementStrokeColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
         gridIntervalLinesColor = UIColor(red: CGFloat(0.325), green: CGFloat(0.314), blue: CGFloat(0.627), alpha: CGFloat(1.000))
         gridIntervalFontColor = UIColor(red: CGFloat(0.216), green: CGFloat(0.204), blue: CGFloat(0.478), alpha: CGFloat(1.000))
         gridIntervalFont = UIFont(name: "HelveticaNeue", size: CGFloat(DEFAULT_FONT_SIZE))
-        elementSpacing = DEFAULT_ELEMENT_SPACING
-        setAnimationDuration(TRANSITION_DURATION)
+        elementSpacing = CGFloat(DEFAULT_ELEMENT_SPACING)
+        animationDuration(TRANSITION_DURATION)
         shouldLabelsFloat = true
     }
     
@@ -119,8 +125,8 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         backgroundWidthEqualToScrollViewConstraints = NSLayoutConstraint(item: backgroundChartView, attribute: .width, relatedBy: .equal, toItem: scrollView, attribute: .width, multiplier: 1.0, constant: 0)
         backgroundWidthEqualToChartViewConstraints = NSLayoutConstraint(item: backgroundChartView, attribute: .width, relatedBy: .equal, toItem: internalChartView, attribute: .width, multiplier: 1.0, constant: 0.0)
         if shouldLabelsFloat() {
-            addConstraint(floatingConstraint)
-            scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints)
+            addConstraint(floatingConstraint!)
+            scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
             scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints)
@@ -142,18 +148,18 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
             return
         }
         if _shouldLabelsFloat {
-            removeConstraint(floatingConstraint)
-            scrollView?.removeConstraint(backgroundWidthEqualToScrollViewConstraints)
+            removeConstraint(floatingConstraint!)
+            scrollView?.removeConstraint(backgroundWidthEqualToScrollViewConstraints!)
         }
         else {
-            scrollView?.removeConstraint(backgroundWidthEqualToChartViewConstraints)
+            scrollView?.removeConstraint(backgroundWidthEqualToChartViewConstraints!)
         }
         if shouldLabelsFloat {
-            addConstraint(floatingConstraint)
+            addConstraint(floatingConstraint!)
             scrollView?.addConstraint(backgroundWidthEqualToScrollViewConstraints)
         }
         else {
-            scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints)
+            scrollView?.addConstraint(backgroundWidthEqualToChartViewConstraints!)
         }
         _shouldLabelsFloat = shouldLabelsFloat
         setNeedsUpdateConstraints()
@@ -162,12 +168,12 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     // MARK: -
     // MARK: - ANDInternalLineChartViewDataSource methods
     func spacingForElement(atRow row: Int) -> CGFloat {
-        var spacing: CGFloat = elementSpacing()
-        if delegate && delegate.responds(to: Selector("chartView:spacingForElementAtRow:")) {
-            var newSpacing: CGFloat = delegate.chartView(self, spacingForElementAtRow: row)
+        var spacing: CGFloat = elementSpacing
+        if (delegate != nil) && (delegate?.responds(to: Selector("chartView:spacingForElementAtRow:")))! {
+            var newSpacing: CGFloat = delegate!.chartView(self, spacingForElementAtRow: row)
             assert(newSpacing > 0, "Spacing cannot be smaller than 0.0")
             let imageSize: CGSize? = internalChartView?.circleImage?.size
-            newSpacing += (row == 0) ? imageSize?.width / 2.0 : imageSize?.width
+            newSpacing += (row == 0) ? (imageSize?.width)! / 2.0 : imageSize?.width
             if newSpacing > 0 {
                 spacing = newSpacing
             }
@@ -176,71 +182,71 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func numberOfElements() -> Int {
-        if dataSource && dataSource.responds(to: #selector(self.numberOfElementsInChartView)) {
-            return dataSource.numberOfElements(in: self)
+        if (dataSource != nil) && dataSource!.responds(to: #selector(self.numberOfElementsInChartView)) {
+            return dataSource!.numberOfElements(in: self)
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: #selector(self.numberOfElementsInChartView)), "numberOfElementsInChartView: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert(dataSource!.responds(to: #selector(self.numberOfElementsInChartView)), "numberOfElementsInChartView: not implemented.")
             return 0
         }
     }
     
     func numberOfIntervalLines() -> Int {
-        if dataSource && dataSource.responds(to: #selector(self.numberOfGridIntervalsInChartView)) {
-            return dataSource.numberOfGridIntervals(in: self)
+        if (dataSource != nil) && dataSource!.responds(to: #selector(self.numberOfGridIntervalsInChartView)) {
+            return dataSource!.numberOfGridIntervals(in: self)
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: #selector(self.numberOfGridIntervalsInChartView)), "numberOfGridIntervalsInChartView: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert(dataSource!.responds(to: #selector(self.numberOfGridIntervalsInChartView)), "numberOfGridIntervalsInChartView: not implemented.")
             return 0
         }
     }
     
     func valueForElement(atRow row: Int) -> CGFloat {
-        if dataSource && dataSource.responds(to: Selector("chartView:valueForElementAtRow:")) {
-            let value: CGFloat = dataSource.chartView(self, valueForElementAtRow: row)
+        if (dataSource != nil) && (dataSource?.responds(to: Selector("chartView:valueForElementAtRow:")))! {
+            let value: CGFloat = dataSource!.chartView(self, valueForElementAtRow: row)
             assert(value >= minValue() && value <= maxValue(), "Value for element \(UInt(row)) (\(value)) is not in min/max range")
             return value
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: Selector("chartView:valueForElementAtRow:")), "chartView:valueForElementAtRow: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert((dataSource?.responds(to: Selector("chartView:valueForElementAtRow:")))!, "chartView:valueForElementAtRow: not implemented.")
             return 0.0
         }
     }
     
     func minValue() -> CGFloat {
-        if dataSource && dataSource.responds(to: #selector(self.minValueForGridIntervalInChartView)) {
-            let minValue: CGFloat = dataSource.minValueForGridInterval(in: self)
+        if (dataSource != nil) && dataSource!.responds(to: #selector(self.minValueForGridIntervalInChartView)) {
+            let minValue: CGFloat = dataSource!.minValueForGridInterval(in: self)
             assert(minValue < maxValue(), "minimal value cannot be bigger than max value")
             return minValue
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: #selector(self.minValueForGridIntervalInChartView)), "minValueForGridIntervalInChartView: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert(dataSource!.responds(to: #selector(self.minValueForGridIntervalInChartView)), "minValueForGridIntervalInChartView: not implemented.")
             return 0.0
         }
     }
     
     func maxValue() -> CGFloat {
-        if dataSource && dataSource.responds(to: #selector(self.maxValueForGridIntervalInChartView)) {
-            return dataSource.maxValueForGridInterval(in: self)
+        if (dataSource != nil) && dataSource!.responds(to: #selector(self.maxValueForGridIntervalInChartView)) {
+            return dataSource!.maxValueForGridInterval(in: self)
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: #selector(self.maxValueForGridIntervalInChartView)), "maxValueForGridIntervalInChartView: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert(dataSource!.responds(to: #selector(self.maxValueForGridIntervalInChartView)), "maxValueForGridIntervalInChartView: not implemented.")
             return 0.0
         }
     }
     
     func description(forValue value: CGFloat) -> String {
-        if dataSource && dataSource.responds(to: Selector("chartView:descriptionForGridIntervalValue:")) {
-            return dataSource.chartView(self, descriptionForGridIntervalValue: value)
+        if (dataSource != nil) && (dataSource?.responds(to: Selector("chartView:descriptionForGridIntervalValue:")))! {
+            return dataSource!.chartView(self, descriptionForGridIntervalValue: value)
         }
         else {
-            assert(dataSource, "Data source is not set.")
-            assert(dataSource.responds(to: Selector("chartView:descriptionForGridIntervalValue:")), "chartView:descriptionForGridIntervalValue: not implemented.")
+            assert((dataSource != nil), "Data source is not set.")
+            assert((dataSource?.responds(to: Selector("chartView:descriptionForGridIntervalValue:")))!, "chartView:descriptionForGridIntervalValue: not implemented.")
             return ""
         }
     }

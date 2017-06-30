@@ -29,7 +29,7 @@ class ANDInternalLineChartView: UIView {
     private var minValue: CGFloat = 0.0
     private var animationNeeded: Bool = false
     
-    convenience init(frame: CGRect) {
+    convenience override init(frame: CGRect) {
         return self.init(frame: frame, chartContainer: nil)
     }
     
@@ -43,6 +43,10 @@ class ANDInternalLineChartView: UIView {
         backgroundColor = UIColor.clear
         opaque = false
         
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func setupGraphLayer() {
