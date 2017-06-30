@@ -12,7 +12,6 @@
 
 #define INTERVAL_TEXT_LEFT_MARGIN 10.0
 #define INTERVAL_TEXT_MAX_WIDTH 100.0
-
 #define CIRCLE_SIZE 14.0
 
 @implementation ANDInternalLineChartView{
@@ -91,10 +90,14 @@
   [_maskLayer setFrame:[self bounds]];
   [_gradientLayer setFrame:[self bounds]];
 
-  [self refreshGraphLayer];
+  [self refreshGraphLayer];   // MOE - вызыва функции отписовки пути по точкам
 }
 
-- (void)refreshGraphLayer{
+
+
+
+//================  - (void)refreshGraphLayer   ======================================================
+- (void)refreshGraphLayer {
   if([self.chartContainer numberOfElements] == 0)
     return;
 
@@ -103,44 +106,49 @@
   NSUInteger numberOfPoints = [self.chartContainer numberOfElements];
   _numberOfPreviousElements = numberOfPoints;
   CGFloat xPosition = 0.0;
-  CGFloat yMargin = 0.0;
+  CGFloat yMargin   = 0.0;
   CGFloat yPosition = 0.0;
 
-  [_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
+  //[_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
+    [_graphLayer setStrokeColor:[[UIColor redColor] CGColor]]; // MOE - вот реально цвет задается
 
   CGPoint lastPoint = CGPointMake(0, 0);
   [CATransaction begin];
-  for(NSUInteger i = 0; i<numberOfPoints;i++){
-    CGFloat value = [self.chartContainer valueForElementAtRow:i];
-    CGFloat minGridValue = [self.chartContainer minValue];
-    
-    xPosition += [self.chartContainer spacingForElementAtRow:i] ;
-    yPosition = yMargin + floor((value-minGridValue)*[self pixelToRecordPoint]);
-    
-    CGPoint newPosition = CGPointMake(xPosition, yPosition);
-    [path addLineToPoint:newPosition];
-    
-    CALayer *circle = [self circleLayerForPointAtRow:i];
-    CGPoint oldPosition = [circle.presentationLayer position];
-    oldPosition.x = newPosition.x;
-    [circle setPosition: newPosition];
-    lastPoint = newPosition;
-    
-    //animate position change
-    if(_animationNeeded){
-      CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-      positionAnimation.duration = [self.chartContainer animationDuration];
-      positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
-      positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
-      //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-      [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
-      [circle addAnimation:positionAnimation forKey:@"position"];
-    }
-  }
+  for(NSUInteger i = 0; i<numberOfPoints;i++)
+  {//---- первый цикл -----------------
+        CGFloat value = [self.chartContainer valueForElementAtRow:i];     // MOE - вот тут берется value, с которого расчитывается Y-координата
+        CGFloat minGridValue = [self.chartContainer minValue];            // используется spacingForElementAtRow + minGridValue
+        
+        xPosition += [self.chartContainer spacingForElementAtRow:i] ;
+        yPosition =   yMargin + floor((value-minGridValue)*[self pixelToRecordPoint]);
+        
+        CGPoint newPosition = CGPointMake(xPosition, yPosition);
+        [path addLineToPoint:newPosition];
+        
+        CALayer *circle = [self circleLayerForPointAtRow:i];
+        CGPoint oldPosition = [circle.presentationLayer position];
+        oldPosition.x = newPosition.x;
+        [circle setPosition: newPosition];
+        lastPoint = newPosition;
+        
+        //animate position change
+        if(_animationNeeded){
+          CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+          positionAnimation.duration = [self.chartContainer animationDuration];
+          positionAnimation.fromValue = [NSValue valueWithCGPoint:oldPosition];
+          positionAnimation.toValue = [NSValue valueWithCGPoint:newPosition];
+          //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+          [positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithControlPoints:0.5 :1.4 :1 :1]];
+          [circle addAnimation:positionAnimation forKey:@"position"];
+        }
+  }//---- первый цикл -----------------
   
+    
+    
   // hide other circles if needed
   //hide them under minValue - 10.0 points
-  if([[_graphLayer sublayers] count] > numberOfPoints){
+  if([[_graphLayer sublayers] count] > numberOfPoints)
+  {//------ тут не понятно, что делается ---------------------
     for(NSUInteger i = numberOfPoints; i < [[_graphLayer sublayers] count];i++){
       CALayer *circle = [self circleLayerForPointAtRow:i];
       CGPoint oldPosition = [circle.presentationLayer position];
@@ -158,7 +166,8 @@
         [circle addAnimation:positionAnimation forKey:@"position"];
       }
     }
-  }
+  }//------ тут не понятно, что делается ---------------------
+    
   
   CGPathRef oldPath = [_graphLayer.presentationLayer path];
   CGPathRef newPath = path.CGPath;
@@ -194,7 +203,11 @@
   
   [CATransaction commit];
 
-}
+}//================ end  - (void)refreshGraphLayer   ===============================================
+
+
+
+
 
 #pragma mark - 
 #pragma mark - Helpers
