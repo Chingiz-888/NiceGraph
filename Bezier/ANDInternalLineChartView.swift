@@ -28,13 +28,11 @@ class ANDInternalLineChartView: UIView {
     private var minValue: CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
-//    convenience override init(frame: CGRect) {
-//        //self.init(frame: frame, chartContainer: nil)
-//        //self.init(frame: frame, chartContainer: nil)
-//        self.init(frame: frame, chartContainer: self)
-//    }
-//    
-    init(frame: CGRect, chartContainer: ANDLineChartView) {
+    convenience override init(frame: CGRect) {
+        self.init(frame: frame, chartContainer: nil)
+    }
+
+    init(frame: CGRect, chartContainer: ANDLineChartView?) {
         super.init(frame: frame)
         
         self.chartContainer = chartContainer

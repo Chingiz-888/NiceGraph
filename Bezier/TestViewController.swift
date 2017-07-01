@@ -41,6 +41,10 @@ class TestViewController: UIViewController {
         self.setupConstraints()
         
     
+        var paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineBreakMode = .byTruncatingTail
+        
+        
     }
 
 
