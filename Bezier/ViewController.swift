@@ -25,7 +25,6 @@ class ViewController: UIViewController {
             let val = (Double(i)/6.0) * self.firstBezierView.frame.width.f
             points.append(val)
         }
-        
         return points
     }
     
@@ -35,7 +34,6 @@ class ViewController: UIViewController {
             let val = (Double(i)/255) * self.firstBezierView.frame.height.f
             points.append(val)
         }
-        
         return points
     }
     

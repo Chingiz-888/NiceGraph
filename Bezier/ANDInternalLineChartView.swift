@@ -28,6 +28,11 @@ class ANDInternalLineChartView: UIView {
     private var minValue       : CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
+    
+    //----- ДОБАВОЧНАЯ ЛОГИКА ОТ BEZIER GRAPH -----------
+        var myPoints : [CGPoint]?
+    //---------------------------------------------------
+    
     convenience override init(frame: CGRect) {
         self.init(frame: frame, chartContainer: nil)
     }
@@ -98,6 +103,47 @@ class ANDInternalLineChartView: UIView {
         // MOE - вызыва функции отписовки пути по точкам
     }
     
+    
+    
+    
+    
+    //**** НОВАЯ ЛОГИКА BEZIER GRAPH ******
+    func getMyPoints() -> [CGPoint]? {
+        let numberOfPoints: Int  = chartContainer!.numberOfElements()
+        numberOfPreviousElements = numberOfPoints
+        var xPosition: CGFloat   = 0.0
+        let yMargin:   CGFloat   = 0.0
+        var yPosition: CGFloat   = 0.0
+        var lastPoint = CGPoint(x: CGFloat(0), y: CGFloat(0))
+        
+        var points : [CGPoint] = [CGPoint]()
+        
+        for i in 0..<numberOfPoints
+        {//---- первый цикл ------------------------
+            
+            //---- вот так создается новая CGPoint - все от value valueForElement(atRow: i) -----
+            // MOE - вот тут берется value, с которого расчитывается Y-координата
+            // используется spacingForElementAtRow + minGridValue
+            let value        : CGFloat = chartContainer!.valueForElement(atRow: i)
+            let minGridValue : CGFloat = chartContainer!.minValue()
+            xPosition      += (chartContainer?.spacingForElement(atRow: i))!
+            yPosition       = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
+            let newPosition = CGPoint(x: xPosition, y: yPosition)
+            //-----------------------------------------
+            
+            points.append(newPosition)
+          
+            
+        }//---- конец первого цикла -----------------
+        return points
+    }
+    //*************************************
+    
+    
+    
+    
+    
+    
     //================  - (void)refreshGraphLayer   ======================================================
     func refreshGraphLayer() {
         if chartContainer?.numberOfElements() == 0 {
@@ -115,6 +161,15 @@ class ANDInternalLineChartView: UIView {
         
         CATransaction.begin()
         
+        myPoints = getMyPoints()
+        let cubicCurveAlgorithm = CubicCurveAlgorithm()
+        guard let pointss = myPoints else {
+            assert(false, "getMyPoints() функция сломалась")
+        }
+        let controlPoints = cubicCurveAlgorithm.controlPointsFromPoints( myPoints! )
+        print(controlPoints)
+        
+
         for i in 0..<numberOfPoints
         {//---- первый цикл ------------------------
            
@@ -127,6 +182,10 @@ class ANDInternalLineChartView: UIView {
             xPosition      += (chartContainer?.spacingForElement(atRow: i))!
             yPosition       = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
             let newPosition = CGPoint(x: xPosition, y: yPosition)
+            
+               //**** НОВАЯ ЛОГИКА BEZIER GRAPH ******
+                     let myPoint = newPosition
+               //*************************************
             //-----------------------------------------
             
             
