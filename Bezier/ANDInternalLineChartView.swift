@@ -161,13 +161,38 @@ class ANDInternalLineChartView: UIView {
         
         CATransaction.begin()
         
+        
+        
+         //**** НОВАЯ ЛОГИКА BEZIER GRAPH ******
         myPoints = getMyPoints()
         let cubicCurveAlgorithm = CubicCurveAlgorithm()
         guard let pointss = myPoints else {
             assert(false, "getMyPoints() функция сломалась")
         }
         let controlPoints = cubicCurveAlgorithm.controlPointsFromPoints( myPoints! )
-        print(controlPoints)
+        //print(controlPoints)
+        
+        for i in 0..<numberOfPoints {
+           
+            for i in 0 ..< myPoints!.count {
+                
+                let point = myPoints![i];
+                
+                if i == 0 {
+                    path.move(to: point)
+                } else {
+                    let segment = controlPoints[i-1]
+                    path.addCurve(to: point, controlPoint1: segment.controlPoint1, controlPoint2: segment.controlPoint2)
+                }
+            }
+        }
+        //path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
+//        UIColor.black.setStroke() //
+//        path.close()
+//        path.stroke()
+        //************************************
+        
+        
         
 
         for i in 0..<numberOfPoints
@@ -189,7 +214,9 @@ class ANDInternalLineChartView: UIView {
             //-----------------------------------------
             
             
-            path.addLine(to: newPosition)
+            //path.addLine(to: newPosition)
+            
+   
             let circle: CALayer? = circleLayerForPoint(atRow: i)
             var oldPosition: CGPoint? = circle?.presentation()?.position
             oldPosition?.x = newPosition.x
@@ -211,53 +238,53 @@ class ANDInternalLineChartView: UIView {
         
         // hide other circles if needed
         //hide them under minValue - 10.0 points
-        if (graphLayer?.sublayers?.count)! > numberOfPoints {
-            //------ тут не понятно, что делается ---------------------
-            for i in numberOfPoints..<(graphLayer?.sublayers?.count)! {
-                let circle      : CALayer? = circleLayerForPoint(atRow: i)
-                let oldPosition : CGPoint? = circle?.presentation()?.position
-                let newPosition            = CGPoint(  x: CGFloat((oldPosition?.x)!),
-                                                       y: CGFloat( (chartContainer?.minValue())! - 50.0 )  )
-                circle?.position           = newPosition
-                // animate position change
-                if animationNeeded {
-                    let positionAnimation            = CABasicAnimation(keyPath: "position")
-                    positionAnimation.duration       = chartContainer!.animationDuration
-                    positionAnimation.fromValue      = NSValue(cgPoint: oldPosition!)
-                    positionAnimation.toValue        = NSValue(cgPoint: newPosition)
-                    positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
-                    circle?.add(positionAnimation, forKey: "position")
-                }
-            }
-        }
+//        if (graphLayer?.sublayers?.count)! > numberOfPoints {
+//            //------ тут не понятно, что делается ---------------------
+//            for i in numberOfPoints..<(graphLayer?.sublayers?.count)! {
+//                let circle      : CALayer? = circleLayerForPoint(atRow: i)
+//                let oldPosition : CGPoint? = circle?.presentation()?.position
+//                let newPosition            = CGPoint(  x: CGFloat((oldPosition?.x)!),
+//                                                       y: CGFloat( (chartContainer?.minValue())! - 50.0 )  )
+//                circle?.position           = newPosition
+//                // animate position change
+//                if animationNeeded {
+//                    let positionAnimation            = CABasicAnimation(keyPath: "position")
+//                    positionAnimation.duration       = chartContainer!.animationDuration
+//                    positionAnimation.fromValue      = NSValue(cgPoint: oldPosition!)
+//                    positionAnimation.toValue        = NSValue(cgPoint: newPosition)
+//                    positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+//                    circle?.add(positionAnimation, forKey: "position")
+//                }
+//            }
+//        }
         //------ тут не понятно, что делается ---------------------
         let oldPath: CGPath? = graphLayer?.presentation()?.path
         let newPath: CGPath  = path.cgPath
         graphLayer?.path     = path.cgPath
-        if animationNeeded {
-            let pathAnimation             = CABasicAnimation(keyPath: "path")
-            pathAnimation.duration        = chartContainer!.animationDuration
-            pathAnimation.fromValue       = (oldPath as? Any)
-            pathAnimation.toValue         = (newPath as? Any)
-            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            graphLayer?.add(pathAnimation, forKey: "path")
-        }
-        let copyPath = UIBezierPath(cgPath: path.cgPath)
-        copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
-        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
-        let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
-        let maskNewPath: CGPath           = copyPath.cgPath
-        maskLayer?.path                   = copyPath.cgPath
-        gradientLayer?.mask               = maskLayer
-        if animationNeeded {
-            let pathAnimation2            = CABasicAnimation(keyPath: "path")
-            pathAnimation2.duration       = chartContainer!.animationDuration
-            pathAnimation2.fromValue      = (maskOldPath as? Any)
-            pathAnimation2.toValue        = (maskNewPath as? Any)
-            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            maskLayer?.add(pathAnimation2, forKey: "path")
-        }
+//        if animationNeeded {
+//            let pathAnimation             = CABasicAnimation(keyPath: "path")
+//            pathAnimation.duration        = chartContainer!.animationDuration
+//            pathAnimation.fromValue       = (oldPath as? Any)
+//            pathAnimation.toValue         = (newPath as? Any)
+//            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+//            graphLayer?.add(pathAnimation, forKey: "path")
+//        }
+//        let copyPath = UIBezierPath(cgPath: path.cgPath)
+//        copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
+//        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
+//        let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
+//        let maskNewPath: CGPath           = copyPath.cgPath
+//        maskLayer?.path                   = copyPath.cgPath
+//        gradientLayer?.mask               = maskLayer
+//        if animationNeeded {
+//            let pathAnimation2            = CABasicAnimation(keyPath: "path")
+//            pathAnimation2.duration       = chartContainer!.animationDuration
+//            pathAnimation2.fromValue      = (maskOldPath as? Any)
+//            pathAnimation2.toValue        = (maskNewPath as? Any)
+//            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+//            maskLayer?.add(pathAnimation2, forKey: "path")
+//        }
         CATransaction.commit()
     }
     

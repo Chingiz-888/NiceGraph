@@ -11,18 +11,14 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    let MAX_NUMBER_COUNT  = 1050
-    let MAX_NUMBER = 20
+    let MAX_NUMBER_COUNT  = 500
+    let MAX_NUMBER        = 20
     
     var _elements : [Int] = [Int]()
     var _chartView : ANDLineChartView?
     var _maxValue     : Int  = Int()
     var _numbersCount : Int  = Int()
 
-    
-
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
