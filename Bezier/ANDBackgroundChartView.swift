@@ -65,6 +65,17 @@ class ANDBackgroundChartView: UIView {
             paragraphStyle.lineBreakMode = .byTruncatingTail
         
             
+            let attribs = [NSFontAttributeName: chartContainer!.gridIntervalFont,
+                           NSForegroundColorAttributeName: stringColor,
+                           NSParagraphStyleAttributeName: paragraphStyle] as [String : Any]
+            let inRect = CGRect(x: CGFloat(INTERVAL_TEXT_LEFT_MARGIN),
+                                y: CGFloat((frame.height - (chartContainer!.gridIntervalFont?.lineHeight)!)),
+                                width: CGFloat(INTERVAL_TEXT_MAX_WIDTH),
+                                height: CGFloat((chartContainer!.gridIntervalFont?.lineHeight)!) )
+
+            stringToDraw.draw(in: inRect, withAttributes: attribs)
+            
+            
 //            stringToDraw.draw(in: CGRect(x: CGFloat(INTERVAL_TEXT_LEFT_MARGIN),
 //                                         y: CGFloat((frame.height - chartContainer!.gridIntervalFont().lineHeight)),
 //                                         width: CGFloat(INTERVAL_TEXT_MAX_WIDTH),
