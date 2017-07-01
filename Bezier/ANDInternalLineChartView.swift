@@ -117,13 +117,20 @@ class ANDInternalLineChartView: UIView {
         CATransaction.begin()
         for i in 0..<numberOfPoints {
             //---- первый цикл -----------------
-            let value: CGFloat = chartContainer!.valueForElement(atRow: i)
+           
+           
+            //---- вот так создается новая CGPoint - все от value valueForElement(atRow: i) -----
             // MOE - вот тут берется value, с которого расчитывается Y-координата
-            let minGridValue: CGFloat = chartContainer!.minValue()
             // используется spacingForElementAtRow + minGridValue
+            let value        : CGFloat = chartContainer!.valueForElement(atRow: i)
+            let minGridValue : CGFloat = chartContainer!.minValue()
+            
             xPosition += (chartContainer?.spacingForElement(atRow: i))!
-            yPosition = yMargin + floor((value - minGridValue) * pixelToRecordPoint())
+            yPosition  = yMargin + floor((value - minGridValue) * pixelToRecordPoint())
             let newPosition = CGPoint(x: xPosition, y: yPosition)
+            //-----------------------------------------
+            
+            
             path.addLine(to: newPosition)
             let circle: CALayer? = circleLayerForPoint(atRow: i)
             var oldPosition: CGPoint? = circle?.presentation()?.position

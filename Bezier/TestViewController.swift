@@ -32,18 +32,13 @@ class TestViewController: UIViewController {
 
         _chartView = ANDLineChartView(frame: CGRect.zero)
         _chartView?.translatesAutoresizingMaskIntoConstraints = false
-        _chartView?.dataSource = self
-        _chartView?.delegate   = self
+        _chartView?.dataSource        = self
+        _chartView?.delegate          = self
         _chartView?.animationDuration = 0.4
         self.view.addSubview(_chartView!)
         
         _elements = self.arrayWithRandomNumbers()
         self.setupConstraints()
-        
-    
-    
-        
-        
     }
 
 
@@ -98,16 +93,16 @@ class TestViewController: UIViewController {
 
 // MARK:   Methods of ANDLineChartViewDataSource protoocol ----------------------------
 extension TestViewController : ANDLineChartViewDataSource {
+    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat? {
+        return CGFloat( _elements[row] )
+    }
+    
     func numberOfElements(in chartView: ANDLineChartView) -> Int? {
         return MAX_NUMBER_COUNT
     }
     
     func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int? {
         return Int(12.0)
-    }
-    
-    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat? {
-        return CGFloat( (_elements[Int(row)]) )
     }
     
     // Values may be displayed differently eg. One might want to present 4200 seconds as 01h:10:00
