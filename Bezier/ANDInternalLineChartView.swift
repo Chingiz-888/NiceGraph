@@ -15,8 +15,8 @@ class ANDInternalLineChartView: UIView {
     var preferredMinLayoutWidth: CGFloat = 0.0
     
     let INTERVAL_TEXT_LEFT_MARGIN = 10.0
-    let INTERVAL_TEXT_MAX_WIDTH = 100.0
-    let CIRCLE_SIZE = 14.0
+    let INTERVAL_TEXT_MAX_WIDTH   = 100.0
+    let CIRCLE_SIZE : CGFloat     = 14.0
     
     
     private var graphLayer: CAShapeLayer?
@@ -24,8 +24,8 @@ class ANDInternalLineChartView: UIView {
     private var gradientLayer: CAGradientLayer?
     public var circleImage: UIImage?
     private var numberOfPreviousElements: Int = 0
-    private var maxValue: CGFloat = 0.0
-    private var minValue: CGFloat = 0.0
+    private var maxValue: CGFloat     = 0.0
+    private var minValue: CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
     convenience override init(frame: CGRect) {
@@ -133,9 +133,9 @@ class ANDInternalLineChartView: UIView {
             //animate position change
             if animationNeeded {
                 let positionAnimation = CABasicAnimation(keyPath: "position")
-                positionAnimation.duration = chartContainer!.animationDuration
-                positionAnimation.fromValue = NSValue(oldPosition)
-                positionAnimation.toValue = NSValue(newPosition)
+                positionAnimation.duration  = chartContainer!.animationDuration
+                positionAnimation.fromValue = NSValue(cgPoint: oldPosition!)
+                positionAnimation.toValue   = NSValue(cgPoint: newPosition)
                 //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
                 positionAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
                 circle?.add(positionAnimation, forKey: "position")
@@ -155,8 +155,8 @@ class ANDInternalLineChartView: UIView {
                 if animationNeeded {
                     let positionAnimation = CABasicAnimation(keyPath: "position")
                     positionAnimation.duration = chartContainer!.animationDuration
-                    positionAnimation.fromValue = NSValue(oldPosition)
-                    positionAnimation.toValue   = NSValue(newPosition)
+                    positionAnimation.fromValue = NSValue(cgPoint: oldPosition!)
+                    positionAnimation.toValue   = NSValue(cgPoint: newPosition)
                     positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                     circle?.add(positionAnimation, forKey: "position")
                 }
@@ -230,13 +230,18 @@ class ANDInternalLineChartView: UIView {
     func getCircleImage() -> UIImage {
         if circleImage == nil {
             let imageSize = CGSize(width: CGFloat(CIRCLE_SIZE), height: CGFloat(CIRCLE_SIZE))
-            let strokeWidth: CGFloat = 2
+            let strokeWidth: CGFloat = 2.0
             UIGraphicsBeginImageContextWithOptions(imageSize, false, 0.0)
             //[UIImage imageNamed:@"circle"];
-            let context: CGContext? = UIGraphicsGetCurrentContext()
+            let context = UIGraphicsGetCurrentContext()
             UIColor.clear.setFill()
-            context.fill([CGPoint.zero, imageSize])
-            let ovalPath = UIBezierPath(ovalin: (CGRect))
+            
+            context?.fill( CGRect.init(origin: CGPoint.zero, size: imageSize) )      // fill([CGPoint.zero, imageSize])
+            let ss = CIRCLE_SIZE - strokeWidth
+            let ovalPath = UIBezierPath.init(ovalIn: CGRect.init(origin: CGPoint(x: strokeWidth/2.0, y: strokeWidth/2.0),
+                                                                  size: CGSize(width: ss, height:  ss)))
+            
+            
             context?.saveGState()
             chartContainer?.elementFillColor?.setFill()
             ovalPath.fill()
@@ -265,9 +270,10 @@ class ANDInternalLineChartView: UIView {
         return CGSize(width: width, height: CGFloat(UIViewNoIntrinsicMetric))
     }
     
-    func setPreferredMinLayoutWidth(_ preferredMinLayoutWidth: CGFloat) {
+    //func setPreferredMinLayoutWidth(_ preferredMinLayoutWidth: CGFloat) {
+    func setPreferredMinLayoutWidth(preferredMinLayoutWidth: CGFloat) {
         if preferredMinLayoutWidth != preferredMinLayoutWidth {
-            preferredMinLayoutWidth = preferredMinLayoutWidth
+            self.preferredMinLayoutWidth = preferredMinLayoutWidth
             if frame.width < preferredMinLayoutWidth {
                 invalidateIntrinsicContentSize()
             }
