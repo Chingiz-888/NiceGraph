@@ -19,13 +19,13 @@ class ANDInternalLineChartView: UIView {
     let CIRCLE_SIZE : CGFloat     = 14.0
     
     
-    private var graphLayer: CAShapeLayer?
-    private var maskLayer: CAShapeLayer?
-    private var gradientLayer: CAGradientLayer?
-    public var circleImage: UIImage?
+    private var graphLayer     : CAShapeLayer?
+    private var maskLayer      : CAShapeLayer?
+    private var gradientLayer  : CAGradientLayer?
+    public var circleImage     : UIImage?
     private var numberOfPreviousElements: Int = 0
-    private var maxValue: CGFloat     = 0.0
-    private var minValue: CGFloat     = 0.0
+    private var maxValue       : CGFloat     = 0.0
+    private var minValue       : CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
     convenience override init(frame: CGRect) {
@@ -56,7 +56,7 @@ class ANDInternalLineChartView: UIView {
         graphLayer?.fillColor = nil
         graphLayer?.lineWidth = 2.0
         graphLayer?.lineJoin = kCALineJoinBevel
-        layer.addSublayer(graphLayer!)
+        self.layer.addSublayer(graphLayer!)
     }
     
     func setupGradientLayer() {
@@ -91,9 +91,9 @@ class ANDInternalLineChartView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        graphLayer?.frame = bounds
-        maskLayer?.frame = bounds
-        gradientLayer?.frame = bounds
+        graphLayer?.frame    = self.bounds
+        maskLayer?.frame     = self.bounds
+        gradientLayer?.frame = self.bounds
         refreshGraphLayer()
         // MOE - вызыва функции отписовки пути по точкам
     }
@@ -105,11 +105,11 @@ class ANDInternalLineChartView: UIView {
         }
         let path = UIBezierPath()
         path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
-        let numberOfPoints: Int = chartContainer!.numberOfElements()
+        let numberOfPoints: Int  = chartContainer!.numberOfElements()
         numberOfPreviousElements = numberOfPoints
-        var xPosition: CGFloat = 0.0
-        let yMargin: CGFloat = 0.0
-        var yPosition: CGFloat = 0.0
+        var xPosition: CGFloat   = 0.0
+        let yMargin: CGFloat     = 0.0
+        var yPosition: CGFloat   = 0.0
         //[_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
         graphLayer?.strokeColor = UIColor.red.cgColor
         // MOE - вот реально цвет задается
@@ -209,13 +209,26 @@ class ANDInternalLineChartView: UIView {
         return (maxHeight / (maxIntervalValue - minIntervalValue))
     }
     
+    
+    //  // MOE
+    // Вот тут пришшлось понять логику и переписать функцию
+    // суть тут в том, что в 2 условиях создаются и присобачиваются сабслои - когда вообше нет еще саблойеров graphLayer?.sublayers?.count  == nil
+    // и когда запрошенный row превосходит graphLayer?.sublayers?.count
+    
     func circleLayerForPoint(atRow row: Int) -> CALayer {
-        let totalNumberOfCircles: Int? = graphLayer?.sublayers?.count
-        if row >= totalNumberOfCircles! {
+        if let totalNumberOfCircles: Int? = graphLayer?.sublayers?.count {
+            if(row < totalNumberOfCircles!) {
+                 return (graphLayer?.sublayers?[row])!
+            } else {
+                let circleLayer: CALayer? = newCircleLayer()
+                graphLayer?.addSublayer(circleLayer!)
+                return (graphLayer?.sublayers?[row])!
+            }
+        } else {
             let circleLayer: CALayer? = newCircleLayer()
             graphLayer?.addSublayer(circleLayer!)
+            return (graphLayer?.sublayers?[row])!
         }
-        return (graphLayer?.sublayers![row])!
     }
     
     func newCircleLayer() -> CALayer {
@@ -257,13 +270,18 @@ class ANDInternalLineChartView: UIView {
     
     // MARK: -
     // MARK: - Autolayout code
+    
+    //MOE - НАДО РАЗОБРАТЬСЯ, ЗАЕМ НУЖНО БЫЛО УЗНАВАТЬ И ДОБАЛВТЬЯ ЕШЕ РАЗМЕР ШАРОВ ===============================================
     override public var intrinsicContentSize: CGSize {
+   
         var width: CGFloat = 0.0
         let totalElements: Int = chartContainer!.numberOfElements()
         for i in 0..<totalElements {
             width += (chartContainer?.spacingForElement(atRow: i))!
         }
-        width += (circleImage?.size.width)!
+       // width += (circleImage?.size.width)!
+        width += getCircleImage().size.width
+        
         if width < preferredMinLayoutWidth {
             width = preferredMinLayoutWidth
         }

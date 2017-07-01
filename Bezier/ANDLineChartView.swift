@@ -173,17 +173,19 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     // MARK: -
     // MARK: - ANDInternalLineChartViewDataSource methods
     func spacingForElement(atRow row: Int) -> CGFloat {
-        var spacing: CGFloat = elementSpacing
-        if (delegate != nil) && (delegate?.responds(to: Selector("chartView:spacingForElementAtRow:")))! {
-            var newSpacing: CGFloat = delegate!.chartView(self, spacingForElementAtRow: row)
-            assert(newSpacing > 0, "Spacing cannot be smaller than 0.0")
-            let imageSize: CGSize? = internalChartView?.circleImage?.size
-            newSpacing += (row == 0) ? (imageSize?.width)! / 2.0 : (imageSize?.width)!
-            if newSpacing > 0 {
-                spacing = newSpacing
-            }
-        }
-        return spacing
+        // MOE - надо поправить =======================================
+        
+//        var spacing: CGFloat = elementSpacing
+//        if (delegate != nil) && (delegate?.responds(to: Selector("chartView:spacingForElementAtRow:")))! {
+//            var newSpacing: CGFloat = delegate!.chartView(self, spacingForElementAtRow: row)
+//            assert(newSpacing > 0, "Spacing cannot be smaller than 0.0")
+//            let imageSize: CGSize? = internalChartView?.circleImage?.size
+//            newSpacing += (row == 0) ? (imageSize?.width)! / 2.0 : (imageSize?.width)!    // MOE - надо поправить
+//            if newSpacing > 0 {
+//                spacing = newSpacing
+//            }
+//        }
+        return 20.0
     }
     
     func numberOfElements() -> Int {

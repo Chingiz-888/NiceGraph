@@ -42,7 +42,7 @@ class ViewController: UIViewController {
     // Эта переменная-массив наполняется замыканием, что возвращает массив [CGPoint], пролучаемые из отмапенных на доступную для графика
     // и на равные доли от количества точек на экране (в программе их 6) область
     var graphPoints : [CGPoint] {
-        var points = [CGPoint]()
+        var points  = [CGPoint]()
         for i in 0..<dataPoints.count {
             let val = CGPoint(x: self.xAxisPoints[i], y: self.yAxisPoints[i])
             points.append(val)

@@ -11,7 +11,7 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    let MAX_NUMBER_COUNT  = 150
+    let MAX_NUMBER_COUNT  = 1050
     let MAX_NUMBER = 20
     
     var _elements : [Int] = [Int]()
@@ -41,8 +41,7 @@ class TestViewController: UIViewController {
         self.setupConstraints()
         
     
-        var paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineBreakMode = .byTruncatingTail
+    
         
         
     }
