@@ -168,6 +168,7 @@ class ANDInternalLineChartView: UIView {
         let cubicCurveAlgorithm = CubicCurveAlgorithm()
         guard let pointss = myPoints else {
             assert(false, "getMyPoints() функция сломалась")
+            return
         }
         let controlPoints = cubicCurveAlgorithm.controlPointsFromPoints( myPoints! )
         //print(controlPoints)
