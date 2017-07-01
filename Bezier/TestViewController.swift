@@ -111,11 +111,11 @@ extension TestViewController : ANDLineChartViewDataSource {
     }
     
     func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return CGFloat(_maxValue)
+        return CGFloat(_maxValue)  // 20.0
     }
     
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return -2.0
+        return -2.0                // -2.0
     }
 }//--------------------------------------------------------------------------------------
 

@@ -108,16 +108,15 @@ class ANDInternalLineChartView: UIView {
         let numberOfPoints: Int  = chartContainer!.numberOfElements()
         numberOfPreviousElements = numberOfPoints
         var xPosition: CGFloat   = 0.0
-        let yMargin: CGFloat     = 0.0
+        let yMargin:   CGFloat   = 0.0
         var yPosition: CGFloat   = 0.0
-        //[_graphLayer setStrokeColor:[[self.chartContainer lineColor] CGColor]];
-        graphLayer?.strokeColor = UIColor.red.cgColor
-        // MOE - вот реально цвет задается
+        graphLayer?.strokeColor = self.chartContainer?.lineColor?.cgColor //UIColor.red.cgColor // цвет линий
         var lastPoint = CGPoint(x: CGFloat(0), y: CGFloat(0))
+        
         CATransaction.begin()
-        for i in 0..<numberOfPoints {
-            //---- первый цикл -----------------
-           
+        
+        for i in 0..<numberOfPoints
+        {//---- первый цикл ------------------------
            
             //---- вот так создается новая CGPoint - все от value valueForElement(atRow: i) -----
             // MOE - вот тут берется value, с которого расчитывается Y-координата
@@ -125,8 +124,8 @@ class ANDInternalLineChartView: UIView {
             let value        : CGFloat = chartContainer!.valueForElement(atRow: i)
             let minGridValue : CGFloat = chartContainer!.minValue()
             
-            xPosition += (chartContainer?.spacingForElement(atRow: i))!
-            yPosition  = yMargin + floor((value - minGridValue) * pixelToRecordPoint())
+            xPosition      += (chartContainer?.spacingForElement(atRow: i))!
+            yPosition       = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
             let newPosition = CGPoint(x: xPosition, y: yPosition)
             //-----------------------------------------
             
@@ -147,23 +146,26 @@ class ANDInternalLineChartView: UIView {
                 positionAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
                 circle?.add(positionAnimation, forKey: "position")
             }
-        }
-        //---- первый цикл -----------------
+            
+        }//---- конец первого цикла -----------------
+        
+        
         // hide other circles if needed
         //hide them under minValue - 10.0 points
         if (graphLayer?.sublayers?.count)! > numberOfPoints {
             //------ тут не понятно, что делается ---------------------
             for i in numberOfPoints..<(graphLayer?.sublayers?.count)! {
-                let circle: CALayer? = circleLayerForPoint(atRow: i)
-                let oldPosition: CGPoint? = circle?.presentation()?.position
-                let newPosition = CGPoint(x: CGFloat((oldPosition?.x)!), y: CGFloat((chartContainer?.minValue())! - 50.0))
-                circle?.position = newPosition
+                let circle      : CALayer? = circleLayerForPoint(atRow: i)
+                let oldPosition : CGPoint? = circle?.presentation()?.position
+                let newPosition            = CGPoint(  x: CGFloat((oldPosition?.x)!),
+                                                       y: CGFloat( (chartContainer?.minValue())! - 50.0 )  )
+                circle?.position           = newPosition
                 // animate position change
                 if animationNeeded {
-                    let positionAnimation = CABasicAnimation(keyPath: "position")
-                    positionAnimation.duration = chartContainer!.animationDuration
-                    positionAnimation.fromValue = NSValue(cgPoint: oldPosition!)
-                    positionAnimation.toValue   = NSValue(cgPoint: newPosition)
+                    let positionAnimation            = CABasicAnimation(keyPath: "position")
+                    positionAnimation.duration       = chartContainer!.animationDuration
+                    positionAnimation.fromValue      = NSValue(cgPoint: oldPosition!)
+                    positionAnimation.toValue        = NSValue(cgPoint: newPosition)
                     positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                     circle?.add(positionAnimation, forKey: "position")
                 }
@@ -171,28 +173,28 @@ class ANDInternalLineChartView: UIView {
         }
         //------ тут не понятно, что делается ---------------------
         let oldPath: CGPath? = graphLayer?.presentation()?.path
-        let newPath: CGPath = path.cgPath
-        graphLayer?.path = path.cgPath
+        let newPath: CGPath  = path.cgPath
+        graphLayer?.path     = path.cgPath
         if animationNeeded {
-            let pathAnimation = CABasicAnimation(keyPath: "path")
-            pathAnimation.duration = chartContainer!.animationDuration
-            pathAnimation.fromValue = (oldPath as? Any)
-            pathAnimation.toValue = (newPath as? Any)
-            pathAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+            let pathAnimation             = CABasicAnimation(keyPath: "path")
+            pathAnimation.duration        = chartContainer!.animationDuration
+            pathAnimation.fromValue       = (oldPath as? Any)
+            pathAnimation.toValue         = (newPath as? Any)
+            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
             graphLayer?.add(pathAnimation, forKey: "path")
         }
         let copyPath = UIBezierPath(cgPath: path.cgPath)
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
         //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
-        let maskOldPath: CGPath? = maskLayer?.presentation()?.path
-        let maskNewPath: CGPath = copyPath.cgPath
-        maskLayer?.path = copyPath.cgPath
-        gradientLayer?.mask = maskLayer
+        let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
+        let maskNewPath: CGPath           = copyPath.cgPath
+        maskLayer?.path                   = copyPath.cgPath
+        gradientLayer?.mask               = maskLayer
         if animationNeeded {
-            let pathAnimation2 = CABasicAnimation(keyPath: "path")
-            pathAnimation2.duration = chartContainer!.animationDuration
-            pathAnimation2.fromValue = (maskOldPath as? Any)
-            pathAnimation2.toValue = (maskNewPath as? Any)
+            let pathAnimation2            = CABasicAnimation(keyPath: "path")
+            pathAnimation2.duration       = chartContainer!.animationDuration
+            pathAnimation2.fromValue      = (maskOldPath as? Any)
+            pathAnimation2.toValue        = (maskNewPath as? Any)
             //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
             pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
             maskLayer?.add(pathAnimation2, forKey: "path")
@@ -205,12 +207,13 @@ class ANDInternalLineChartView: UIView {
     // MARK: - Helpers
     func viewHeight() -> CGFloat {
         let font: UIFont?       = chartContainer?.gridIntervalFont
-        let maxHeight: CGFloat? = round(frame.height - (font?.lineHeight)!)
+        //print("\(frame.height) - \(font?.lineHeight)")   // portrait 676.0 - 13.98   и landscape 374.0 - 13.98
+        let maxHeight: CGFloat? = round(frame.height - (font?.lineHeight)!)  //662 и 360
         return maxHeight!
     }
     
     func pixelToRecordPoint() -> CGFloat {
-        let maxHeight: CGFloat = viewHeight()
+        let maxHeight: CGFloat = viewHeight()     // максимальная высотка frame'а за вычетом размера шоифта
         let maxIntervalValue: CGFloat = chartContainer!.maxValue()
         let minIntervalValue: CGFloat = chartContainer!.minValue()
         return (maxHeight / (maxIntervalValue - minIntervalValue))
