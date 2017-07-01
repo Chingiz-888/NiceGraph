@@ -11,18 +11,18 @@ import UIKit
 
 
 protocol ANDLineChartViewDataSource: NSObjectProtocol {
-    func numberOfElements(in chartView: ANDLineChartView) -> Int
+    func numberOfElements(in chartView: ANDLineChartView) -> Int?
     
-    func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int
+    func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int?
     
-    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat
+    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat?
     
     // Values may be displayed differently eg. One might want to present 4200 seconds as 01h:10:00
     func chartView(_ chartView: ANDLineChartView, descriptionForGridIntervalValue interval: CGFloat) -> String
     
-    func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat
+    func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat?
     
-    func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat
+    func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat?
 }
 
 protocol ANDLineChartViewDelegate: NSObjectProtocol {
@@ -104,8 +104,8 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         gridIntervalFontColor = UIColor(red: CGFloat(0.216), green: CGFloat(0.204), blue: CGFloat(0.478), alpha: CGFloat(1.000))
         gridIntervalFont = UIFont(name: "HelveticaNeue", size: CGFloat(DEFAULT_FONT_SIZE))
         elementSpacing = CGFloat(DEFAULT_ELEMENT_SPACING)
-        animationDuration(TRANSITION_DURATION)
-        shouldLabelsFloat = true
+        animationDuration   = TRANSITION_DURATION
+        isShouldLabelsFloat = true
     }
     
     func setupInitialConstraints() {
@@ -187,60 +187,71 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func numberOfElements() -> Int {
-        if (dataSource != nil) && dataSource!.responds(to: #selector(self.numberOfElementsInChartView)) {
-            return dataSource!.numberOfElements(in: self)
-        }
-        else {
-            assert((dataSource != nil), "Data source is not set.")
-            assert(dataSource!.responds(to: #selector(self.numberOfElementsInChartView)), "numberOfElementsInChartView: not implemented.")
+        if dataSource != nil {
+            guard let number = dataSource!.numberOfElements(in: self)  else {
+                assert(false, "numberOfElementsInChartView: not implemented")
+                return 0
+            }
+            return number
+        } else {
+            assert(false, "Data source is not set.")
             return 0
         }
     }
     
     func numberOfIntervalLines() -> Int {
-        if (dataSource != nil) && dataSource!.responds(to: #selector(self.numberOfGridIntervalsInChartView)) {
-            return dataSource!.numberOfGridIntervals(in: self)
-        }
-        else {
-            assert((dataSource != nil), "Data source is not set.")
-            assert(dataSource!.responds(to: #selector(self.numberOfGridIntervalsInChartView)), "numberOfGridIntervalsInChartView: not implemented.")
+        if dataSource != nil {
+            guard let number = dataSource!.numberOfGridIntervals(in: self)  else {
+                assert(false, "numberOfGridIntervalsInChartView: not implemented.")
+                return 0
+            }
+            return number
+        } else {
+            assert(false, "Data source is not set.")
             return 0
         }
     }
-    
+    // valueForElementAtRow
     func valueForElement(atRow row: Int) -> CGFloat {
-        if (dataSource != nil) && (dataSource?.responds(to: Selector("chartView:valueForElementAtRow:")))! {
-            let value: CGFloat = dataSource!.chartView(self, valueForElementAtRow: row)
-            assert(value >= minValue() && value <= maxValue(), "Value for element \(UInt(row)) (\(value)) is not in min/max range")
-            return value
-        }
-        else {
-            assert((dataSource != nil), "Data source is not set.")
-            assert((dataSource?.responds(to: Selector("chartView:valueForElementAtRow:")))!, "chartView:valueForElementAtRow: not implemented.")
+        if dataSource != nil {
+            guard let value  = dataSource!.chartView(self, valueForElementAtRow: row)  else {
+                assert(false, "chartView:valueForElementAtRow: not implemented.")
+                return 0.0
+            }
+            if ( value >= minValue() && value <= maxValue() ) {
+                 return value
+            } else {
+                //assert(value >= minValue() && value <= maxValue(), "Value for element \(UInt(row)) (\(value)) is not in min/max range")
+                return 0.0
+            }
+        } else {
+            assert(false, "Data source is not set.")
             return 0.0
         }
     }
     
     func minValue() -> CGFloat {
-        if (dataSource != nil) && dataSource!.responds(to: #selector(self.minValueForGridIntervalInChartView)) {
-            let minValue: CGFloat = dataSource!.minValueForGridInterval(in: self)
-            assert(minValue < maxValue(), "minimal value cannot be bigger than max value")
+        if dataSource != nil {
+            guard let minValue = dataSource!.minValueForGridInterval(in: self) else {
+                assert(false, "minimal value cannot be bigger than max value")
+                return 0.0
+            }
             return minValue
-        }
-        else {
-            assert((dataSource != nil), "Data source is not set.")
-            assert(dataSource!.responds(to: #selector(self.minValueForGridIntervalInChartView)), "minValueForGridIntervalInChartView: not implemented.")
+        } else {
+            assert(false, "Data source is not set.")
             return 0.0
         }
     }
     
     func maxValue() -> CGFloat {
-        if (dataSource != nil) && dataSource!.responds(to: #selector(self.maxValueForGridIntervalInChartView)) {
-            return dataSource!.maxValueForGridInterval(in: self)
-        }
-        else {
-            assert((dataSource != nil), "Data source is not set.")
-            assert( dataSource!.maxValueForGridInterval, "maxValueForGridIntervalInChartView: not implemented.")
+        if dataSource != nil {
+            guard let maxValue = dataSource!.maxValueForGridInterval(in: self) else {
+                assert( false, "maxValueForGridIntervalInChartView: not implemented.")
+                return 0.0
+            }
+            return maxValue
+        } else {
+            assert(false, "Data source is not set.")
             return 0.0
         }
     }

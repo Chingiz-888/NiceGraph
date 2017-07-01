@@ -156,7 +156,7 @@ class ANDInternalLineChartView: UIView {
                     let positionAnimation = CABasicAnimation(keyPath: "position")
                     positionAnimation.duration = chartContainer!.animationDuration
                     positionAnimation.fromValue = NSValue(oldPosition)
-                    positionAnimation.toValue = NSValue(newPosition)
+                    positionAnimation.toValue   = NSValue(newPosition)
                     positionAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
                     circle?.add(positionAnimation, forKey: "position")
                 }
@@ -252,13 +252,13 @@ class ANDInternalLineChartView: UIView {
     
     // MARK: -
     // MARK: - Autolayout code
-    func intrinsicContentSize() -> CGSize {
+    override public var intrinsicContentSize: CGSize {
         var width: CGFloat = 0.0
         let totalElements: Int = chartContainer!.numberOfElements()
         for i in 0..<totalElements {
             width += (chartContainer?.spacingForElement(atRow: i))!
         }
-        width += circleImage?.size.width
+        width += (circleImage?.size.width)!
         if width < preferredMinLayoutWidth {
             width = preferredMinLayoutWidth
         }

@@ -95,15 +95,15 @@ class TestViewController: UIViewController {
 
 // MARK:   Methods of ANDLineChartViewDataSource protoocol ----------------------------
 extension TestViewController : ANDLineChartViewDataSource {
-    func numberOfElements(in chartView: ANDLineChartView) -> Int {
+    func numberOfElements(in chartView: ANDLineChartView) -> Int? {
         return MAX_NUMBER_COUNT
     }
     
-    func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int {
+    func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int? {
         return Int(12.0)
     }
     
-    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat {
+    func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat? {
         return CGFloat( (_elements[Int(row)]) )
     }
     
@@ -112,11 +112,11 @@ extension TestViewController : ANDLineChartViewDataSource {
         return  String.init(format: "%.1f", interval)
     }
     
-    func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat {
+    func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
         return CGFloat(_maxValue)
     }
     
-    func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat {
+    func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
         return -2.0
     }
 }//--------------------------------------------------------------------------------------
