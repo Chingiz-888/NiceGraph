@@ -75,19 +75,8 @@ class ANDBackgroundChartView: UIView {
 
             stringToDraw.draw(in: inRect, withAttributes: attribs)
             
-            
-//            stringToDraw.draw(in: CGRect(x: CGFloat(INTERVAL_TEXT_LEFT_MARGIN),
-//                                         y: CGFloat((frame.height - chartContainer!.gridIntervalFont().lineHeight)),
-//                                         width: CGFloat(INTERVAL_TEXT_MAX_WIDTH),
-//                                         height: CGFloat(chartContainer!.gridIntervalFont.lineHeight)),
-//                              
-//                              withAttributes: [NSFontAttributeName: chartContainer!.gridIntervalFont(),
-//                                               NSForegroundColorAttributeName: stringColor,
-//                                               NSParagraphStyleAttributeName: paragraphStyle])
-            
-            context?.translateBy(x: 0.0, y: -intervalSpacing)
 
-            
+            context?.translateBy(x: 0.0, y: -intervalSpacing)
         }
         
         context?.restoreGState()
