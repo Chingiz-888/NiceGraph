@@ -11,7 +11,7 @@ import UIKit
 class ANDBackgroundChartView: UIView {
     
     let INTERVAL_TEXT_LEFT_MARGIN = 10.0
-    let INTERVAL_TEXT_MAX_WIDTH = 100.0
+    let INTERVAL_TEXT_MAX_WIDTH   = 100.0
 
     weak var chartContainer: ANDLineChartView?
     
@@ -37,7 +37,9 @@ class ANDBackgroundChartView: UIView {
         let boundsPath = UIBezierPath(rect: bounds)
         context.setFillColor(chartContainer.chartBackgroundColor().cgColor)
         boundsPath.fill()
+        
         let maxHeight: CGFloat = viewHeight()
+        
         UIColor(red: CGFloat(0.329), green: CGFloat(0.322), blue: CGFloat(0.620), alpha: CGFloat(1.000)).setStroke()
         let gridLinePath = UIBezierPath()
         let startPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(frame.height))
@@ -46,18 +48,20 @@ class ANDBackgroundChartView: UIView {
         gridLinePath.addLine(to: endPoint)
         gridLinePath.lineWidth = 1.0
         context.saveGState()
+        
         let numberOfIntervalLines: Int = chartContainer.numberOfIntervalLines()
-        let intervalSpacing: CGFloat = (maxHeight / (numberOfIntervalLines - 1))
-        let maxIntervalValue: CGFloat = chartContainer.maxValue()
-        let minIntervalValue: CGFloat = chartContainer.minValue()
-        let maxIntervalDiff: CGFloat = (maxIntervalValue - minIntervalValue) / (numberOfIntervalLines - 1)
+        let intervalSpacing: CGFloat   = (maxHeight / (numberOfIntervalLines - 1))
+        let maxIntervalValue: CGFloat  = chartContainer.maxValue()
+        let minIntervalValue: CGFloat  = chartContainer.minValue()
+        let maxIntervalDiff: CGFloat   = (maxIntervalValue - minIntervalValue) / (numberOfIntervalLines - 1)
+        
         for i in 0..<numberOfIntervalLines {
             chartContainer.gridIntervalLinesColor().setStroke()
             gridLinePath.stroke()
             let stringToDraw: String = chartContainer.description(forValue: minIntervalValue + i * maxIntervalDiff)
             let stringColor: UIColor? = chartContainer.gridIntervalFontColor()
             var paragraphStyle = NSMutableParagraphStyle.default
-            paragraphStyle.lineBreakMode = NSLineBreakByTruncatingTail
+            paragraphStyle.lineBreakMode = .byTruncatingTail   //NSLineBreakByTruncatingTail
             stringToDraw.draw(in: CGRect(x: CGFloat(INTERVAL_TEXT_LEFT_MARGIN), y: CGFloat((frame.height - chartContainer.gridIntervalFont().lineHeight)), width: CGFloat(INTERVAL_TEXT_MAX_WIDTH), height: CGFloat(chartContainer.gridIntervalFont().lineHeight)), withAttributes: [NSFontAttributeName: chartContainer.gridIntervalFont(), NSForegroundColorAttributeName: stringColor, NSParagraphStyleAttributeName: paragraphStyle])
             context.translateBy(x: 0.0, y: -intervalSpacing)
         }

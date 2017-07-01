@@ -28,10 +28,12 @@ class ANDInternalLineChartView: UIView {
     private var minValue: CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
-    convenience override init(frame: CGRect) {
-        return self.init(frame: frame, chartContainer: nil)
-    }
-    
+//    convenience override init(frame: CGRect) {
+//        //self.init(frame: frame, chartContainer: nil)
+//        //self.init(frame: frame, chartContainer: nil)
+//        self.init(frame: frame, chartContainer: self)
+//    }
+//    
     init(frame: CGRect, chartContainer: ANDLineChartView) {
         super.init(frame: frame)
         
@@ -39,8 +41,8 @@ class ANDInternalLineChartView: UIView {
         setupGradientLayer()
         setupMaskLayer()
         setupGraphLayer()
-        backgroundColor = UIColor.clear
-        isOpaque = false
+        backgroundColor     = UIColor.clear
+        isOpaque            = false
         
     }
     
@@ -197,7 +199,7 @@ class ANDInternalLineChartView: UIView {
     // MARK: -
     // MARK: - Helpers
     func viewHeight() -> CGFloat {
-        let font: UIFont? = chartContainer?.gridIntervalFont
+        let font: UIFont?       = chartContainer?.gridIntervalFont
         let maxHeight: CGFloat? = round(frame.height - (font?.lineHeight)!)
         return maxHeight!
     }
