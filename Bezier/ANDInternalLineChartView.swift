@@ -18,6 +18,9 @@ class ANDInternalLineChartView: UIView {
     let INTERVAL_TEXT_MAX_WIDTH   = 100.0
     let CIRCLE_SIZE : CGFloat     = 14.0
     
+    let LABEL_TEXT_WIDTH  = 60.0
+    let LABEL_TEXT_HEIGHT = 15.0
+    
     
     private var graphLayer     : CAShapeLayer?
     private var maskLayer      : CAShapeLayer?
@@ -48,12 +51,66 @@ class ANDInternalLineChartView: UIView {
         setupGraphLayer()
         backgroundColor     = UIColor.clear
         isOpaque            = false
+        setupLabels()
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    func setupLabels() {
+        
+        
+//        let context: CGContext? = UIGraphicsGetCurrentContext()
+//        context?.setFillColor(chartContainer!.chartBackgroundColor?.cgColor as! CGColor)
+//        context?.saveGState()
+//        
+//        
+//        let stringToDraw: String =   "проверка"
+//        let stringColor: UIColor? = UIColor.red
+//        
+//        var paragraphStyle = NSMutableParagraphStyle()
+//        paragraphStyle.lineBreakMode = .byTruncatingTail
+//        
+//        
+//        let attribs = [NSFontAttributeName: chartContainer!.gridIntervalFont,
+//                       NSForegroundColorAttributeName: stringColor,
+//                       NSParagraphStyleAttributeName: paragraphStyle] as [String : Any]
+//        
+        let inRect = CGRect(x:      20,
+                            y:      100.0,
+                            width:  CGFloat(LABEL_TEXT_WIDTH),
+                            height: CGFloat(LABEL_TEXT_HEIGHT) )
+        let lblColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.7)
+//
+//        stringToDraw.draw(in: inRect, withAttributes: attribs)
+//        
+//        context?.translateBy(x: 0.0, y: -20)
+        
+        
+        let points : [CGPoint]? = nil
+        guard  let realPoints = points else {
+            return
+        }
+        for i in 0..<realPoints.count {
+            let label = UILabel(frame: inRect)
+            label.textColor = lblColor
+            
+            let rotate = CGAffineTransform( rotationAngle: CGFloat.pi / 2 )  // CGFloat(M_PI_2)
+            let translate = CGAffineTransform(translationX: realPoints[i].x,
+                                              y: realPoints[i].y - 5.0 - CGFloat(LABEL_TEXT_WIDTH) )
+            label.transform = rotate.concatenating(translate)
+            
+            label.text = "20.08"
+            label.textAlignment = .right
+            label.backgroundColor = UIColor.red
+            self.addSubview(label)
+        }
+        
+        
+   }
     
     func setupGraphLayer() {
         graphLayer = CAShapeLayer()
@@ -300,6 +357,15 @@ class ANDInternalLineChartView: UIView {
             maskLayer?.add(pathAnimation2, forKey: "path")
         }
         CATransaction.commit()
+        
+        
+        
+        
+        // рисую надписи вертикальные
+//        let ctx = UIGraphicsGetCurrentContext()
+//        ctx!.translateBy( x: 0.5 * bounds.width, y: 0.5 * bounds.height )
+//        ctx!.rotate(by: CGFloat(M_PI*45/180))
+        
     }//====================================================================================================
      //====================================================================================================
      //====================================================================================================
