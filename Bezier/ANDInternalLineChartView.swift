@@ -148,7 +148,7 @@ class ANDInternalLineChartView: UIView {
         if chartContainer?.numberOfElements() == 0 {
             return
         }
-        let path = UIBezierPath()
+        var path = UIBezierPath()
         path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
         let numberOfPoints: Int  = chartContainer!.numberOfElements()
         numberOfPreviousElements = numberOfPoints
@@ -163,42 +163,17 @@ class ANDInternalLineChartView: UIView {
         
         
          //**** НОВАЯ ЛОГИКА BEZIER GRAPH ******
-        myPoints = getMyPoints()
-        let cubicCurveAlgorithm = CubicCurveAlgorithm()
-        guard let pointss = myPoints else {
+         myPoints = getMyPoints()
+         guard let pointss = myPoints else {
             assert(false, "getMyPoints() функция сломалась")
             return
         }
-        let controlPoints = cubicCurveAlgorithm.controlPointsFromPoints( myPoints! )
-        //print(controlPoints)
-        
-    
+        // ВОТ ОН МОЙ НОВЫЙ АЛГОРИТМ - и я сразу поулчаю PATH, а не массив controlPoint'ов (CubicSegment)
+        // от которых мнеп отом еще надо самому чертить BezierPath
         // у нас есть массив [CGPoint] и мы в ответ на него получаем UIBezierPath
         
-
         let newAlgorithm = CubicCurvedPath(data: myPoints!)
-        let myNewPath = newAlgorithm.cubicCurvedPath()
-        UIColor.black.setStroke()
-        myNewPath.stroke()
-        
-        
-        
-//        for i in 0 ..< myPoints!.count {
-//                
-//                let point = myPoints![i];
-//                
-//                if i == 0 {
-//                    path.move(to: point)
-//                } else {
-//                    let segment = controlPoints[i-1]
-//                    path.addCurve(to: point, controlPoint1: segment.controlPoint1, controlPoint2: segment.controlPoint2)
-//                }
-//        }
-        
-        //path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
-//        UIColor.black.setStroke() //
-//        path.close()
-//        path.stroke()
+        path = newAlgorithm.cubicCurvedPath()
         //************************************
         
         
@@ -221,10 +196,7 @@ class ANDInternalLineChartView: UIView {
                      let myPoint = newPosition
                //*************************************
             //-----------------------------------------
-            
-            
-            //path.addLine(to: newPosition)
-            
+    
    
             let circle: CALayer? = circleLayerForPoint(atRow: i)
             var oldPosition: CGPoint? = circle?.presentation()?.position
