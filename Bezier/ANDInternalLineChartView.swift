@@ -68,25 +68,33 @@ class ANDInternalLineChartView: UIView {
     
     func setupGradientLayer() {
         gradientLayer = CAGradientLayer()
-//        let color1: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.7)).cgColor
-//        let color2: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.0)).cgColor
-        
-
+        //**** НАСТРОЙКИ РАДУГИ ГРАДИЕНТА *****
+        let numberOfColorsInRainbow = 10
+        let shift : Float = 0.0
+    
         var colors = [CGColor]();
-        let increment : Float = 0.2;
-        var hue : Float = 0.2
-        while (hue<1.0)  {
+        let increment : Float = (1.0 - shift) / Float(numberOfColorsInRainbow);
+        var hue : Float = shift
+        for i in 0..<numberOfColorsInRainbow {
             let color =  UIColor.init(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.7).cgColor
             colors.append(color)
             hue += increment
         }
         
+        var locations = [NSNumber]()
+        var locationIncrement : Float = 1.0 / Float(numberOfColorsInRainbow)
+        var currentLocation : Float = 0.0
+        for i in 0..<colors.count {
+            let loc = NSNumber(floatLiteral: Double(currentLocation))
+            locations.append(loc)
+            currentLocation += locationIncrement
+        }
         
+        print(colors)
+        print(locations)
         
-        //gradientLayer?.colors = [(color1 as? Any), (color2 as? Any)]
-        gradientLayer?.colors = colors
-        
-        gradientLayer?.locations = [0.0, 0.25, 0.5, 1.0]
+        gradientLayer?.colors = colors   // ранее  [(color1 as? Any), (color2 as? Any)]
+        gradientLayer?.locations = locations
         gradientLayer?.frame = bounds
         layer.addSublayer(gradientLayer!)
     }
