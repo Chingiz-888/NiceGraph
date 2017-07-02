@@ -12,9 +12,9 @@ import UIKit
 class TestViewController: UIViewController {
 
     
-    @IBOutlet weak var myChartView: ANDLineChartView!
-    
-    
+    @IBOutlet weak var viewForChart: UIView!
+
+       
     
     let MAX_NUMBER_COUNT     = 1500
     let MAX_NUMBER           = 20
@@ -26,18 +26,25 @@ class TestViewController: UIViewController {
     var _numbersCount : Int  = Int()
 
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         
         _maxValue     = self.MAX_NUMBER
         _numbersCount = self.MAX_NUMBER_COUNT;
-
         _chartView = ANDLineChartView(frame: CGRect.zero)
         _chartView?.translatesAutoresizingMaskIntoConstraints = false
         _chartView?.dataSource        = self
         _chartView?.delegate          = self
         _chartView?.animationDuration = 0.4
-        self.view.addSubview(_chartView!)
+        
+        // вариант 1 - chartView добавляется прямо на superview - self.view
+        // self.view.addSubview(_chartView!)
+        
+        // вариант 2 - chartView добавляется на view-подложку
+        self.viewForChart.addSubview(_chartView!)
         
         _elements = self.arrayWithRandomNumbers()
         self.setupConstraints()
@@ -60,32 +67,28 @@ class TestViewController: UIViewController {
     
     
     func setupConstraints() {
-        
-        let topLayoutGuide = self.topLayoutGuide
        
+        // вариант 1 - chartView добавляется прямо на superview - self.view
+        /*let topLayoutGuide =  self.topLayoutGuide
         let views: [String: AnyObject] = ["_chartView"    : _chartView!,
-                                          "topLayoutGuide": topLayoutGuide
-                                          ]
-       
-        let constraints1 = NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-20-[_chartView]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-        let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|[_chartView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+                                          "topLayoutGuide": topLayoutGuide]*/
+        //let constraints1 = NSLayoutConstraint.constraints(withVisualFormat: "V:[topLayoutGuide]-20-[_chartView]-20-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        //let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|[_chartView]|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        // self.view.addConstraints(constraints1)
+        // self.view.addConstraints(constraints2)
         
-         self.view.addConstraints(constraints1)
-         self.view.addConstraints(constraints2)
+        
+        // вариант 2 - chartView добавляется на view-подложку
+        let views: [String: AnyObject] = [ "viewForChart"  : viewForChart,
+                                           "_chartView"    : _chartView!
+                                          ]
+        
+        let constraints1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(-10)-[_chartView]-(-10)-|", options: NSLayoutFormatOptions.alignAllCenterY, metrics: nil, views: views)
+        let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(-10)-[_chartView]-(-10)-|", options: NSLayoutFormatOptions.alignAllCenterX, metrics: nil, views: views)
+        self.viewForChart.addConstraints(constraints1)
+        self.viewForChart.addConstraints(constraints2)
+       
     }
-    
-    
-    // мне не нужжно - можно руками наполнить массив вью
-    // let d = dictionaryOfNames(arr: _chartView!)
-//    func dictionaryOfNames(arr:UIView...) -> Dictionary<String,UIView> {
-//        var d = Dictionary<String,UIView>()
-//        for (ix,v) in arr.enumerated(){
-//            d["v\(ix+1)"] = v
-//        }
-//        return d
-//    }
-    
-
 }//----- end of class declaration -----------------
 
 
@@ -107,7 +110,7 @@ extension TestViewController : ANDLineChartViewDataSource {
         return Int(12.0)
     }
     
-    // Values may be displayed differently eg. One might want to present 4200 seconds as 01h:10:00
+    // Форматированные подписи к Y-оси
     func chartView(_ chartView: ANDLineChartView, descriptionForGridIntervalValue interval: CGFloat) -> String {
         return  String.init(format: "%.1f", interval)
     }

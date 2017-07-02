@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,21 +21,47 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzc-Ho-PrG" customClass="ANDLineChartView" customModule="Bezier" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="621"/>
-                                <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.71445050340000005" alpha="1" colorSpace="calibratedRGB"/>
-                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-Qb-nUH">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzc-Ho-PrG">
+                                        <rect key="frame" x="0.0" y="49" width="375" height="477"/>
+                                        <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.71445050340000005" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="477" id="KsZ-g8-gAy"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="477" id="ZGu-NM-LvC"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пример размещения в  UIScrollView" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-ID-yBP">
+                                        <rect key="frame" x="37" y="549" width="300" height="92"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="sxx-ID-yBP" firstAttribute="top" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="23" id="5jk-Ni-kBR"/>
+                                    <constraint firstItem="sxx-ID-yBP" firstAttribute="centerX" secondItem="Ugd-Qb-nUH" secondAttribute="centerX" id="68b-2F-nMB"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" id="9Us-4c-asw"/>
+                                    <constraint firstItem="sxx-ID-yBP" firstAttribute="top" secondItem="Ugd-Qb-nUH" secondAttribute="top" constant="549" id="TNt-Cf-qfY"/>
+                                    <constraint firstAttribute="bottom" secondItem="sxx-ID-yBP" secondAttribute="bottom" constant="26" id="ckc-wh-wWh"/>
+                                    <constraint firstAttribute="bottom" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="141" id="gJZ-dt-2K1"/>
+                                    <constraint firstItem="Qzc-Ho-PrG" firstAttribute="centerX" secondItem="sxx-ID-yBP" secondAttribute="centerX" id="pqR-rH-bL2"/>
+                                </constraints>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Qzc-Ho-PrG" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="4bu-kS-T1I"/>
-                            <constraint firstItem="Qzc-Ho-PrG" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="amu-t5-6ZT"/>
-                            <constraint firstAttribute="trailing" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" id="omn-9a-mUL"/>
-                            <constraint firstItem="2Bb-a5-8ti" firstAttribute="top" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="46" id="v4X-yj-tcd"/>
+                            <constraint firstItem="Qzc-Ho-PrG" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" id="67o-zD-0eZ"/>
+                            <constraint firstAttribute="trailing" secondItem="Ugd-Qb-nUH" secondAttribute="trailing" id="9Hi-tX-m2O"/>
+                            <constraint firstItem="2Bb-a5-8ti" firstAttribute="top" secondItem="Ugd-Qb-nUH" secondAttribute="bottom" id="D3q-nc-6AF"/>
+                            <constraint firstItem="sxx-ID-yBP" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" multiplier="0.8" id="QeF-RZ-W0C"/>
+                            <constraint firstItem="Ugd-Qb-nUH" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="WDf-da-3Cc"/>
+                            <constraint firstItem="Ugd-Qb-nUH" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="wje-pp-RWq"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="myChartView" destination="Qzc-Ho-PrG" id="2J5-hh-wBY"/>
+                        <outlet property="viewForChart" destination="Qzc-Ho-PrG" id="ucw-ee-jKl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="I11-mw-hCN" userLabel="First Responder" sceneMemberID="firstResponder"/>
