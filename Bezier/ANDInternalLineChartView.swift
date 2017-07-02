@@ -51,8 +51,6 @@ class ANDInternalLineChartView: UIView {
         setupGraphLayer()
         backgroundColor     = UIColor.clear
         isOpaque            = false
-        setupLabels()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -62,50 +60,37 @@ class ANDInternalLineChartView: UIView {
     
     func setupLabels() {
         
-        
-//        let context: CGContext? = UIGraphicsGetCurrentContext()
-//        context?.setFillColor(chartContainer!.chartBackgroundColor?.cgColor as! CGColor)
-//        context?.saveGState()
-//        
-//        
-//        let stringToDraw: String =   "проверка"
-//        let stringColor: UIColor? = UIColor.red
-//        
-//        var paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineBreakMode = .byTruncatingTail
-//        
-//        
-//        let attribs = [NSFontAttributeName: chartContainer!.gridIntervalFont,
-//                       NSForegroundColorAttributeName: stringColor,
-//                       NSParagraphStyleAttributeName: paragraphStyle] as [String : Any]
-//        
-        let inRect = CGRect(x:      20,
-                            y:      100.0,
-                            width:  CGFloat(LABEL_TEXT_WIDTH),
-                            height: CGFloat(LABEL_TEXT_HEIGHT) )
+        //очистка
+        for view in self.subviews {
+            view.removeFromSuperview()
+        }
+  
         let lblColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.7)
-//
-//        stringToDraw.draw(in: inRect, withAttributes: attribs)
-//        
-//        context?.translateBy(x: 0.0, y: -20)
+        let totalViewHeight = viewHeight()
         
-        
-        let points : [CGPoint]? = nil
+        let points : [CGPoint]? = getMyPoints()
         guard  let realPoints = points else {
             return
         }
         for i in 0..<realPoints.count {
+            let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2),
+                                y:      totalViewHeight - realPoints[i].y - CGFloat(LABEL_TEXT_HEIGHT*2 + 4),
+                                width:  CGFloat(LABEL_TEXT_WIDTH),
+                                height: CGFloat(LABEL_TEXT_HEIGHT) )
+            
             let label = UILabel(frame: inRect)
             label.textColor = lblColor
             
             let rotate = CGAffineTransform( rotationAngle: CGFloat.pi / 2 )  // CGFloat(M_PI_2)
-            let translate = CGAffineTransform(translationX: realPoints[i].x,
-                                              y: realPoints[i].y - 5.0 - CGFloat(LABEL_TEXT_WIDTH) )
-            label.transform = rotate.concatenating(translate)
+//            let translate = CGAffineTransform(translationX: realPoints[i].x,
+//                                              y: label.bounds.midY - 10.0  )   //- 5.0 - CGFloat(LABEL_TEXT_WIDTH
+            label.transform = rotate //.concatenating(translate)
             
-            label.text = "20.08"
+            
+            let value : CGFloat = chartContainer!.valueForElement(atRow: i)
+            label.text = String.init(format: "%.1f", value)
             label.textAlignment = .right
-            label.backgroundColor = UIColor.red
+            //label.backgroundColor = UIColor.red
             self.addSubview(label)
         }
         
@@ -133,7 +118,7 @@ class ANDInternalLineChartView: UIView {
         let increment : Float = (1.0 - shift) / Float(numberOfColorsInRainbow);
         var hue : Float = shift
         for i in 0..<numberOfColorsInRainbow {
-            let color =  UIColor.init(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.7).cgColor
+            let color =  UIColor.init(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.5).cgColor
             colors.append(color)
             hue += increment
         }
@@ -362,9 +347,7 @@ class ANDInternalLineChartView: UIView {
         
         
         // рисую надписи вертикальные
-//        let ctx = UIGraphicsGetCurrentContext()
-//        ctx!.translateBy( x: 0.5 * bounds.width, y: 0.5 * bounds.height )
-//        ctx!.rotate(by: CGFloat(M_PI*45/180))
+        setupLabels()
         
     }//====================================================================================================
      //====================================================================================================

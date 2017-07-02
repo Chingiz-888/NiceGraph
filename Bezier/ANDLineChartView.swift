@@ -79,8 +79,8 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        scrollView = UIScrollView(frame: CGRect.zero)
-        internalChartView = ANDInternalLineChartView(frame: CGRect.zero, chartContainer: self)
+        scrollView          = UIScrollView(frame: CGRect.zero)
+        internalChartView   = ANDInternalLineChartView(frame: CGRect.zero, chartContainer: self)
         backgroundChartView = ANDBackgroundChartView(frame: CGRect.zero, chartContainer: self)
         scrollView?.addSubview(backgroundChartView!)
         scrollView?.addSubview(internalChartView!)

@@ -11,8 +11,9 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    let MAX_NUMBER_COUNT  = 1500
-    let MAX_NUMBER        = 20
+    let MAX_NUMBER_COUNT     = 1500
+    let MAX_NUMBER           = 20
+    let EXTRA_TO_MAX_NUMBER  = 3
     
     var _elements : [Int] = [Int]()
     var _chartView : ANDLineChartView?
@@ -107,7 +108,7 @@ extension TestViewController : ANDLineChartViewDataSource {
     }
     
     func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return CGFloat(_maxValue)  // 20.0
+        return CGFloat(self.MAX_NUMBER + self.EXTRA_TO_MAX_NUMBER)   //!!! добавляем еще сверху, чтобы верхние надписи к значениемям были видны
     }
     
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {

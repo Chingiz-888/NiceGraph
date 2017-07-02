@@ -58,7 +58,10 @@ class ANDBackgroundChartView: UIView {
         for i in 0..<numberOfIntervalLines {
             chartContainer!.gridIntervalLinesColor?.setStroke()
             gridLinePath.stroke()
-            let stringToDraw: String =   "\(minIntervalValue + CGFloat(i) * maxIntervalDiff)" // MOE: СТРОКА ДЛЯ ЗАПИСИ      //chartContainer!.description(forValue: minIntervalValue + i * maxIntervalDiff)
+            
+
+            // MOE: СТРОКА ДЛЯ ЗАПИСИ      //chartContainer!.description(forValue: minIntervalValue + i * maxIntervalDiff)
+            let stringToDraw: String =   String.init(format: "%.1f", (minIntervalValue + CGFloat(i) * maxIntervalDiff))
             let stringColor: UIColor? = chartContainer!.gridIntervalFontColor  //gridIntervalFontColor()
             
             var paragraphStyle = NSMutableParagraphStyle()
