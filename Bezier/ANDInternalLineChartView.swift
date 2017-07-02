@@ -68,10 +68,25 @@ class ANDInternalLineChartView: UIView {
     
     func setupGradientLayer() {
         gradientLayer = CAGradientLayer()
-        let color1: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.7)).cgColor
-        let color2: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.0)).cgColor
-        gradientLayer?.colors = [(color1 as? Any), (color2 as? Any)]
-        gradientLayer?.locations = [0.0, 0.9]
+//        let color1: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.7)).cgColor
+//        let color2: CGColor = UIColor(white: CGFloat(1.000), alpha: CGFloat(0.0)).cgColor
+        
+
+        var colors = [CGColor]();
+        let increment : Float = 0.2;
+        var hue : Float = 0.2
+        while (hue<1.0)  {
+            let color =  UIColor.init(hue: CGFloat(hue), saturation: 1.0, brightness: 1.0, alpha: 0.7).cgColor
+            colors.append(color)
+            hue += increment
+        }
+        
+        
+        
+        //gradientLayer?.colors = [(color1 as? Any), (color2 as? Any)]
+        gradientLayer?.colors = colors
+        
+        gradientLayer?.locations = [0.0, 0.25, 0.5, 1.0]
         gradientLayer?.frame = bounds
         layer.addSublayer(gradientLayer!)
     }
@@ -145,7 +160,10 @@ class ANDInternalLineChartView: UIView {
     
     
     
-    //================  - (void)refreshGraphLayer   ======================================================
+    
+    //====================================================================================================
+    //====================================================================================================
+    //MARK================ - (void)refreshGraphLayer   ===================================================
     func refreshGraphLayer() {
         if chartContainer?.numberOfElements() == 0 {
             return
@@ -176,10 +194,6 @@ class ANDInternalLineChartView: UIView {
         
         let newAlgorithm = CubicCurvedPath(data: myPoints!)
         path = newAlgorithm.cubicCurvedPath()
-//        path.move(to: CGPoint(x: 1000.0, y: 700.0) )
-//        path.move(to: CGPoint(x: 0, y: 700.0) )
-//        path.close()
-
         //************************************
         
         
@@ -257,6 +271,8 @@ class ANDInternalLineChartView: UIView {
             graphLayer?.add(pathAnimation, forKey: "path")
         }
         let copyPath = UIBezierPath(cgPath: path.cgPath)
+        
+        // завершение path'а - я обратил внимание, что к верху надо, а не к низу
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-300)))
         copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat(-300)))
         copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
@@ -276,7 +292,18 @@ class ANDInternalLineChartView: UIView {
             maskLayer?.add(pathAnimation2, forKey: "path")
         }
         CATransaction.commit()
-    }
+    }//====================================================================================================
+     //====================================================================================================
+     //====================================================================================================
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     //================ end  - (void)refreshGraphLayer   ===============================================
     // MARK: -
