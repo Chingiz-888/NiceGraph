@@ -16,9 +16,14 @@ class TestViewController: UIViewController {
 
        
     
-    let MAX_NUMBER_COUNT     = 1500
-    let MAX_NUMBER           = 20
-    let EXTRA_TO_MAX_NUMBER  = 3
+    var MAX_NUMBER_COUNT     = Int()
+    var MAX_NUMBER           = Int() {
+        didSet {
+            EXTRA_TO_MAX_NUMBER = Int(round((Float(self.MAX_NUMBER) * 0.18)))
+        }
+    }
+    var EXTRA_TO_MAX_NUMBER = Int()
+   
     
     var _elements : [Int] = [Int]()
     var _chartView : ANDLineChartView?
@@ -30,6 +35,9 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        MAX_NUMBER_COUNT = 888
+        MAX_NUMBER = 20
      
         
         _maxValue     = self.MAX_NUMBER
@@ -120,7 +128,7 @@ extension TestViewController : ANDLineChartViewDataSource {
     }
     
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return -2.0                // -2.0
+        return  -2.0 - CGFloat(self.EXTRA_TO_MAX_NUMBER)              //!!! снизу езе убираем, чтобы были видны подпсии к датам
     }
 }//--------------------------------------------------------------------------------------
 

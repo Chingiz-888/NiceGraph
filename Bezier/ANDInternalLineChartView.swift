@@ -65,7 +65,7 @@ class ANDInternalLineChartView: UIView {
             view.removeFromSuperview()
         }
   
-        let lblColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.7)
+        let lblColor = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.9)
         let totalViewHeight = viewHeight()
         
         let points : [CGPoint]? = getMyPoints()
@@ -101,6 +101,25 @@ class ANDInternalLineChartView: UIView {
             label.layer.add(animation, forKey: "opacity")
             //----------------------
             
+            self.addSubview(label)
+        }
+        
+        // подписи к X-оси - временные метки
+        for i in 0..<realPoints.count {
+            let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2) - 12,
+                                y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 11),
+                                width:  CGFloat(LABEL_TEXT_WIDTH)*1.4,
+                                height: CGFloat(LABEL_TEXT_HEIGHT) )
+            
+            let label = UILabel(frame: inRect)
+            label.textColor = lblColor
+            
+            let rotate = CGAffineTransform( rotationAngle: CGFloat.pi / 2 )
+            label.transform = rotate
+            label.text = "2 июня, 16:20"
+            label.font = label.font.withSize(12)
+            label.textAlignment = .right
+            //label.backgroundColor = UIColor.red
             self.addSubview(label)
         }
         
@@ -251,7 +270,7 @@ class ANDInternalLineChartView: UIView {
             return
         }
         // ВОТ ОН МОЙ НОВЫЙ АЛГОРИТМ - и я сразу поулчаю PATH, а не массив controlPoint'ов (CubicSegment)
-        // от которых мнеп отом еще надо самому чертить BezierPath
+        // от которых мне потом еще надо самому чертить BezierPath
         // у нас есть массив [CGPoint] и мы в ответ на него получаем UIBezierPath
         
         let newAlgorithm = CubicCurvedPath(data: myPoints!)

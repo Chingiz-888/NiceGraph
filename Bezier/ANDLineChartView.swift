@@ -69,12 +69,13 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
  
     
     
-    private var scrollView: UIScrollView?
-    private var internalChartView: ANDInternalLineChartView?
-    private var backgroundChartView: ANDBackgroundChartView?
-    private var floatingConstraint: NSLayoutConstraint?
+    private var scrollView:                                  UIScrollView?
+    private var titleLbl:                                    UILabel?
+    private var internalChartView:                           ANDInternalLineChartView?
+    private var backgroundChartView:                         ANDBackgroundChartView?
+    private var floatingConstraint:                          NSLayoutConstraint?
     private var backgroundWidthEqualToScrollViewConstraints: NSLayoutConstraint?
-    private var backgroundWidthEqualToChartViewConstraints: NSLayoutConstraint?
+    private var backgroundWidthEqualToChartViewConstraints:  NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,6 +88,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         addSubview(scrollView!)
         setupDefaultAppearence()
         setupInitialConstraints()
+        setupGraphTitle()
         
     }
     
@@ -95,18 +97,57 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func setupDefaultAppearence() {
-        chartBackgroundColor = UIColor(red: CGFloat(0.39), green: CGFloat(0.38), blue: CGFloat(0.67), alpha: CGFloat(1.0))
+        // CGFloat(0.39), green: CGFloat(0.38), blue: CGFloat(0.67
+        chartBackgroundColor = UIColor(red: 192/255.0, green: 196/255.0, blue: 249/255, alpha: CGFloat(1.0))
         backgroundColor = chartBackgroundColor
         lineColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
         elementFillColor = chartBackgroundColor
         elementStrokeColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
-        gridIntervalLinesColor = UIColor(red: CGFloat(0.325), green: CGFloat(0.314), blue: CGFloat(0.627), alpha: CGFloat(1.000))
+        
+        // цвет горизонтальных линий - для значений
+        gridIntervalLinesColor = UIColor(red: CGFloat(0.325), green: CGFloat(0.314), blue: CGFloat(0.627), alpha: CGFloat(0.500))
         gridIntervalFontColor = UIColor(red: CGFloat(0.216), green: CGFloat(0.204), blue: CGFloat(0.478), alpha: CGFloat(1.000))
         gridIntervalFont = UIFont(name: "HelveticaNeue", size: CGFloat(DEFAULT_FONT_SIZE))
         elementSpacing = CGFloat(DEFAULT_ELEMENT_SPACING)
         animationDuration   = TRANSITION_DURATION
         isShouldLabelsFloat = true
     }
+    
+    
+    func setupGraphTitle() {
+        titleLbl = UILabel(frame: CGRect.zero)
+        titleLbl?.translatesAutoresizingMaskIntoConstraints = false
+        
+       
+        let lblColor  = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.9)
+        titleLbl?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold)  //titleLbl?.font.withSize(18)
+        titleLbl?.textAlignment = .center
+        titleLbl?.text = "Динамика курса Биткоина к Эфириуму"
+        titleLbl?.lineBreakMode = .byWordWrapping
+        titleLbl?.numberOfLines = 0
+        
+        titleLbl?.layer.masksToBounds = true
+        titleLbl?.layer.cornerRadius  = 10.0
+        titleLbl?.clipsToBounds = true
+   
+        self.addSubview(titleLbl!)
+        
+        let views: [String: AnyObject] = [ "graphTitleView"  : titleLbl!,
+                                           "selfView"    : self
+        ]
+        
+        let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[graphTitleView(>=60)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        let constraint2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(45)-[graphTitleView]-(45)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        //let constraint3 = NSLayoutConstraint(item: titleLbl, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.8, constant: 0.0)
+       
+        self.addConstraints(constraint1)  // вот так, визуал конструктор дает массив констрейетов
+        self.addConstraints(constraint2)  // вот так, визуал конструктор дает массив констрейетов
+        //self.addConstraint(constraint3)   // а нижний - единичные
+        
+        
+        titleLbl?.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
+    }
+    
     
     func setupInitialConstraints() {
         scrollView?.translatesAutoresizingMaskIntoConstraints           = false
