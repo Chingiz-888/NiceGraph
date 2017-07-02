@@ -11,6 +11,11 @@ import UIKit
 
 class TestViewController: UIViewController {
 
+    
+    @IBOutlet weak var myChartView: ANDLineChartView!
+    
+    
+    
     let MAX_NUMBER_COUNT     = 1500
     let MAX_NUMBER           = 20
     let EXTRA_TO_MAX_NUMBER  = 3
