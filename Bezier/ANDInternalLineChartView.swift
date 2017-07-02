@@ -91,8 +91,20 @@ class ANDInternalLineChartView: UIView {
             label.text = String.init(format: "%.1f", value)
             label.textAlignment = .right
             //label.backgroundColor = UIColor.red
+            
+            //-- анимация ----------
+            let animation : CABasicAnimation = CABasicAnimation(keyPath: "opacity");
+            //animation.delegate = label as! CAAnimationDelegate
+            animation.fromValue = 0
+            animation.toValue = 1
+            animation.duration = 2.0
+            label.layer.add(animation, forKey: "opacity")
+            //----------------------
+            
             self.addSubview(label)
         }
+        
+        
         
         
    }
@@ -153,7 +165,7 @@ class ANDInternalLineChartView: UIView {
     }
     
     func reloadData() {
-        animationNeeded = true
+        //animationNeeded = true
         let numberOfPoints: Int = chartContainer!.numberOfElements()
         if numberOfPoints != numberOfPreviousElements {
             invalidateIntrinsicContentSize()
@@ -243,12 +255,10 @@ class ANDInternalLineChartView: UIView {
         // у нас есть массив [CGPoint] и мы в ответ на него получаем UIBezierPath
         
         let newAlgorithm = CubicCurvedPath(data: myPoints!)
-        path = newAlgorithm.cubicCurvedPath()
+        path = newAlgorithm.cubicCurvedPath()     // <<<< получаю PATH!
         //************************************
         
         
-        
-
         for i in 0..<numberOfPoints
         {//---- первый цикл ------------------------
            
@@ -261,13 +271,8 @@ class ANDInternalLineChartView: UIView {
             xPosition      += (chartContainer?.spacingForElement(atRow: i))!
             yPosition       = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
             let newPosition = CGPoint(x: xPosition, y: yPosition)
-            
-               //**** НОВАЯ ЛОГИКА BEZIER GRAPH ******
-                     let myPoint = newPosition
-               //*************************************
             //-----------------------------------------
     
-   
             let circle: CALayer? = circleLayerForPoint(atRow: i)
             var oldPosition: CGPoint? = circle?.presentation()?.position
             oldPosition?.x = newPosition.x
@@ -277,7 +282,7 @@ class ANDInternalLineChartView: UIView {
             if animationNeeded {
                 let positionAnimation = CABasicAnimation(keyPath: "position")
                 positionAnimation.duration  = chartContainer!.animationDuration
-                positionAnimation.fromValue = NSValue(cgPoint: oldPosition!)
+                positionAnimation.fromValue = NSValue(cgPoint: (oldPosition != nil) ? oldPosition! : newPosition)
                 positionAnimation.toValue   = NSValue(cgPoint: newPosition)
                 //[positionAnimation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
                 positionAnimation.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
@@ -309,41 +314,43 @@ class ANDInternalLineChartView: UIView {
 //            }
 //        }
         //------ тут не понятно, что делается ---------------------
-        let oldPath: CGPath? = graphLayer?.presentation()?.path
-        let newPath: CGPath  = path.cgPath
+        
+
+        
+        var oldPath: CGPath? = graphLayer?.presentation()?.path
+        var newPath: CGPath  = path.cgPath
         graphLayer?.path     = path.cgPath
-        if animationNeeded {
-            let pathAnimation             = CABasicAnimation(keyPath: "path")
-            pathAnimation.duration        = chartContainer!.animationDuration
-            pathAnimation.fromValue       = (oldPath as? Any)
-            pathAnimation.toValue         = (newPath as? Any)
-            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            graphLayer?.add(pathAnimation, forKey: "path")
-        }
-        let copyPath = UIBezierPath(cgPath: path.cgPath)
+
+//        if animationNeeded {
+//            let pathAnimation             = CABasicAnimation(keyPath: "path")
+//            pathAnimation.duration        = chartContainer!.animationDuration
+//            pathAnimation.fromValue       = (oldPath as? Any)
+//            pathAnimation.toValue         = (newPath as? Any)
+//            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+//            graphLayer?.add(pathAnimation, forKey: "path")
+//        }
         
         // завершение path'а - я обратил внимание, что к верху надо, а не к низу
+        let copyPath = UIBezierPath(cgPath: path.cgPath)
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-300)))
         copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat(-300)))
         copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
-        
-        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
+
         let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
         let maskNewPath: CGPath           = copyPath.cgPath
         maskLayer?.path                   = copyPath.cgPath
         gradientLayer?.mask               = maskLayer
-        if animationNeeded {
-            let pathAnimation2            = CABasicAnimation(keyPath: "path")
-            pathAnimation2.duration       = chartContainer!.animationDuration
-            pathAnimation2.fromValue      = (maskOldPath as? Any)
-            pathAnimation2.toValue        = (maskNewPath as? Any)
-            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-            maskLayer?.add(pathAnimation2, forKey: "path")
-        }
+//        if animationNeeded {
+//            let pathAnimation2            = CABasicAnimation(keyPath: "path")
+//            pathAnimation2.duration       = chartContainer!.animationDuration
+//            pathAnimation2.fromValue      = (maskOldPath as? Any)
+//            pathAnimation2.toValue        = (maskNewPath as? Any)
+//            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+//            maskLayer?.add(pathAnimation2, forKey: "path")
+//        }
+        
         CATransaction.commit()
-        
-        
         
         
         // рисую надписи вертикальные
