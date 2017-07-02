@@ -11,8 +11,8 @@ import UIKit
 
 struct CubicCurveSegment
 {
-    let controlPoint1: CGPoint
-    let controlPoint2: CGPoint
+    var controlPoint1: CGPoint
+    var controlPoint2: CGPoint
 }
 
 class CubicCurveAlgorithm
@@ -173,6 +173,102 @@ class CubicCurveAlgorithm
                 controlPoints.append(segment)
             }
         }
+        
+        
+        
+        let krug    : CGFloat = 30.0
+        let x_shift : CGFloat = 10.0
+        let y_shift : CGFloat = 8.0
+        
+        
+        //==========  ФИЛЬТР =========================================================================
+        for i in 0 ..< count {
+            if var firstControlPoint = firstControlPoints[i],
+                var secondControlPoint = secondControlPoints[i] {
+                
+                //=== проверка ==============================================
+                // выпирающая вниз точка и первая
+                if i == 0 &&
+                    firstControlPoint.y > dataPoints[i+1].y {
+                    firstControlPoint.y   = dataPoints[i].y - krug
+                    secondControlPoint.y  =  firstControlPoint.y
+                }
+                
+                // выпирающая вверх точка и первая
+                if i == 0 &&
+                    dataPoints[i].y < dataPoints[i+1].y {
+                    
+                    firstControlPoint.y   =  dataPoints[i].y + krug + y_shift
+                    secondControlPoint.y  =  dataPoints[i].y
+                    
+                    //  controlPoints[i+1].controlPoint1.y  = firstControlPoint.y + 100
+                }
+                
+                
+                // выпирающая вниз точка
+                if i >= 1 && i < dataPoints.count &&
+                    dataPoints[i].y > dataPoints[i-1].y &&
+                    dataPoints[i].y > dataPoints[i+1].y {
+
+                    if controlPoints[i-1].controlPoint2.y > dataPoints[i].y {
+                        
+                        controlPoints[i-1].controlPoint2.y   -=  2*krug
+                        controlPoints[i-1].controlPoint2.x   +=  krug/2
+                        //firstControlPoint.y                  -=  (krug+50)
+                        
+                    }
+                }
+                
+                // выпираюший хвост
+                if i >= 1 && i < dataPoints.count  &&
+                    controlPoints[i-1].controlPoint2.y < dataPoints[i].y {
+                    controlPoints[i-1].controlPoint1.y  = dataPoints[i].y
+                    controlPoints[i-1].controlPoint2.y  = dataPoints[i].y
+                    print("===")
+                }
+                
+                
+                // выпирающая вверх точка
+                if i >= 1 && i < dataPoints.count &&
+                    dataPoints[i].y < dataPoints[i-1].y &&
+                    dataPoints[i].y < dataPoints[i+1].y {
+                    
+                    // выпирающая вверх точка слева
+                    if firstControlPoint.y < dataPoints[i].y   { //|| secondControlPoint.y <  dataPoints[i].y {
+                        //чтобы сгладить предыдущую сторону
+                        controlPoints[i-1].controlPoint2.x   -=  x_shift
+                        
+                        firstControlPoint.x += krug
+                        firstControlPoint.y  = dataPoints[i].y + krug + y_shift
+                        //secondControlPoint.y = dataPoints[i].y + krug  + y_shift
+                    }
+                    
+                     // выпирающая вверх точка справа
+                    if secondControlPoint.y < dataPoints[i].y   {
+                        controlPoints[i-1].controlPoint2.y = dataPoints[i].y + krug + y_shift
+                        controlPoints[i+1].controlPoint1.y = dataPoints[i].y + krug + y_shift
+                        secondControlPoint.y = dataPoints[i].y + krug  + y_shift
+                    }
+                }
+                
+               
+                
+                
+                
+                //============================================================
+                
+                let segment = CubicCurveSegment(controlPoint1: firstControlPoint, controlPoint2: secondControlPoint)
+                controlPoints[i] = segment
+            }
+        }//==========  ФИЛЬТР ========================================================================
+        
+        
+        
+        
+        
+        
+        
+        
         
         return controlPoints
     }

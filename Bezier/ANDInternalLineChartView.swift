@@ -112,11 +112,10 @@ class ANDInternalLineChartView: UIView {
         let numberOfPoints: Int  = chartContainer!.numberOfElements()
         numberOfPreviousElements = numberOfPoints
         var xPosition: CGFloat   = 0.0
-        let yMargin:   CGFloat   = 0.0
         var yPosition: CGFloat   = 0.0
-        var lastPoint = CGPoint(x: CGFloat(0), y: CGFloat(0))
-        
-        var points : [CGPoint] = [CGPoint]()
+        let yMargin  : CGFloat   = 0.0
+        var lastPoint            = CGPoint(x: CGFloat(0), y: CGFloat(0))
+        var points   : [CGPoint] = [CGPoint]()
         
         for i in 0..<numberOfPoints
         {//---- первый цикл ------------------------
@@ -126,9 +125,9 @@ class ANDInternalLineChartView: UIView {
             // используется spacingForElementAtRow + minGridValue
             let value        : CGFloat = chartContainer!.valueForElement(atRow: i)
             let minGridValue : CGFloat = chartContainer!.minValue()
-            xPosition      += (chartContainer?.spacingForElement(atRow: i))!
-            yPosition       = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
-            let newPosition = CGPoint(x: xPosition, y: yPosition)
+            xPosition                 += (chartContainer?.spacingForElement(atRow: i))!
+            yPosition                  = yMargin + floor((value - minGridValue) * pixelToRecordPoint())   //pixelToRecordPoint - отношение max к min
+            let newPosition            = CGPoint(x: xPosition, y: yPosition)
             //-----------------------------------------
             
             points.append(newPosition)
@@ -173,20 +172,29 @@ class ANDInternalLineChartView: UIView {
         let controlPoints = cubicCurveAlgorithm.controlPointsFromPoints( myPoints! )
         //print(controlPoints)
         
-        for i in 0..<numberOfPoints {
-           
-            for i in 0 ..< myPoints!.count {
-                
-                let point = myPoints![i];
-                
-                if i == 0 {
-                    path.move(to: point)
-                } else {
-                    let segment = controlPoints[i-1]
-                    path.addCurve(to: point, controlPoint1: segment.controlPoint1, controlPoint2: segment.controlPoint2)
-                }
-            }
-        }
+    
+        // у нас есть массив [CGPoint] и мы в ответ на него получаем UIBezierPath
+        
+
+        let newAlgorithm = CubicCurvedPath(data: myPoints!)
+        let myNewPath = newAlgorithm.cubicCurvedPath()
+        UIColor.black.setStroke()
+        myNewPath.stroke()
+        
+        
+        
+//        for i in 0 ..< myPoints!.count {
+//                
+//                let point = myPoints![i];
+//                
+//                if i == 0 {
+//                    path.move(to: point)
+//                } else {
+//                    let segment = controlPoints[i-1]
+//                    path.addCurve(to: point, controlPoint1: segment.controlPoint1, controlPoint2: segment.controlPoint2)
+//                }
+//        }
+        
         //path.move(to: CGPoint(x: CGFloat(0.0), y: CGFloat(0.0)))
 //        UIColor.black.setStroke() //
 //        path.close()
