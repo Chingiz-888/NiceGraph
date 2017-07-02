@@ -28,6 +28,8 @@ class ANDInternalLineChartView: UIView {
     private var minValue       : CGFloat     = 0.0
     private var animationNeeded: Bool = false
     
+    private var width          : CGFloat = 0.0
+    
     
     //----- ДОБАВОЧНАЯ ЛОГИКА ОТ BEZIER GRAPH -----------
         var myPoints : [CGPoint]?
@@ -174,6 +176,10 @@ class ANDInternalLineChartView: UIView {
         
         let newAlgorithm = CubicCurvedPath(data: myPoints!)
         path = newAlgorithm.cubicCurvedPath()
+//        path.move(to: CGPoint(x: 1000.0, y: 700.0) )
+//        path.move(to: CGPoint(x: 0, y: 700.0) )
+//        path.close()
+
         //************************************
         
         
@@ -242,30 +248,33 @@ class ANDInternalLineChartView: UIView {
         let oldPath: CGPath? = graphLayer?.presentation()?.path
         let newPath: CGPath  = path.cgPath
         graphLayer?.path     = path.cgPath
-//        if animationNeeded {
-//            let pathAnimation             = CABasicAnimation(keyPath: "path")
-//            pathAnimation.duration        = chartContainer!.animationDuration
-//            pathAnimation.fromValue       = (oldPath as? Any)
-//            pathAnimation.toValue         = (newPath as? Any)
-//            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-//            graphLayer?.add(pathAnimation, forKey: "path")
-//        }
-//        let copyPath = UIBezierPath(cgPath: path.cgPath)
-//        copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-100)))
-//        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
-//        let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
-//        let maskNewPath: CGPath           = copyPath.cgPath
-//        maskLayer?.path                   = copyPath.cgPath
-//        gradientLayer?.mask               = maskLayer
-//        if animationNeeded {
-//            let pathAnimation2            = CABasicAnimation(keyPath: "path")
-//            pathAnimation2.duration       = chartContainer!.animationDuration
-//            pathAnimation2.fromValue      = (maskOldPath as? Any)
-//            pathAnimation2.toValue        = (maskNewPath as? Any)
-//            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-//            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
-//            maskLayer?.add(pathAnimation2, forKey: "path")
-//        }
+        if animationNeeded {
+            let pathAnimation             = CABasicAnimation(keyPath: "path")
+            pathAnimation.duration        = chartContainer!.animationDuration
+            pathAnimation.fromValue       = (oldPath as? Any)
+            pathAnimation.toValue         = (newPath as? Any)
+            pathAnimation.timingFunction  = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+            graphLayer?.add(pathAnimation, forKey: "path")
+        }
+        let copyPath = UIBezierPath(cgPath: path.cgPath)
+        copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-300)))
+        copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat(-300)))
+        copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
+        
+        //[copyPath addLineToPoint:CGPointMake(0.0, 0.0)];
+        let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
+        let maskNewPath: CGPath           = copyPath.cgPath
+        maskLayer?.path                   = copyPath.cgPath
+        gradientLayer?.mask               = maskLayer
+        if animationNeeded {
+            let pathAnimation2            = CABasicAnimation(keyPath: "path")
+            pathAnimation2.duration       = chartContainer!.animationDuration
+            pathAnimation2.fromValue      = (maskOldPath as? Any)
+            pathAnimation2.toValue        = (maskNewPath as? Any)
+            //[pathAnimation2 setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+            pathAnimation2.timingFunction = CAMediaTimingFunction(controlPoints: 0.5, 1.4, 1, 1)
+            maskLayer?.add(pathAnimation2, forKey: "path")
+        }
         CATransaction.commit()
     }
     
@@ -351,7 +360,7 @@ class ANDInternalLineChartView: UIView {
     //MOE - НАДО РАЗОБРАТЬСЯ, ЗАЕМ НУЖНО БЫЛО УЗНАВАТЬ И ДОБАЛВТЬЯ ЕШЕ РАЗМЕР ШАРОВ ===============================================
     override public var intrinsicContentSize: CGSize {
    
-        var width: CGFloat = 0.0
+        width  = 0.0
         let totalElements: Int = chartContainer!.numberOfElements()
         for i in 0..<totalElements {
             width += (chartContainer?.spacingForElement(atRow: i))!

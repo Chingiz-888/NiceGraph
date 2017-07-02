@@ -9,17 +9,15 @@
 /* Begin PBXBuildFile section */
 		0297BA23CEC12858A2C3A04A /* Pods_Bezier.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F61172C44BF834D7EC331DDF /* Pods_Bezier.framework */; };
 		5B6165771BCE7FAD008EB160 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165761BCE7FAD008EB160 /* AppDelegate.swift */; };
-		5B6165791BCE7FAD008EB160 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165781BCE7FAD008EB160 /* ViewController.swift */; };
 		5B61657C1BCE7FAD008EB160 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657A1BCE7FAD008EB160 /* Main.storyboard */; };
 		5B61657E1BCE7FAD008EB160 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657D1BCE7FAD008EB160 /* Assets.xcassets */; };
 		5B6165811BCE7FAD008EB160 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */; };
-		5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165881BCE801A008EB160 /* BezierView.swift */; };
-		5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */; };
 		611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */; };
 		611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */; };
 		611DE0841F070D3100EBFF2A /* ANDInternalLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */; };
 		615CF6821F03253B00794BCF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CF6811F03253B00794BCF /* TestViewController.swift */; };
 		616AD1E11F09170800B682D0 /* CubicCurvedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */; };
+		616AD1E31F09253300B682D0 /* graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 616AD1E21F09253300B682D0 /* graph.png */; };
 		619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA61EFD443C0026DE6A /* Fabric.framework */; };
 		619F1FA91EFD443C0026DE6A /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA71EFD443C0026DE6A /* Crashlytics.framework */; };
 /* End PBXBuildFile section */
@@ -27,13 +25,10 @@
 /* Begin PBXFileReference section */
 		5B6165731BCE7FAD008EB160 /* Bezier.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bezier.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6165761BCE7FAD008EB160 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		5B6165781BCE7FAD008EB160 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5B61657B1BCE7FAD008EB160 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		5B61657D1BCE7FAD008EB160 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5B6165801BCE7FAD008EB160 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5B6165821BCE7FAD008EB160 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5B6165881BCE801A008EB160 /* BezierView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierView.swift; sourceTree = "<group>"; };
-		5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurveAlgorithm.swift; sourceTree = "<group>"; };
 		5DA8558ACC00D4E276114A77 /* Pods-Bezier.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bezier.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bezier/Pods-Bezier.release.xcconfig"; sourceTree = "<group>"; };
 		611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDLineChartView.swift; sourceTree = "<group>"; };
 		611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDBackgroundChartView.swift; sourceTree = "<group>"; };
@@ -41,6 +36,7 @@
 		615CF6811F03253B00794BCF /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		615CF6831F0325F800794BCF /* Bezier-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bezier-Bridging-Header.h"; sourceTree = "<group>"; };
 		616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurvedPath.swift; sourceTree = "<group>"; };
+		616AD1E21F09253300B682D0 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graph.png; sourceTree = "<group>"; };
 		619F1FA61EFD443C0026DE6A /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
 		619F1FA71EFD443C0026DE6A /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		C315F1A579A4BD1B54FA55BA /* Pods-Bezier.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bezier.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bezier/Pods-Bezier.debug.xcconfig"; sourceTree = "<group>"; };
@@ -95,16 +91,13 @@
 			isa = PBXGroup;
 			children = (
 				611DE07E1F070BE500EBFF2A /* ANDLineChart */,
-				5B6165881BCE801A008EB160 /* BezierView.swift */,
-				5B6165891BCE801A008EB160 /* CubicCurveAlgorithm.swift */,
 				5B6165761BCE7FAD008EB160 /* AppDelegate.swift */,
-				5B6165781BCE7FAD008EB160 /* ViewController.swift */,
 				5B61657A1BCE7FAD008EB160 /* Main.storyboard */,
 				5B61657D1BCE7FAD008EB160 /* Assets.xcassets */,
 				5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */,
 				5B6165821BCE7FAD008EB160 /* Info.plist */,
+				616AD1E21F09253300B682D0 /* graph.png */,
 				615CF6811F03253B00794BCF /* TestViewController.swift */,
-				616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */,
 			);
 			path = Bezier;
 			sourceTree = "<group>";
@@ -115,6 +108,7 @@
 				611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */,
 				611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */,
 				611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */,
+				616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */,
 			);
 			name = ANDLineChart;
 			sourceTree = "<group>";
@@ -193,6 +187,7 @@
 			files = (
 				5B6165811BCE7FAD008EB160 /* LaunchScreen.storyboard in Resources */,
 				5B61657E1BCE7FAD008EB160 /* Assets.xcassets in Resources */,
+				616AD1E31F09253300B682D0 /* graph.png in Resources */,
 				5B61657C1BCE7FAD008EB160 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -266,10 +261,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				615CF6821F03253B00794BCF /* TestViewController.swift in Sources */,
-				5B6165791BCE7FAD008EB160 /* ViewController.swift in Sources */,
-				5B61658A1BCE801A008EB160 /* BezierView.swift in Sources */,
 				611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */,
-				5B61658B1BCE801A008EB160 /* CubicCurveAlgorithm.swift in Sources */,
 				611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */,
 				616AD1E11F09170800B682D0 /* CubicCurvedPath.swift in Sources */,
 				611DE0841F070D3100EBFF2A /* ANDInternalLineChartView.swift in Sources */,

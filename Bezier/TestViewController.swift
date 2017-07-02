@@ -11,7 +11,7 @@ import UIKit
 
 class TestViewController: UIViewController {
 
-    let MAX_NUMBER_COUNT  = 500
+    let MAX_NUMBER_COUNT  = 1500
     let MAX_NUMBER        = 20
     
     var _elements : [Int] = [Int]()
