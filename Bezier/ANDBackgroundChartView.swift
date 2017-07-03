@@ -42,11 +42,11 @@ class ANDBackgroundChartView: UIView {
         
         UIColor(red: CGFloat(0.329), green: CGFloat(0.322), blue: CGFloat(0.620), alpha: CGFloat(1.000)).setStroke()
         let gridLinePath = UIBezierPath()
-        let startPoint = CGPoint(x: CGFloat(0.0), y: CGFloat(frame.height))
-        let endPoint = CGPoint(x: CGFloat(rect.maxX), y: CGFloat(frame.height))
+        let startPoint                   = CGPoint(x: CGFloat(0.0), y: CGFloat(frame.height))
+        let endPoint                     = CGPoint(x: CGFloat(rect.maxX), y: CGFloat(frame.height))
         gridLinePath.move(to: startPoint)
         gridLinePath.addLine(to: endPoint)
-        gridLinePath.lineWidth = 1.0
+        gridLinePath.lineWidth           = 1.0
         context?.saveGState()
         
         let numberOfIntervalLines: Int   = chartContainer!.numberOfIntervalLines()
@@ -61,20 +61,20 @@ class ANDBackgroundChartView: UIView {
             
 
             // MOE: СТРОКА ДЛЯ ЗАПИСИ      //chartContainer!.description(forValue: minIntervalValue + i * maxIntervalDiff)
-            let stringToDraw: String =   String.init(format: "%.1f", (minIntervalValue + CGFloat(i) * maxIntervalDiff))
-            let stringColor: UIColor? = chartContainer!.gridIntervalFontColor  //gridIntervalFontColor()
+            let stringToDraw: String      = String.init(format: "%.1f", (minIntervalValue + CGFloat(i) * maxIntervalDiff))
+            let stringColor: UIColor?     = chartContainer!.gridIntervalFontColor  //gridIntervalFontColor()
             
             var paragraphStyle = NSMutableParagraphStyle()
-            paragraphStyle.lineBreakMode = .byTruncatingTail
+            paragraphStyle.lineBreakMode  = .byTruncatingTail
         
             
-            let attribs = [NSFontAttributeName: chartContainer!.gridIntervalFont,
-                           NSForegroundColorAttributeName: stringColor,
-                           NSParagraphStyleAttributeName: paragraphStyle] as [String : Any]
-            let inRect = CGRect(x: CGFloat(INTERVAL_TEXT_LEFT_MARGIN),
-                                y: CGFloat((frame.height - (chartContainer!.gridIntervalFont?.lineHeight)!)),
-                                width: CGFloat(INTERVAL_TEXT_MAX_WIDTH),
-                                height: CGFloat((chartContainer!.gridIntervalFont?.lineHeight)!) )
+            let attribs                   = [NSFontAttributeName: chartContainer!.gridIntervalFont,
+                                             NSForegroundColorAttributeName: stringColor,
+                                             NSParagraphStyleAttributeName: paragraphStyle] as [String : Any]
+            let inRect                    = CGRect(x:      CGFloat(INTERVAL_TEXT_LEFT_MARGIN),
+                                                   y:      CGFloat((frame.height - (chartContainer!.gridIntervalFont?.lineHeight)!)),
+                                                   width:  CGFloat(INTERVAL_TEXT_MAX_WIDTH),
+                                                   height: CGFloat((chartContainer!.gridIntervalFont?.lineHeight)!) )
 
             stringToDraw.draw(in: inRect, withAttributes: attribs)
             
