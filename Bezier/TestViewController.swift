@@ -43,12 +43,12 @@ class TestViewController: UIViewController {
     var MAX_NUMBER_COUNT     = Int()
     var MAX_NUMBER           = Int() {
         didSet {
-            EXTRA_TO_MAX_NUMBER = Int(round((Float(self.MAX_NUMBER) * 0.15)))
+            EXTRA_TO_MAX_NUMBER = Int(round((Float(self.MAX_NUMBER) * 0.10)))
         }
     }
     var MIN_NUMBER           = Int()
-    var EXTRA_TO_MAX_NUMBER = Int()
-    var _elements : [Int] = [Int]()
+    var EXTRA_TO_MAX_NUMBER  = Int()
+    var _elements : [Int]    = [Int]()
     var _chartView : ANDLineChartView?
     var _maxValue     : Int  = Int()
     var _numbersCount : Int  = Int()
@@ -309,7 +309,7 @@ extension TestViewController : ANDLineChartViewDataSource {
     // Определение нижней границы в оси Y - также как и предыдущая функция по сути регулирует высоту графика
     // Мы также снизу добавляем еще пространства, чтобы  были видны подпсии к стобцам (даты)
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*1.12
+        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*1.7
     }
 }//--------------------------------------------------------------------------------------
 

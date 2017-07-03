@@ -107,7 +107,7 @@ class ANDInternalLineChartView: UIView {
         // подписи к X-оси - временные метки
         for i in 0..<realPoints.count {
             let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2) - 12,
-                                y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 17),
+                                y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 10),
                                 width:  CGFloat(LABEL_TEXT_WIDTH)*1.73,
                                 height: CGFloat(LABEL_TEXT_HEIGHT) )
             
@@ -118,14 +118,10 @@ class ANDInternalLineChartView: UIView {
             label.transform = rotate
             label.text = chartContainer?.dataSource?.chartView(chartContainer!, dateForElementAtRow: i)
             label.font = label.font.withSize(11.5)
-            label.textAlignment = .right
+            label.textAlignment = .left
             //label.backgroundColor = UIColor.red
             self.addSubview(label)
         }
-        
-        
-        
-        
    }
     
     func setupGraphLayer() {
@@ -196,9 +192,15 @@ class ANDInternalLineChartView: UIView {
         super.layoutSubviews()
         graphLayer?.frame    = self.bounds
         maskLayer?.frame     = self.bounds
-        gradientLayer?.frame = self.bounds
+        
+         // MOE - убираем снизу градиентные слой, дабы была видна область дат
+        //gradientLayer?.frame = self.bounds
+        let rect             = CGRect(x: 0, y: 0, width: self.bounds.width, height: self.bounds.height-105.0)
+        gradientLayer?.frame = rect
+        
+        
         refreshGraphLayer()
-        // MOE - вызыва функции отписовки пути по точкам
+     
     }
     
     
@@ -355,12 +357,13 @@ class ANDInternalLineChartView: UIView {
         copyPath.addLine(to: CGPoint(x: CGFloat(-20), y: CGFloat(-300)))
         
         // при раскомменте начало будет вровень, а при комменте - вкось, как и конец
-        //copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
+        // copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
 
         let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
         let maskNewPath: CGPath           = copyPath.cgPath
         maskLayer?.path                   = copyPath.cgPath
         gradientLayer?.mask               = maskLayer
+       
 //        if animationNeeded {
 //            let pathAnimation2            = CABasicAnimation(keyPath: "path")
 //            pathAnimation2.duration       = chartContainer!.animationDuration
