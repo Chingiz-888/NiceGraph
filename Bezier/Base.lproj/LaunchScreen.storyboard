@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -20,18 +19,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="graph.png" translatesAutoresizingMaskIntoConstraints="NO" id="VlZ-vV-MS7">
-                                <rect key="frame" x="-4" y="0.0" width="383" height="667"/>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="VlZ-vV-MS7" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="RSc-ZA-pP8"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="VlZ-vV-MS7" secondAttribute="trailing" constant="-20" id="UDQ-Ud-4Ov"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="VlZ-vV-MS7" secondAttribute="bottom" id="fSj-5F-pSY"/>
-                            <constraint firstItem="VlZ-vV-MS7" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="-20" id="ySa-hY-NMR"/>
-                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -39,7 +27,4 @@
             <point key="canvasLocation" x="52.5" y="374.5"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="graph.png" width="1242" height="2208"/>
-    </resources>
 </document>

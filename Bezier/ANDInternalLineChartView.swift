@@ -107,8 +107,8 @@ class ANDInternalLineChartView: UIView {
         // подписи к X-оси - временные метки
         for i in 0..<realPoints.count {
             let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2) - 12,
-                                y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 11),
-                                width:  CGFloat(LABEL_TEXT_WIDTH)*1.4,
+                                y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 17),
+                                width:  CGFloat(LABEL_TEXT_WIDTH)*1.73,
                                 height: CGFloat(LABEL_TEXT_HEIGHT) )
             
             let label = UILabel(frame: inRect)
@@ -116,8 +116,8 @@ class ANDInternalLineChartView: UIView {
             
             let rotate = CGAffineTransform( rotationAngle: CGFloat.pi / 2 )
             label.transform = rotate
-            label.text = "2 июня, 16:20"
-            label.font = label.font.withSize(12)
+            label.text = chartContainer?.dataSource?.chartView(chartContainer!, dateForElementAtRow: i)
+            label.font = label.font.withSize(11.5)
             label.textAlignment = .right
             //label.backgroundColor = UIColor.red
             self.addSubview(label)

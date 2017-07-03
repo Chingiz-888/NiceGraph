@@ -11,6 +11,8 @@ import UIKit
 
 
 protocol ANDLineChartViewDataSource: NSObjectProtocol {
+    func chartView(_ chartView: ANDLineChartView, dateForElementAtRow row: Int) -> String? 
+    
     func numberOfElements(in chartView: ANDLineChartView) -> Int?
     
     func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int?
