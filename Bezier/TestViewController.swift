@@ -59,6 +59,7 @@ class TestViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         viewForChart.backgroundColor = UIColor.clear
+        _chartView = ANDLineChartView(frame: CGRect.zero)
         
         // сначала мы получаем данные, а потом под них настраиваем наш график
         getData()
@@ -191,12 +192,15 @@ class TestViewController: UIViewController {
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
-        UIView.animate(withDuration: 1.7, delay: 0.1, options: .curveEaseIn, animations: {
-            self.whiteView.alpha = 0.0
-            self.view.layoutIfNeeded()
-        }) { _ in
-            self.whiteView.isHidden = true
-        }
+        // анимированное появление
+//        UIView.animate(withDuration: 1.7, delay: 0.1, options: .curveEaseIn, animations: {
+//            self.whiteView.alpha = 0.0
+//            self.view.layoutIfNeeded()
+//        }) { _ in
+//            self.whiteView.isHidden = true
+//        }
+        self.whiteView.alpha = 0.0
+         self.whiteView.isHidden = true
         
     }
     
@@ -270,41 +274,52 @@ func matches(for regex: String, in text: String) -> [String] {
 
 // MARK:   Методы  ANDLineChartViewDataSource протокола ----------------------------
 extension TestViewController : ANDLineChartViewDataSource {
+    
+    // Передача отформатированной в String даты для надписей на оси X
     func chartView(_ chartView: ANDLineChartView, dateForElementAtRow row: Int) -> String? {
         return self.dataSets[row].date ?? "нет данных"
     }
     
+    // Передача значений для каждого столбца (row)
     func chartView(_ chartView: ANDLineChartView, valueForElementAtRow row: Int) -> CGFloat? {
         return CGFloat( self.dataSets[row].value )
     }
     
+    // Передача количества столбцов в графике
     func numberOfElements(in chartView: ANDLineChartView) -> Int? {
         return MAX_NUMBER_COUNT
     }
     
+    // Установка количество насечек на оси Y
     func numberOfGridIntervals(in chartView: ANDLineChartView) -> Int? {
         return Int(12.0)
     }
     
-    // Форматированные подписи к Y-оси
+    // Передача подписей к Y-оси
     func chartView(_ chartView: ANDLineChartView, descriptionForGridIntervalValue interval: CGFloat) -> String {
         return  String.init(format: "%.1f", interval)
     }
     
+    // Определение верхней границы в оси Y - по сути через эту функцию мы определяем высоту графика
+    // Добавляем еще сверху, чтобы верхние надписи к значениемям были видны
     func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return CGFloat(self.MAX_NUMBER + self.EXTRA_TO_MAX_NUMBER)   //!!! добавляем еще сверху, чтобы верхние надписи к значениемям были видны
+        return CGFloat(self.MAX_NUMBER + self.EXTRA_TO_MAX_NUMBER)
     }
     
+    // Определение нижней границы в оси Y - также как и предыдущая функция по сути регулирует высоту графика
+    // Мы также снизу добавляем еще пространства, чтобы  были видны подпсии к стобцам (даты)
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*1.12              //!!! снизу езе убираем, чтобы были видны подпсии к датам
+        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*1.12
     }
 }//--------------------------------------------------------------------------------------
 
 
 // MARK:   Методы o ANDLineChartViewDelegate протокола ----------------------------
 extension TestViewController : ANDLineChartViewDelegate {
+    
+    // Установка расстояния между столбцами
     func chartView(_ chartView: ANDLineChartView, spacingForElementAtRow row: Int) -> CGFloat {
-       return (row == 0) ? 60.0 : 30.0
+       return (row == 0) ? 25.0 : 30.0
     }
 }
 

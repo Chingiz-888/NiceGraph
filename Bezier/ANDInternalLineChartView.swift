@@ -352,8 +352,10 @@ class ANDInternalLineChartView: UIView {
         // завершение path'а - я обратил внимание, что к верху надо, а не к низу
         let copyPath = UIBezierPath(cgPath: path.cgPath)
         copyPath.addLine(to: CGPoint(x: CGFloat(lastPoint.x + 90), y: CGFloat(-300)))
-        copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat(-300)))
-        copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
+        copyPath.addLine(to: CGPoint(x: CGFloat(-20), y: CGFloat(-300)))
+        
+        // при раскомменте начало будет вровень, а при комменте - вкось, как и конец
+        //copyPath.addLine(to: CGPoint(x: CGFloat(0), y: CGFloat( pointss[0].y  )))
 
         let maskOldPath: CGPath?          = maskLayer?.presentation()?.path
         let maskNewPath: CGPath           = copyPath.cgPath
@@ -476,7 +478,7 @@ class ANDInternalLineChartView: UIView {
             width += (chartContainer?.spacingForElement(atRow: i))!
         }
        // width += (circleImage?.size.width)!
-        width += getCircleImage().size.width
+        width += getCircleImage().size.width*3
         
         if width < preferredMinLayoutWidth {
             width = preferredMinLayoutWidth

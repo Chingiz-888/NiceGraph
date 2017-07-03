@@ -99,7 +99,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     }
     
     func setupDefaultAppearence() {
-        // CGFloat(0.39), green: CGFloat(0.38), blue: CGFloat(0.67
+        // цвет фона
         chartBackgroundColor = UIColor(red: 192/255.0, green: 196/255.0, blue: 249/255, alpha: CGFloat(1.0))
         backgroundColor = chartBackgroundColor
         lineColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
@@ -107,12 +107,14 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         elementStrokeColor = UIColor(red: CGFloat(1), green: CGFloat(1), blue: CGFloat(1), alpha: CGFloat(1))
         
         // цвет горизонтальных линий - для значений
-        gridIntervalLinesColor = UIColor(red: CGFloat(0.325), green: CGFloat(0.314), blue: CGFloat(0.627), alpha: CGFloat(0.500))
-        gridIntervalFontColor = UIColor(red: CGFloat(0.216), green: CGFloat(0.204), blue: CGFloat(0.478), alpha: CGFloat(1.000))
-        gridIntervalFont = UIFont(name: "HelveticaNeue", size: CGFloat(DEFAULT_FONT_SIZE))
-        elementSpacing = CGFloat(DEFAULT_ELEMENT_SPACING)
-        animationDuration   = TRANSITION_DURATION
-        isShouldLabelsFloat = true
+        gridIntervalLinesColor = UIColor.clear   //delegate?.colorForHorizontalLines(in: self)
+        
+        // цвет подписей к оси Y
+        gridIntervalFontColor  = UIColor.clear  //UIColor(red: CGFloat(0.216), green: CGFloat(0.204), blue: CGFloat(0.478), alpha: CGFloat(1.000))
+        gridIntervalFont       = UIFont(name: "HelveticaNeue", size: CGFloat(DEFAULT_FONT_SIZE))
+        elementSpacing         = CGFloat(DEFAULT_ELEMENT_SPACING)
+        animationDuration      = TRANSITION_DURATION
+        isShouldLabelsFloat    = true
     }
     
     
@@ -184,6 +186,17 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
     override func layoutSubviews() {
         super.layoutSubviews()
         internalChartView?.preferredMinLayoutWidth = frame.width
+        
+        
+
+        
+        DispatchQueue.main.asyncAfter(deadline: .now()+1.0, execute:  {
+            UIView.animate(withDuration: 0.8, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+                self.scrollView?.contentOffset.x  = (self.internalChartView?.bounds.maxX)! - self.frame.width
+                self.layoutIfNeeded()
+            }, completion: nil)
+        })
+        
     }
     
     func reloadData() {

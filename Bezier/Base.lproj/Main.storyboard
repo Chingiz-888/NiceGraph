@@ -88,10 +88,8 @@
                             <constraint firstItem="sxx-ID-yBP" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" multiplier="0.8" id="QeF-RZ-W0C"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="RX1-3X-JT9"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fxW-Bv-bue" secondAttribute="trailing" constant="-16" id="amb-MF-Ma8"/>
-                            <constraint firstItem="fxW-Bv-bue" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="ccC-F0-Ylc"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="sgC-8v-LPC"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" id="uX1-fu-HnU"/>
-                            <constraint firstAttribute="trailing" secondItem="fxW-Bv-bue" secondAttribute="trailing" id="wVP-jU-f0W"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="wje-pp-RWq"/>
                         </constraints>
                     </view>
