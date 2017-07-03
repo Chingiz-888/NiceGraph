@@ -58,26 +58,9 @@ class TestViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewForChart.backgroundColor = UIColor.clear
         
-//        MAX_NUMBER_COUNT = 888
-//        MAX_NUMBER = 20
-//     
-//        _maxValue     = self.MAX_NUMBER
-//        _numbersCount = self.MAX_NUMBER_COUNT;
-//        _chartView = ANDLineChartView(frame: CGRect.zero)
-//        _chartView?.translatesAutoresizingMaskIntoConstraints = false
-//        _chartView?.dataSource        = self
-//        _chartView?.delegate          = self
-//        _chartView?.animationDuration = 0.4
-//        
-//        // ВАРИАНТ 1 - chartView добавляется прямо на superview - self.view
-//        // self.view.addSubview(_chartView!)
-//        
-//        // ВАРИАНТ 2 - chartView добавляется на view-подложку
-//        self.viewForChart.addSubview(_chartView!)
-//        
-//        _elements = self.arrayWithRandomNumbers()
-//        self.setupConstraints()
+        // сначала мы получаем данные, а потом под них настраиваем наш график
         getData()
     }
 
@@ -88,16 +71,16 @@ class TestViewController: UIViewController {
     
     func getData() {
         
+        // удаляем старый график и показываем activity indicator
         whiteView.alpha = 1.0
         whiteView.isHidden = false
         activityIndicator.isHidden = false
         activityIndicator.startAnimating()
         whiteView.backgroundColor = UIColor.white
-        
         _chartView?.removeFromSuperview()
         self.view.layoutIfNeeded()
         
-        // тестовый набор данных
+        // загружаем тестовый JSON отсюда
         // https://xn----9sbb2ac5bgif6fd.xn--p1ai/test_bezier_data.json
         
         
@@ -109,16 +92,13 @@ class TestViewController: UIViewController {
         jsonUrlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         
         URLSession.shared.dataTask(with: jsonUrlRequest as URLRequest) { (data, response, error) -> Void in
-            // TODO: Handle errors
-            //let jsonSample = String(data: data!, encoding: String.Encoding.utf8)
-            //print(jsonSample)
             
                 guard let data = data else {
                     print("Ошибка в ответе сервера \(error)")
                     return
                 }
             
-                // пробуем распарсить
+                // пробуем распарсить JSON
                 do {
                     if let jsonArray = try JSONSerialization.jsonObject(with: data) as? [[String: String]] {
                         // проходимся циклом
@@ -131,8 +111,11 @@ class TestViewController: UIViewController {
                                 self.dataSets.append( DataSet(timestamp: timeStamp, value: value ) )
                             }
                         }
-                        // Запускаем отрисовку графика
-                        self.getDatesAndDrawGraph()
+                        // Запускаем отрисовку графика в MainThread'е
+                        DispatchQueue.main.async {
+                            self.getDatesAndDrawGraph()
+                        }
+                        
                     }
                 } catch let parseError {
                     print("parsing error: \(parseError)")
@@ -144,6 +127,7 @@ class TestViewController: UIViewController {
     }// --- end of func getData() ---------------
     
     
+    // РИСУЕМ ГРАФИК
     func getDatesAndDrawGraph() {
         
         // сначала переводим таймстемпы в обычные даты
@@ -153,10 +137,9 @@ class TestViewController: UIViewController {
             dayTimePeriodFormatter.dateFormat = "d MMMM, hh:mm"
             let dateString = dayTimePeriodFormatter.string(from: date as Date)
             self.dataSets[i].date = dateString
-            //print( " _ts value is \(dateString)")
         }
         
-        
+        // определяем самое максимальное значение
         var max : Float = -10.0
         for i in 0..<self.dataSets.count {
             if i == 0 {
@@ -168,7 +151,8 @@ class TestViewController: UIViewController {
             }
         }
         
-        var min : Float = 10000.0
+        // определяем самое минимальное значение
+        var min : Float = 100000.0
         for i in 0..<self.dataSets.count {
             if i == 0 {
                 min = self.dataSets[i].value
@@ -180,7 +164,7 @@ class TestViewController: UIViewController {
         }
         
         
-        
+        // настраиваем сам график ANDLineChartView
         MAX_NUMBER_COUNT = self.dataSets.count
         MAX_NUMBER = Int(max)
         MIN_NUMBER = Int(min)
@@ -193,24 +177,21 @@ class TestViewController: UIViewController {
         _chartView?.delegate          = self
         _chartView?.animationDuration = 0.4
         
+        // ВАРИАНТ 1 - chartView добавляется прямо на superview - self.view
+        // self.view.addSubview(_chartView!)
+        // self.setupConstraints()
+        
         // ВАРИАНТ 2 - chartView добавляется на view-подложку
         self.viewForChart.addSubview(_chartView!)
         self.setupConstraints()
         
         
-        //убираем заглушку и активити индикатор
-        
+        //убираем view-заглушку и активити индикатор
         whiteView.isHidden = true
         activityIndicator.isHidden = true
         activityIndicator.stopAnimating()
         
-//        UIView.animate(withDuration: 2.0, animations: {
-//            self.whiteView.alpha = 0.0
-//        }, completion: { Void in
-//            self.whiteView.isHidden = true
-//        })
-        
-        UIView.animate(withDuration: 2, delay: 1, options: .curveEaseIn, animations: {
+        UIView.animate(withDuration: 1.7, delay: 0.1, options: .curveEaseIn, animations: {
             self.whiteView.alpha = 0.0
             self.view.layoutIfNeeded()
         }) { _ in
@@ -232,7 +213,8 @@ class TestViewController: UIViewController {
     
     
     
-    
+    // У нас 2 варианта размещения ANDLineChartView - метод прямого добавления на superview и метод
+    // добавления на UIView-подложку. Соответственно, два варианта выставления constraint'ов
     func setupConstraints() {
        
         // ВАРИАНТ 1 - chartView добавляется прямо на superview - self.view
@@ -261,6 +243,8 @@ class TestViewController: UIViewController {
 
 
 
+// служебная функция для вычленения таймстемпа из сервергого таймстемпа формата "507034648.665283"
+// нам нужна только та часть, что до точки - ее мы и выцепляем (см. let patternForTimeStamp = "^[\\d]*" )
 func matches(for regex: String, in text: String) -> [String] {
     do {
         let regex = try NSRegularExpression(pattern: regex)
@@ -284,7 +268,7 @@ func matches(for regex: String, in text: String) -> [String] {
 
 
 
-// MARK:   Methods of ANDLineChartViewDataSource protoocol ----------------------------
+// MARK:   Методы  ANDLineChartViewDataSource протокола ----------------------------
 extension TestViewController : ANDLineChartViewDataSource {
     func chartView(_ chartView: ANDLineChartView, dateForElementAtRow row: Int) -> String? {
         return self.dataSets[row].date ?? "нет данных"
@@ -317,7 +301,7 @@ extension TestViewController : ANDLineChartViewDataSource {
 }//--------------------------------------------------------------------------------------
 
 
-// MARK:   Methods of ANDLineChartViewDelegate protoocol ----------------------------
+// MARK:   Методы o ANDLineChartViewDelegate протокола ----------------------------
 extension TestViewController : ANDLineChartViewDelegate {
     func chartView(_ chartView: ANDLineChartView, spacingForElementAtRow row: Int) -> CGFloat {
        return (row == 0) ? 60.0 : 30.0

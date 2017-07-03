@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,22 +19,21 @@
                         <viewControllerLayoutGuide type="bottom" id="2Bb-a5-8ti"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hOX-a8-wbj">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-Qb-nUH">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzc-Ho-PrG">
-                                        <rect key="frame" x="0.0" y="60" width="375" height="477"/>
+                                        <rect key="frame" x="0.0" y="33" width="375" height="477"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.71445050340000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="477" id="KsZ-g8-gAy"/>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="477" id="ZGu-NM-LvC"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пример размещения в  UIScrollView" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-ID-yBP">
-                                        <rect key="frame" x="37" y="562" width="300" height="55"/>
+                                        <rect key="frame" x="37" y="535" width="300" height="55"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="54.5" id="Oyo-cm-RXd"/>
                                         </constraints>
@@ -42,7 +42,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxp-Hl-dca">
-                                        <rect key="frame" x="122" y="627" width="131" height="35"/>
+                                        <rect key="frame" x="122" y="600" width="131" height="35"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="131" id="Hcx-TD-bdg"/>
                                             <constraint firstAttribute="height" constant="35" id="Vmi-a9-lUu"/>
@@ -57,17 +57,18 @@
                                     <constraint firstItem="Rxp-Hl-dca" firstAttribute="centerX" secondItem="Ugd-Qb-nUH" secondAttribute="centerX" id="1kk-J9-bae"/>
                                     <constraint firstItem="sxx-ID-yBP" firstAttribute="top" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="25" id="5jk-Ni-kBR"/>
                                     <constraint firstItem="sxx-ID-yBP" firstAttribute="centerX" secondItem="Ugd-Qb-nUH" secondAttribute="centerX" id="68b-2F-nMB"/>
-                                    <constraint firstAttribute="trailing" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" id="9Us-4c-asw"/>
-                                    <constraint firstAttribute="bottom" secondItem="Rxp-Hl-dca" secondAttribute="bottom" constant="5" id="Ucz-Pv-9FF"/>
+                                    <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="Ugd-Qb-nUH" secondAttribute="top" constant="600" id="RIX-ZK-y8K"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rxp-Hl-dca" secondAttribute="bottom" constant="145" id="Ufs-5p-0bh"/>
                                     <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="sxx-ID-yBP" secondAttribute="bottom" constant="10" id="apb-9C-Snh"/>
                                     <constraint firstItem="Qzc-Ho-PrG" firstAttribute="centerX" secondItem="sxx-ID-yBP" secondAttribute="centerX" id="pqR-rH-bL2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" id="qXF-5d-juU"/>
                                 </constraints>
                             </scrollView>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fxW-Bv-bue">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="GlO-bh-f8E">
-                                        <rect key="frame" x="169" y="315" width="37" height="37"/>
+                                        <rect key="frame" x="169" y="381.5" width="37" height="37"/>
                                         <color key="color" red="0.0001970841403817758" green="1" blue="0.65446525812149048" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                 </subviews>
@@ -81,19 +82,21 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Qzc-Ho-PrG" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" id="67o-zD-0eZ"/>
-                            <constraint firstAttribute="trailing" secondItem="Ugd-Qb-nUH" secondAttribute="trailing" id="9Hi-tX-m2O"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="CKO-4s-gBc"/>
+                            <constraint firstItem="Ugd-Qb-nUH" firstAttribute="leading" secondItem="fxW-Bv-bue" secondAttribute="leading" id="HLC-Nc-AEt"/>
+                            <constraint firstItem="fxW-Bv-bue" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leadingMargin" constant="-16" id="PZ7-Rr-ARN"/>
                             <constraint firstItem="sxx-ID-yBP" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" multiplier="0.8" id="QeF-RZ-W0C"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="RX1-3X-JT9"/>
-                            <constraint firstItem="Ugd-Qb-nUH" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="WDf-da-3Cc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="fxW-Bv-bue" secondAttribute="trailing" constant="-16" id="amb-MF-Ma8"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="ccC-F0-Ylc"/>
-                            <constraint firstItem="2Bb-a5-8ti" firstAttribute="top" secondItem="Rxp-Hl-dca" secondAttribute="bottom" constant="5" id="eyA-Nt-yLA"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="sgC-8v-LPC"/>
-                            <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="aiO-lL-TgW" secondAttribute="bottom" constant="607" id="vC5-Ue-PdV"/>
+                            <constraint firstItem="Ugd-Qb-nUH" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" id="uX1-fu-HnU"/>
                             <constraint firstAttribute="trailing" secondItem="fxW-Bv-bue" secondAttribute="trailing" id="wVP-jU-f0W"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="wje-pp-RWq"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="800"/>
                     <connections>
                         <outlet property="activityIndicator" destination="GlO-bh-f8E" id="9sp-Wi-RyQ"/>
                         <outlet property="viewForChart" destination="Qzc-Ho-PrG" id="ucw-ee-jKl"/>
