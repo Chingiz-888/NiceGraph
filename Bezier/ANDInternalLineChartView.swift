@@ -88,6 +88,7 @@ class ANDInternalLineChartView: UIView {
             
             
             let value : CGFloat = chartContainer!.valueForElement(atRow: i)
+             label.font = label.font.withSize(13.5)
             label.text = String.init(format: "%.1f", value)
             label.textAlignment = .right
             //label.backgroundColor = UIColor.red
@@ -97,7 +98,7 @@ class ANDInternalLineChartView: UIView {
             //animation.delegate = label as! CAAnimationDelegate
             animation.fromValue = 0
             animation.toValue = 1
-            animation.duration = 2.0
+            animation.duration = 1.3
             label.layer.add(animation, forKey: "opacity")
             //----------------------
             
@@ -106,7 +107,7 @@ class ANDInternalLineChartView: UIView {
         
         // подписи к X-оси - временные метки
         for i in 0..<realPoints.count {
-            let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2) - 12,
+            let inRect = CGRect(x:      realPoints[i].x - CGFloat(LABEL_TEXT_HEIGHT*2) - 22,
                                 y:      totalViewHeight - CGFloat(LABEL_TEXT_HEIGHT*2 + 10),
                                 width:  CGFloat(LABEL_TEXT_WIDTH)*1.73,
                                 height: CGFloat(LABEL_TEXT_HEIGHT) )
@@ -158,10 +159,7 @@ class ANDInternalLineChartView: UIView {
             locations.append(loc)
             currentLocation += locationIncrement
         }
-        
-        print(colors)
-        print(locations)
-        
+                
         gradientLayer?.colors = colors   // ранее  [(color1 as? Any), (color2 as? Any)]
         gradientLayer?.locations = locations
         gradientLayer?.frame = bounds

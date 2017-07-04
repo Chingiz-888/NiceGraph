@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Darwin
 
 
 
@@ -41,16 +42,12 @@ class TestViewController: UIViewController {
     
     
     var MAX_NUMBER_COUNT     = Int()
-    var MAX_NUMBER           = Int() {
-        didSet {
-            EXTRA_TO_MAX_NUMBER = Int(round((Float(self.MAX_NUMBER) * 0.10)))
-        }
-    }
-    var MIN_NUMBER           = Int()
-    var EXTRA_TO_MAX_NUMBER  = Int()
+    var MAX_NUMBER           = Float()
+    var MIN_NUMBER           = Float()
+    var EXTRA_TO_MAX_NUMBER  = Float()
     var _elements : [Int]    = [Int]()
     var _chartView : ANDLineChartView?
-    var _maxValue     : Int  = Int()
+    var _maxValue            = Float()
     var _numbersCount : Int  = Int()
 
     
@@ -88,12 +85,22 @@ class TestViewController: UIViewController {
         // обнуляем данные
         self.dataSets = []
         
+        
+        // обнуляю режим кэша
+        let config = URLSessionConfiguration.default
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        config.urlCache = nil
+        let session = URLSession.init(configuration: config)
+        
+    
         let jsonUrl = NSURL(string: "https://xn----9sbb2ac5bgif6fd.xn--p1ai/test_bezier_data.json")!
         let jsonUrlRequest = NSMutableURLRequest(url: jsonUrl as URL)
         jsonUrlRequest.setValue("application/json", forHTTPHeaderField: "Accept")
         
-        URLSession.shared.dataTask(with: jsonUrlRequest as URLRequest) { (data, response, error) -> Void in
-            
+
+        
+        //URLSession.shared.dataTask(with: jsonUrlRequest as URLRequest) { (data, response, error) -> Void in
+        session.dataTask(with: jsonUrlRequest as URLRequest, completionHandler:  { (data, response, error) -> Void in
                 guard let data = data else {
                     print("Ошибка в ответе сервера \(error)")
                     return
@@ -123,7 +130,7 @@ class TestViewController: UIViewController {
                     let responseString = String(data: data, encoding: .utf8)
                     print("raw response: \(responseString)")
                 }
-        }.resume()
+        }).resume()
         
     }// --- end of func getData() ---------------
     
@@ -141,34 +148,30 @@ class TestViewController: UIViewController {
         }
         
         // определяем самое максимальное значение
-        var max : Float = -10.0
+        var max : Float = FLT_MIN
         for i in 0..<self.dataSets.count {
-            if i == 0 {
-                max = self.dataSets[i].value
-            } else {
-                if max < self.dataSets[i].value {
+            if max < self.dataSets[i].value {
                     max = self.dataSets[i].value
-                }
+            
             }
         }
         
         // определяем самое минимальное значение
-        var min : Float = 100000.0
+        var min : Float = FLT_MAX
         for i in 0..<self.dataSets.count {
-            if i == 0 {
-                min = self.dataSets[i].value
-            } else {
-                if min > self.dataSets[i].value {
+            if min > self.dataSets[i].value {
                     min = self.dataSets[i].value
-                }
             }
         }
         
         
         // настраиваем сам график ANDLineChartView
         MAX_NUMBER_COUNT = self.dataSets.count
-        MAX_NUMBER = Int(max)
-        MIN_NUMBER = Int(min)
+        MAX_NUMBER = max
+        MIN_NUMBER = min
+        
+        EXTRA_TO_MAX_NUMBER = abs( MIN_NUMBER -  MAX_NUMBER ) * 0.15
+        
         
         _maxValue     = self.MAX_NUMBER
         _numbersCount = self.MAX_NUMBER_COUNT;
@@ -303,13 +306,13 @@ extension TestViewController : ANDLineChartViewDataSource {
     // Определение верхней границы в оси Y - по сути через эту функцию мы определяем высоту графика
     // Добавляем еще сверху, чтобы верхние надписи к значениемям были видны
     func maxValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return CGFloat(self.MAX_NUMBER + self.EXTRA_TO_MAX_NUMBER)
+        return CGFloat(self.MAX_NUMBER) + CGFloat(self.EXTRA_TO_MAX_NUMBER)*2.0
     }
     
     // Определение нижней границы в оси Y - также как и предыдущая функция по сути регулирует высоту графика
     // Мы также снизу добавляем еще пространства, чтобы  были видны подпсии к стобцам (даты)
     func minValueForGridInterval(in chartView: ANDLineChartView) -> CGFloat? {
-        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*1.7
+        return  CGFloat(MIN_NUMBER) - CGFloat(self.EXTRA_TO_MAX_NUMBER)*3.1
     }
 }//--------------------------------------------------------------------------------------
 

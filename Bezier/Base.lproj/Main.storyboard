@@ -26,26 +26,26 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="800"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qzc-Ho-PrG">
-                                        <rect key="frame" x="0.0" y="33" width="375" height="477"/>
+                                        <rect key="frame" x="0.0" y="30" width="375" height="450"/>
                                         <color key="backgroundColor" red="0.98431372549999996" green="0.0" blue="0.71445050340000005" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="477" id="KsZ-g8-gAy"/>
+                                            <constraint firstAttribute="height" constant="450" id="KsZ-g8-gAy"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пример размещения в  UIScrollView" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sxx-ID-yBP">
-                                        <rect key="frame" x="37" y="535" width="300" height="55"/>
+                                        <rect key="frame" x="11" y="500" width="352.5" height="30"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="54.5" id="Oyo-cm-RXd"/>
+                                            <constraint firstAttribute="height" constant="30" id="Oyo-cm-RXd"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" style="UICTFontTextStyleTitle2"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxp-Hl-dca">
-                                        <rect key="frame" x="122" y="600" width="131" height="35"/>
+                                        <rect key="frame" x="122" y="535" width="131" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="131" id="Hcx-TD-bdg"/>
-                                            <constraint firstAttribute="height" constant="35" id="Vmi-a9-lUu"/>
+                                            <constraint firstAttribute="height" constant="20" id="Vmi-a9-lUu"/>
                                         </constraints>
                                         <state key="normal" title="Перезагрузить"/>
                                         <connections>
@@ -55,12 +55,12 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Rxp-Hl-dca" firstAttribute="centerX" secondItem="Ugd-Qb-nUH" secondAttribute="centerX" id="1kk-J9-bae"/>
-                                    <constraint firstItem="sxx-ID-yBP" firstAttribute="top" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="25" id="5jk-Ni-kBR"/>
+                                    <constraint firstItem="sxx-ID-yBP" firstAttribute="top" secondItem="Qzc-Ho-PrG" secondAttribute="bottom" constant="20" id="5jk-Ni-kBR"/>
                                     <constraint firstItem="sxx-ID-yBP" firstAttribute="centerX" secondItem="Ugd-Qb-nUH" secondAttribute="centerX" id="68b-2F-nMB"/>
-                                    <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="Ugd-Qb-nUH" secondAttribute="top" constant="600" id="RIX-ZK-y8K"/>
-                                    <constraint firstAttribute="bottom" secondItem="Rxp-Hl-dca" secondAttribute="bottom" constant="145" id="Ufs-5p-0bh"/>
-                                    <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="sxx-ID-yBP" secondAttribute="bottom" constant="10" id="apb-9C-Snh"/>
-                                    <constraint firstItem="Qzc-Ho-PrG" firstAttribute="centerX" secondItem="sxx-ID-yBP" secondAttribute="centerX" id="pqR-rH-bL2"/>
+                                    <constraint firstItem="Qzc-Ho-PrG" firstAttribute="leading" secondItem="Ugd-Qb-nUH" secondAttribute="leading" id="K2M-Ee-Hur"/>
+                                    <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="Ugd-Qb-nUH" secondAttribute="top" constant="535" id="RIX-ZK-y8K"/>
+                                    <constraint firstAttribute="bottom" secondItem="Rxp-Hl-dca" secondAttribute="bottom" constant="190" id="Ufs-5p-0bh"/>
+                                    <constraint firstItem="Rxp-Hl-dca" firstAttribute="top" secondItem="sxx-ID-yBP" secondAttribute="bottom" constant="5" id="apb-9C-Snh"/>
                                     <constraint firstAttribute="trailing" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" id="qXF-5d-juU"/>
                                 </constraints>
                             </scrollView>
@@ -85,11 +85,12 @@
                             <constraint firstAttribute="trailing" secondItem="Ugd-Qb-nUH" secondAttribute="trailing" id="EYp-L1-Ztp"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="leading" secondItem="fxW-Bv-bue" secondAttribute="leading" id="HLC-Nc-AEt"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leadingMargin" constant="-16" id="PZ7-Rr-ARN"/>
-                            <constraint firstItem="sxx-ID-yBP" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" multiplier="0.8" id="QeF-RZ-W0C"/>
+                            <constraint firstItem="sxx-ID-yBP" firstAttribute="width" secondItem="hOX-a8-wbj" secondAttribute="width" multiplier="0.94" id="QeF-RZ-W0C"/>
                             <constraint firstItem="fxW-Bv-bue" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="RX1-3X-JT9"/>
                             <constraint firstItem="Qzc-Ho-PrG" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leadingMargin" constant="-16" id="SyI-kp-Jfq"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="leading" secondItem="hOX-a8-wbj" secondAttribute="leading" id="Zmz-rB-0ex"/>
                             <constraint firstAttribute="trailingMargin" secondItem="fxW-Bv-bue" secondAttribute="trailing" constant="-16" id="amb-MF-Ma8"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qzc-Ho-PrG" secondAttribute="trailing" constant="-16" id="mql-F2-IHN"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="bottom" secondItem="2Bb-a5-8ti" secondAttribute="top" id="sgC-8v-LPC"/>
                             <constraint firstItem="Ugd-Qb-nUH" firstAttribute="top" secondItem="hOX-a8-wbj" secondAttribute="top" id="wje-pp-RWq"/>
                         </constraints>

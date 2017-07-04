@@ -124,7 +124,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         
        
         let lblColor  = UIColor.init(red: 50/255.0, green: 50/255.0, blue: 50/255.0, alpha: 0.9)
-        titleLbl?.font = UIFont.systemFont(ofSize: 18, weight: UIFontWeightSemibold)  //titleLbl?.font.withSize(18)
+        titleLbl?.font = UIFont.systemFont(ofSize: 15, weight: UIFontWeightSemibold)  //titleLbl?.font.withSize(18)
         titleLbl?.textAlignment = .center
         titleLbl?.text = "Динамика курса Биткоина к Эфириуму"
         titleLbl?.lineBreakMode = .byWordWrapping
@@ -140,7 +140,7 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
                                            "selfView"    : self
         ]
         
-        let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[graphTitleView(>=60)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
+        let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[graphTitleView(>=40)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         let constraint2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(45)-[graphTitleView]-(45)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         //let constraint3 = NSLayoutConstraint(item: titleLbl, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.8, constant: 0.0)
        
