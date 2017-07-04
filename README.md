@@ -1,5 +1,6 @@
-##Построение плавного графика на основе массива [Float] значений, получаемых извне в JSON-формате. Написано на Swift 3.1
-##Drawing a nice smooth bezier curve through a parsed from JSON array of [Float] points - written in Swift 3.1.
+## Построение плавного графика на основе массива [Float] значений, получаемых извне в JSON-формате. Написано на Swift 3.1
+
+## Drawing a nice smooth bezier curve through a parsed from JSON array of [Float] points - written in Swift 3.1.
  
   Адаптировано по новейший XCode 8.3.3 и Swift 3.1
 
