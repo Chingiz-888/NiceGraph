@@ -142,13 +142,9 @@ class ANDLineChartView: UIView, UIScrollViewDelegate {
         
         let constraint1 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-(0)-[graphTitleView(>=40)]", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
         let constraint2 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-(45)-[graphTitleView]-(45)-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: views)
-        //let constraint3 = NSLayoutConstraint(item: titleLbl, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.8, constant: 0.0)
-       
-        self.addConstraints(constraint1)  // вот так, визуал конструктор дает массив констрейетов
-        self.addConstraints(constraint2)  // вот так, визуал конструктор дает массив констрейетов
-        //self.addConstraint(constraint3)   // а нижний - единичные
-        
-        
+        self.addConstraints(constraint1)
+        self.addConstraints(constraint2)
+
         titleLbl?.backgroundColor = UIColor.init(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.8)
     }
     

@@ -15,7 +15,7 @@
 		611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */; };
 		611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */; };
 		611DE0841F070D3100EBFF2A /* ANDInternalLineChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */; };
-		615CF6821F03253B00794BCF /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615CF6811F03253B00794BCF /* TestViewController.swift */; };
+		615359A71F0BAB8F009F8F67 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 615359A61F0BAB8F009F8F67 /* ViewController.swift */; };
 		616AD1E11F09170800B682D0 /* CubicCurvedPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */; };
 		616AD1E31F09253300B682D0 /* graph.png in Resources */ = {isa = PBXBuildFile; fileRef = 616AD1E21F09253300B682D0 /* graph.png */; };
 		619F1FA81EFD443C0026DE6A /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 619F1FA61EFD443C0026DE6A /* Fabric.framework */; };
@@ -33,7 +33,7 @@
 		611DE07F1F070C3500EBFF2A /* ANDLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDLineChartView.swift; sourceTree = "<group>"; };
 		611DE0811F070CE800EBFF2A /* ANDBackgroundChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDBackgroundChartView.swift; sourceTree = "<group>"; };
 		611DE0831F070D3100EBFF2A /* ANDInternalLineChartView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ANDInternalLineChartView.swift; sourceTree = "<group>"; };
-		615CF6811F03253B00794BCF /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
+		615359A61F0BAB8F009F8F67 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		615CF6831F0325F800794BCF /* Bezier-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bezier-Bridging-Header.h"; sourceTree = "<group>"; };
 		616AD1E01F09170800B682D0 /* CubicCurvedPath.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CubicCurvedPath.swift; sourceTree = "<group>"; };
 		616AD1E21F09253300B682D0 /* graph.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = graph.png; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 				5B61657F1BCE7FAD008EB160 /* LaunchScreen.storyboard */,
 				5B6165821BCE7FAD008EB160 /* Info.plist */,
 				616AD1E21F09253300B682D0 /* graph.png */,
-				615CF6811F03253B00794BCF /* TestViewController.swift */,
+				615359A61F0BAB8F009F8F67 /* ViewController.swift */,
 			);
 			path = Bezier;
 			sourceTree = "<group>";
@@ -260,7 +260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				615CF6821F03253B00794BCF /* TestViewController.swift in Sources */,
+				615359A71F0BAB8F009F8F67 /* ViewController.swift in Sources */,
 				611DE0801F070C3500EBFF2A /* ANDLineChartView.swift in Sources */,
 				611DE0821F070CE800EBFF2A /* ANDBackgroundChartView.swift in Sources */,
 				616AD1E11F09170800B682D0 /* CubicCurvedPath.swift in Sources */,
